@@ -44,6 +44,12 @@ Further refinement of the search tool is envisioned including a GUI front end to
 
 The Pirate Box prototype includes a 1TB SSD drive / SD card containing hundreds of long play format video and audio content (60 - 90 minutes each) saved on IPFS over the last 2 years by Thomas Freedman. This content is available and pinned on the Pirate Box IPFS node and searchable using the Pirate Box IPFS Search too described above.  
 
+It is reletively easy to use an external IPFS repository filled with content if the external content has the same structure as the .ipfs folder. However that cannot be accessed concurrently with the local IPFS node's content. To make a plug & play "Liberty Library" to add to an existing IPFS node's content would require either 1) merging the 2 repositories into one, or 2) running a second IPFS server instance on the same node using different port numbers.
+
+The Liberty Library included in this release of the Pirate Box used the method of step 1. If the external storage is not plugged in the local IPFS node will fallback to a small repository included on the SD card. Alternatively if the SD card is large enough no external storage device is required.
+
+Currently IPFS does not provide a way to split the storage of a repository into separate segments which would make adding external content like a Liberty Library much easier.
+
 
 --------------------------------------------------------------------------------------------------
 This code is free to use under the terms of the [BipCot NoGov license](https://bipcot.org/). 
