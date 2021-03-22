@@ -1,8 +1,52 @@
 # Pirate-Box
 This is the new repository for all code I am contributing to Ernest Hancock's Pirate Box project.
 
-It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. 
-This code is free to use under the terms of the [BipCot NoGov license](https://bipcot.org/).
+It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. Here is the text I have for the "About" menu item of the search tool:
+
+                             About this Pirate Box
+
+This prototype Pirate Box was created by Thomas Freedman as a foundational platform to build a more refined and grandma friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
+
+                      Basic IPFS Node and User Interface
+
+This is provided through the Chromium web browser with the IPFS Companion extension, which is the same User Interface found in IPFS Desktop. Node status, real time graphics of network utilization, ability to view, download, pin and unpin files, inspect IPFS configuration and other useful tools are provided. See https://github.com/ipfs-shipyard/ipfs-companion or https://docs.ipfs.io/install/ipfs-desktop/#windows. Note that future versions of Pirate Box will be based on the IPFS Desktop version for better integration with the Raspberry Pi menu system.
+
+                         Pirate Box IPFS Search Tool
+
+This tool implements search functionality based on metadata collected when content is added to an IPFS node. Much more work is required to define the standards for metadata and how it will be collected. 
+
+The search tool uses the metadata to find content by allowing the user to define a filter to locate content of interest based on their specific search criteria.
+
+The IPFS Search Demo tool uses the metadata captured by the Video Grabber tool. A subset of the metadata provided by the youtube-dl program serves as one model (data schema) for audio and video content. 
+
+It's important to note only content captured by the Video Grabber tool is currently searchable. Two IPFS video / audio repositories with well over 12,000 items published in the past 2 years from platforms such as youtube, Vimeo, Brightcove and others are searchable. New content is provided daily and is within the scope of the search tool. Content from over 20 publishers is provided on those 2 IPFS repositories. In addition, the "Liberty Library" content is also searchable (see below).
+
+Audio and video content added to the local Pirate Box IPFS node using the Video Grabber program is also searchable, however that capability is not yet fully developed nor a GUI for it yet designed.
+
+Other types of content providers besides audio and video will have different requirements for their metadata. More work needs to be done to define how metadata is:
+
+1) defined
+2) collected
+3) published
+4) represented in search tools
+
+The search tool uses 20 metadata fields out of the 60+ available in the youtube-dl set. Whether a universal standard metadata definition can or will be developed to encompass all types of content has yet to be determined. 
+
+                                 Video Grabber
+
+The Video (and audio) Grabber tool is a fully functional command line program that uses the popular youtube-dl software to download content from a list of over 1000 platforms such as youtube and Vimeo. It is "batch" oriented, so content from many publishers on many platforms can be collected frequently. A cron job can automate collection of content from your favorite sources on a regular basis.
+
+The content to be captured by the Video Grabber is defined in a JSON formated config file that specifies the URLs to download content from, which can be individual files, channels or playlists. Metadata for each item downloaded is also collected from youtube-dl. The metadata and the video / audo content files are stored in a SQLite database and published at a static IPnS address for retrieval and use by search engines.
+
+Further refinement of the search tool is envisioned including a GUI front end to create the JSON config file. The search tool described above is capable of searching any content added to te Pirate Box using the Video Grabber command line tool.
+
+                                Liberty Library
+
+The Pirate Box prototype includes a 1TB SSD drive / SD card containing hundreds of long play format video and audio content (60 - 90 minutes each) saved on IPFS over the last 2 years by Thomas Freedman. This content is available and pinned on the Pirate Box IPFS node and searchable using the Pirate Box IPFS Search too described above.  
+
+
+--------------------------------------------------------------------------------------------------
+This code is free to use under the terms of the [BipCot NoGov license](https://bipcot.org/). 
 
 BipCot NoGov Software License www.bipcot.org, version 1.2 / No warranty of usability of "Pirate Box" software.
 
