@@ -1,0 +1,58 @@
+{
+   "Comments": [ "This section is not currently referenced by the code, it",
+                 "is only here to provide info for this configuration file.",
+
+                 "CONVENTIONS:",
+                 "Generally download groups are named according to the author",
+                 "using the first letter of their first name in lower case,",
+                 "followed by their last name capitalized. Some grupes are",
+                 "named by the channel name, such as truthstream or aCensored.",
+                 "Grupes are listed in this config file in alphabetic order of",
+                 "their names, ascending."
+   ],
+   "DLbase": "/home/ipfs/bin/videoGrabber/ytDL/",
+   "DLeLog": "error.log",
+   "DLarch": "youtube-dl.history",
+   "DLmeta": "metadataFields.json",
+
+   "DLOpts": {
+      "retries": 5,
+      "format": "best",
+      "continuedl": true,
+      "ignoreerrors": true,
+      "merge-output-format": "mp4"
+   },
+
+   "Grupes": {
+      "testLR": {
+           "Quota": 0,
+           "Active": false,
+           "Duration": 0,
+           "Start": null,
+           "End": null,
+           "Stop": 5,
+           "urls": [
+               "http://127.0.0.1:8080/ipfs/QmZpNCkNTaPFgeQJnMJH8WDDdtJNSBFTJwqva4Yb5dK9xN",
+               "http://127.0.0.1:8080/ipfs/QmYL5hZLLmoRN7obTbrsfukyNjsV1xdn9M2MtEqskK46f8",
+               "http://127.0.0.1:8080/ipfs/QmQjcCjN392XzWApYt5jRrZJmN1zbQV3VgMKshvrSKk438",
+               "http://127.0.0.1:8080/ipfs/QmcSTyFbUAd6n7w4Gtnu4NUx2Dt6REQusAx9rNoZpvGqwv",
+               "http://127.0.0.1:8080/ipfs/QmR4xgNyFwLj4izTXdyuVrGF7CvBkExXqKKhq62bauwoH9"
+           ]
+      },
+      "testLL": {
+           "Quota": 0,
+           "Active": true,
+           "Duration": 0,
+           "Start": null,
+           "End": null,
+           "Stop": 5,
+           "urls": [
+              "http://127.0.0.1:8080/ipfs/QmYkrTBcWJ6WGHjfpxKEJ95NV8XyL4RfXTQijqYH1Dby9Z",
+              "http://127.0.0.1:8080/ipfs/QmVvFpgNoW8iPJNPdXASbvqUtscEahCA5PGomSQKKr8vHq",
+              "http://127.0.0.1:8080/ipfs/QmUjrmK8dh4yiQFNpEik3gTdxzruSuW6dcyTH7q3RrzybQ",
+              "http://127.0.0.1:8080/ipfs/QmaY2M6GKBHG2oZKwBRJk3WWBc8rKisiVT5vTszsdPMJw1",
+              "http://127.0.0.1:8080/ipfs/QmYUo2jR5CZ7jVuHmfkvH3eGmGPF9wPt3n3YnwgHiL9NGm"
+           ]
+      }
+   }
+}
