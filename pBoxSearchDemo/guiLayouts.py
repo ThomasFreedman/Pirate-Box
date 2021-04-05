@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 import PySimpleGUI as sg
-import ipfs        # Only used here for top menu server list
 
 # GUI layouts for PBox Search
 
 class pBoxGUI:
-    def __init__(self):
-        self.Icon = r'/usr/share/Raspberrypi-artwork/pirateSkull230x300Black.png'
+    def __init__(self, ipfs):
+        self.Ipfs = ipfs        # This is the ONLY instance!
+
+        self.Icon = r'/usr/share/Raspberrypi-artwork/pirateSkull98x128.png'
         self.Font = ("Helvetica", 8)
         self.Max7 = 1000000     # TODO - come up with a better way to handle widget defaults.
         self.LBox = []          # Each numeric field may require a different max value for example
@@ -14,7 +15,12 @@ class pBoxGUI:
         self.ThemeMenuGroups = []
         self.AppWin = None      # These with hold the window objects returned by sg.Window
         self.ResultWin = None   # Result window - this could be an array or dictionary
-        self.InputWidget = []   # Input widget window, layout, defaults disctionary
+        self.InputWidget = []   # Input widget window, layout, defaults dictionary
+
+        top = self.topMenuBar()                            # Flatten this
+        topList = lambda top: [ element for item   in top  # Flatten it here
+                                        for element in topList(item) ] if type(top) is list else [top]
+        self.TopMenuList = topList(top)   # Useful as in: "if event in TopMenuList: ..."
 
         sg.set_global_icon(self.Icon)
 
@@ -232,15 +238,18 @@ class pBoxGUI:
 
     # ------ Top menu bar definition ------ #
     def topMenuBar(self):
-        return [['File',   ['Save as',
-                            'Pin', ['Pin File Local', 'Pin Search Results'],
-                            'Open IPFS Address',
-                            'Exit']],
-                ['Config', ['IPFS Server', list(ipfs.Ipfs().DBlist.keys()),
-                            'Settings',    ['Favorites', ['London Real','Truthstream Media', 'Crrow77 Radio',
-                                                          '5G Summit','Clive DeCarle'],
-                ]]],
-                ['Help', 'About...']]
+        return [['File',   ['Open Search Source', list(self.Ipfs.DBlist.keys()),
+                            'Database Info...',
+                            'Exit']
+                ],
+                ['Config', ['Settings',    ['Default Search Source', ["Use " + sub for sub in self.Ipfs.DBlist.keys()],
+                                            'Criteria Renewal Interval...',
+                                            'File Save Directory...',
+                                            'Save Settings']
+                            ]
+                ],
+                ['Help', ['Basic Operation...', 'About...']
+                ]]
 
     # ------ Query builder - left column ------ #
     def queryBuilder(self):
@@ -258,36 +267,51 @@ class pBoxGUI:
     def queryResults(self):
         return [
             [sg.Frame('Search Results', [
-                [sg.Listbox('', key='-RESULTS-', background_color="black", size=(100, 25),
-                           font=('Courier', 8, 'bold'), enable_events=True,
-                            right_click_menu=['unu6sed', ['View', 'Pin']])
+                [sg.Listbox('', key='-RESULTS-', background_color="black", size=(127, 25),
+                            font=('Courier', 8, 'bold'), enable_events=True,
+                            select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE,
+                            right_click_menu=['unused', ['View', 'Pin']])
                  ],
+
                 [sg.Button('Close', key='-CLOSE-', font=("Helvetica", 8, "bold"),
-                          pad=((100, 0), (0, 0))),
-                 sg.Button('Next', key='-NEXTP-', disabled=True, font=("Helvetica", 8, "bold"),
-                          pad=((150, 0), (0, 0))),
-                 sg.Button('Previous', key='-PREVP-', disabled=True, font=("Helvetica", 8, "bold"),
+                          pad=((120, 0), (0, 0))),
+                 sg.Button('Open', key='-OPEN-', disabled=True, font=("Helvetica", 8, "bold"),
+                          pad=((125, 0), (0, 0))),
+                 sg.Button('Pin Selected', key='-PIN-', disabled=True, font=("Helvetica", 8, "bold"),
+                        pad=((15, 0), (0, 0))),
+                 sg.Button('All / None', key='-ALL-', font=("Helvetica", 8, "bold"),
+                        pad=((15, 0), (0, 0))),
+                 sg.Button('TXT', key='-TXT-', disabled=True, font=("Helvetica", 8, "bold"),
                           pad=((15, 0), (0, 0))),
-                 sg.Text('Page 1', key='-PAGE-', font=("Helvetica", 8),
-                        pad=((15, 30), (0, 0))),
-                 sg.Text('', key='-ROWS-', size=(12, 1), font=("Helvetica", 8))]])
+                 sg.Button('CSV', key='-CSV-', disabled=True, font=("Helvetica", 8, "bold"),
+                          pad=((15, 0), (0, 0))),
+                 sg.Button('JSON', key='-JSON-', disabled=True, font=("Helvetica", 8, "bold"),
+                          pad=((15, 0), (0, 0))),
+                 sg.Text('', key='-ROWS-', size=(10, 1), pad=((20, 0), (0, 0)), font=("Helvetica", 8))],
+
+                [sg.ProgressBar(None, orientation='horizontal', size=(70, 10), style='classic',
+                                border_width=3, relief=sg.RELIEF_SUNKEN, key='-PROG-', visible=False,
+                                bar_color=("gold", "orange"))]]
+                )
             ]
         ]
 
         # ----------- This is the main GUI window layout - popup windows ----------- #
     def pBoxSearchApp(self):
         return [
-            [sg.Menu(pBoxGUI.topMenuBar(self), key='-MENU-', tearoff=True)],  # Top Menu bar
+            [sg.Menu(pBoxGUI.topMenuBar(self), key='-MENU-', tearoff=False)],  # Top Menu bar
             [sg.Column(pBoxGUI.queryBuilder(self), visible=True)],
 
             [sg.Button('Search', key='-SEARCH-', disabled=True, font=("Helvetica", 8, "bold"),
-                       pad=((40,0),(0,0))),
-             sg.Button('Clear', key='-CLEAR-', disabled=True, font=("Helvetica", 8, "bold"),
-                       pad=((15,100),(0,0))),
+                       pad=((90,0),(0,0))),
 
+             sg.Button('Clear All', key='-CLEAR-', disabled=True, font=("Helvetica", 8, "bold"),
+                       pad=((250,20),(0,0))),
              sg.Button('Delete Selected Criteria', key='-DEL-', disabled=True, 
                        font=("Helvetica", 8, "bold"),
-                       pad=((15, 0), (0, 0))),
+                       pad=((20, 0), (0, 0))),
              ]
         ]
+
+
 
