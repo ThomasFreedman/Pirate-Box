@@ -2,6 +2,7 @@
 import PySimpleGUI as sg
 import guiLayouts as gl
 import sqlDB
+import json
 import ipfs
 import os
 
@@ -12,17 +13,20 @@ class pBoxQuery:
 
     def __init__(self):
         self.Pwd = os.path.dirname(os.path.realpath(__file__)) + '/'
-        self.Sql = sqlDB.sql()
-        self.Gui = gl.pBoxGUI()
         self.Ipfs = ipfs.Ipfs()
+        self.Sql = sqlDB.sql(self.Ipfs)
+        self.Gui = gl.pBoxGUI(self.Ipfs)
         self.Day6 = ''          # Need to persist date and time b/c can't read value of text field
         self.Tmv6 = ''
         self.Display = []
-        self.Where = []
+        self.Where = {'Clause': [], 'Show': []}
         self.Grupes = []
         self.Ext = []
         self.ExKey = []
+        self.TITLE = None       # Set at run time to number of last column (title) in results
         self.Format = []
+        self.SaveFolder = "/home/ipfs/Documents"
+        self.Settings = {'server': None, "cacheLife": None, 'saveFolder': None}
 
         # Metadata fields in SQLite DB available to use as search criteria.
         # Each field (column in SQLite) is categorized under an input state.
@@ -44,8 +48,9 @@ class pBoxQuery:
         #
         # CONSIDER LOADING THE FOLLOWING FROM A JSON CONFIG FILE
         #
-
-        # This dictionary maps Search Criteria to DB metadata fields and thru that input states
+        # This dictionary maps Search Criteria to DB metadata fields which
+        # correspond to input states (which are synonymous with input widget).
+        # This would need to be defined by the metadata publisher
         self.SearchCriteria = {
             "Item #": ["pky", self.NumSlide],
             "Title": ["title", self.TextBox],
@@ -53,12 +58,12 @@ class pBoxQuery:
             "Publish Date": ["upload_date", self.Calendar],
             "Source": ["extractor_key", self.ListBox],
             "Description": ["description", self.TextBox],
-            "Length": ["duration", self.NumSlide],
+            "Length": ["duration", self.Time],
             "Views": ["view_count", self.NumSlide],
             "Likes": ["like_count", self.NumSlide],
             "Dislikes": ["dislike_count", self.NumSlide],
             "Avg. Rating": ["average_rating", self.NumSlide],
-            "ID": ["id", self.ListBox],
+            "ID": ["id", self.TextBox],
             "Type": ["format_note", self.ListBox],
             "Size": ["vsize", self.NumSlide],
             "Width": ["width", self.NumSlide],
@@ -66,12 +71,38 @@ class pBoxQuery:
             "Format": ["ext", self.ListBox],
             "IPFS CID":  ["vhash", self.TextBox],
             "IPFS Date": ["sqlts", self.Calendar],
-            "IPFS File": ["_filename", self.TextBox]
+            "IPFS File": ["_filename", self.TextBox],
+            "User meta text": ["abr", self.TextBox],
+            "User meta date": ["abr", self.Calendar],
+            "User meta list": ["abr", self.ListBox],
+            "User meta time": ["abr", self.Time],
+            "User meta radio": ["abr", self.Radio],
+            "User meta number": ["abr", self.NumSlide],
+            "User meta combo box": ["abr", self.ComboBox],
+            "User meta check boxes": ["abr", self.CheckBox]
         }
+
+    # Save any settings that need to persist for next app start
+    def saveSettings(self, file):
+        self.Settings['saveFolder'] = self.SaveFolder       # Where results were last saved
+        self.Settings['cacheLife'] = self.Ipfs.DBcacheTime  # Current value in use
+        with open(file, 'w') as cfg:
+            json.dump(self.Settings, cfg)
+
+    # Restore the settings saved last
+    def restoreSettings(self, file):
+        try:
+            with open(file, 'r') as jsn:
+                self.Settings = json.load(jsn)
+                self.Ipfs.DBcacheTime = self.Settings['cacheLife']
+                self.SaveFolder = self.Settings['saveFolder']
+                self.serverOpen(self.Settings['server'], 200, 100)
+        except:
+            pass  # Use default values if problem with settings file
 
     # Open the chosen SQLite database file, initialize lists and display popup of DB stats
     def serverOpen(self, server, x ,y):
-        self.Sql.openDatabase(server)        
+        self.Sql.openDatabase(server, sg, x, y)        
 
         # Get selections for multi-select items (radio buttons, checkboxes, listboxes & comboboxes
         grpSql = "select distinct grupe from IPFS_HASH_INDEX;"
@@ -86,21 +117,11 @@ class pBoxQuery:
         # Not sure of best way to present multiselect elements whose selections come from the DB
         self.LBox = self.SearchCriteria
 
-        count = self.Sql.runQuery("SELECT COUNT(*) FROM IPFS_HASH_INDEX;")[0][0]
-
-        # Show some stats about the DB in a popup
-        sg.popup(f"{count} items on the {server} node",
-                 f"in {len(self.Grupes)} groups and ",
-                 f"with {len(self.Ext)} media types from",
-                 f"{len(self.ExKey)} sources",
-                 location=((x+450, y+75)), font=("Helvetica", 11, "bold"),
-                 modal=True, keep_on_top=True)
-
         self.Gui.AppWin['-META-'].update(values=list(self.SearchCriteria.keys()), disabled=False)
 
     def resetAll(self, ):
         state = pBoxQuery.resetToState0(self)
-        self.Where = []                                     # Clear search criteria list
+        self.Where = {'Clause': [], 'Show': []}             # Clear search criteria lists
         self.Gui.AppWin['-META-'].update(values=[])         # Clear metadata select list
         self.Gui.AppWin['-META-'].update(disabled=True)     # Disable it too
         if self.Gui.ResultWin: self.Gui.ResultWin.close()
@@ -119,28 +140,35 @@ class pBoxQuery:
         if len(self.Gui.InputWidget) > 0: 
             self.Gui.resetWidget().close()                                        # Close input window
             self.Gui.InputWidget = []
-        if self.Gui.ResultWin: self.Gui.ResultWin.close()                         # Close this too?
+        if self.Gui.ResultWin:
+            self.Gui.ResultWin.close()                                            # Close this too?
+            self.Gui.AppWin['-DEL-'].update(disabled=True)
         return 0
 
-    # Run the search query using the criteria in the Where list. Title must be last in select list.
-    # The x and y parameters are where the result window is opened on the desktop.
+
+    # Run the search query using the criteria in the Where[Clause] list. Title must be last in
+    # select list. The x and y parameters are where the result window is opened on the desktop.
+    # Display results in fixed size fields so appearance is in columns.
+    # Title must be last. To
+    # export results are split on whitespace, so title words must be joined to form 1 column.
     def doSearch(self, x, y):
         result = []
         query = "SELECT pky, upload_date, ext, CAST(vsize as FLOAT) / 1000000000 as size, "
         query +=        "CAST(duration as int) as dur, title from IPFS_HASH_INDEX WHERE "
-        if len(self.Where) == 0:
+        if len(self.Where['Clause']) == 0:
             query += " 1=1 limit 50"
         else:
-            for clause in self.Where:
+            for clause in self.Where['Clause']:
                 query += clause
         rows = self.Sql.runQuery(query)
         items = len(rows)
         if len(rows) > 0:
-            result = ['  KEY UPLOAD DATE  TYPE    SIZE  DURATION  TITLE']
+            result = ['  KEY UPLOAD-DATE  TYPE    SIZE  DURATION  TITLE']
+            self.TITLE = 5  # Index of title data in results; need for export
             for r in rows:
                 # Strip unicode characters Tcl doesn't like and handle nulls
                 cols = list(range(len(r)))
-                for col in range(0, len(r)):  # for each column in the row
+                for col in range(len(r)):  # for each column in the row
                     if r[col] is not None:
                         vLst = str(r[col])
                         vLst = [vLst[i] for i in range(len(vLst)) if ord(vLst[i]) in range(65536)]
@@ -162,23 +190,84 @@ class pBoxQuery:
 
         else: result.append("No results found based on your search criteria")
         self.Gui.ResultWin = sg.Window('Search Results', self.Gui.queryResults(),
-                                        location=(x, y), modal=True, force_toplevel=True,
+                                       location=(x, y), modal=False, force_toplevel=True,
                                        keep_on_top=False, disable_close=True, finalize=True)
+
         self.Gui.ResultWin['-ROWS-'].update(f"{items} items")
+        qry = [self.Sql.Sever + " where"] + self.Gui.AppWin['-TODO-'].get_list_values()
+        self.Gui.ResultWin['-RESULTS-'].metadata=qry
         self.Gui.ResultWin['-RESULTS-'].update(values=result)
 
-    # Process input collected from user and create SQL where clause for it
-    # TODO: create a display list to correlate with DB where clause
-    def addSQL2SearchCriteriaList(self, state, criteria, input):
+    # Save results to a file of the selected type, csv, text or JSON
+    def saveResults(self, file, type):
+        dataOut = []
+        search = self.Gui.ResultWin['-RESULTS-'].metadata
+
+        # Split lines into columns
+        for item in self.Gui.ResultWin['-RESULTS-'].get_list_values():
+            dataOut.append(item.split(maxsplit=self.TITLE)) # Don't split title
+
+        if type == 'json':
+            with open(file, 'w') as jsn:
+                json.dump(search + dataOut, jsn)
+
+        elif type == 'txt':
+            with open(file, 'w') as txt:
+                line = " ".join(search)
+                txt.write(line + '\n')
+                for row in dataOut:             # Write result rows out to file
+                    txt.write(" ".join(row) + '\n')
+
+        # I've tried many variations of code but can't get rid of weird " chars
+        elif type == 'csv':
+            with open(file, 'w') as csv:
+                line = ""
+                for item in search:             # Write query parameters to file
+                    item.replace('"', '')       # Remove double quotes from data
+                    line += f'"{item}",'
+                line = line[:-1] + "\n"         # Replace last comma with a newline
+                csv.write(line)
+                for row in dataOut:             # Write result rows out to file
+                    line = ""
+                    for col in row:
+                        col.replace('"', '')    # Remove double quotes from data
+                        line += f'"{col}",'     # Double quote all values
+                    line = line[:-1] + "\n"     # Replace last comma with a newline
+                    csv.write(line)
+
+    def pinSelected(self, x, y):
+        # Pin each item selected in the result window one by one
+        selected = list(self.Gui.ResultWin['-RESULTS-'].get())
+        max = len(selected)
+        self.Gui.ResultWin['-PROG-'].update(current_count=0, max=max, visible=True)
+        progress = 0
+        for item in selected:
+            key = item.split(maxsplit=1)[0]  # We need the key to lookup hash to pin
+            if not key.isdecimal() or int(key) < 1:
+                max -= 1                     # Skip header row or invalid keys
+                continue
+            hash = self.Sql.getHash(key)
+            if not hash.startswith("Qm") or len(hash) != 46: continue
+            self.Ipfs.pin(hash)
+            progress += 1
+            self.Gui.ResultWin['-PROG-'].update(current_count=progress, max=max)
+        sg.popup("Complete!")
+        self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=False)
+
+    # Process input collected from user and create SQL where clause for it.
+    # The equivalent "Show" list is what is shown to the user. Everything is
+    # derived from the user criteria name thru the SearchCriteria dictionary:
+    # KEY = criteria label, [0] == db field, [1] == state / input widget.
+    def addSQL2SearchCriteriaList(self, criteria, input):
         self.Gui.AppWin['-SEARCH-'].update(disabled=False)
         self.Gui.AppWin['-CLEAR-'].update(disabled=False)
 
-        if len(self.Where) > 0: clause = ' and '
+        field, state = self.SearchCriteria[criteria]   # Get DB field & state 
+        if len(self.Where['Clause']) > 0: clause = ' and '
         else: clause = ''
         show = clause
 
         # Process selections from a list
-        field = self.SearchCriteria[criteria][0]   # Translate display criteria into DB field
         if state == self.ListBox:
             choices = len(input['list'])
             if choices > 0:
@@ -193,19 +282,23 @@ class pBoxQuery:
                         clause += ','
                         show += ' or '
                 clause += ')'
-                self.Display.append(show)
-                self.Where.append(clause)
-                self.Gui.AppWin['-TODO-'].update(values=self.Display)
 
         # Process text input
         elif state == self.TextBox:
-            if input['equ']: val = f"{field} = {input['text']}"
-            elif input['has']: val = f"{field} like '%" + input['text'] + "%'"
-            elif input['str']: val = f"{field} like '" + input['text'] + "%'"
-            elif input['end']: val = f"{field} like '%" + input['text'] + "'"
-            clause += val
-            self.Where.append(clause)
-            self.Gui.AppWin['-TODO-'].update(values=self.Where)
+            if input['equ']:
+                clause += f"{field} = {input['text']}"
+                show += f"{criteria} = '{input['text']}'"
+            elif input['has']:
+                clause += f"{field} like '%" + input['text'] + "%'"
+                show += f"{criteria} contains '{input['text']}'"
+            elif input['str']:
+                clause += f"{field} like '" + input['text'] + "%'"
+                show += f"{criteria} starts with '{input['text']}'"
+            elif input['end']:
+                clause += f"{field} like '%" + input['text'] + "'"
+                show += f"{criteria} ends with '{input['text']}'"
+
+        # TODO: Figure out how to handle items whose selections come from DB
         elif state == self.ComboBox:
             pass
         elif state == self.Radio:
@@ -219,9 +312,8 @@ class pBoxQuery:
             elif input['min']: mnx = '>='
             else: mnx = '='
             dateTime = input['datetm']
-            clause += f"julianday({field}) {mnx} julianday('{dateTime}')"
-            self.Where.append(clause)
-            self.Gui.AppWin['-TODO-'].update(values=self.Where)
+            clause += f"date({field}) {mnx} date('{dateTime}')"
+            show += f"{criteria} {mnx} {dateTime}"
 
         # Process numeric input
         elif state == self.NumSlide:
@@ -229,16 +321,18 @@ class pBoxQuery:
             elif input['min']: mnx = '>='
             else: mnx = '='
             clause += f"CAST({field} as int) {mnx} {input['number']}"
-            self.Where.append(clause)
-            self.Gui.AppWin['-TODO-'].update(values=self.Where)
+            show += f"{criteria} {mnx} {input['number']}"
 
         # Process time input
         elif state == self.Time:
             if input['min']: mnx = '>='
             else: mnx = '<='
             clause += f"CAST({field} as int) {mnx} {input['seconds']}"
-            self.Where.append(clause)
-            self.Gui.AppWin['-TODO-'].update(values=self.Where)
+            show += f"{criteria} {mnx} {input['seconds']}"
+
+        self.Where['Clause'].append(clause)
+        self.Where['Show'].append(show)
+        self.Gui.AppWin['-TODO-'].update(values=self.Where['Show'])
 
 
     # ----------- Widget EVENT PROCESSING methods ----------- #
