@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-from datetime import *
 import sqlite3
-import ipfs
-import os
 
 # Class for SQLite related code
 
 class sql:
-    def __init__(self):
+    def __init__(self, ipfs):
+        self.Sever = None
         self.Conn = None
-        self.Ipfs = ipfs.Ipfs()
+        self.Ipfs = ipfs
 
-    # Open the SQLite database obtained from IPNS
-    def openDatabase(self, server):
+    # Open the SQLite database, which may come from IPFS or local storage.
+    # Databases coming from IPFS are cached locally. See ipfs module for details.
+    def openDatabase(self, server, sg, x, y):
         if self.Conn: self.Conn.close()     # Close database if previous opened
-        self.Conn = sqlite3.connect(self.Ipfs.getDB(server))
+        self.Sever = server
+        self.Conn = sqlite3.connect(self.Ipfs.getDB(server, sg, x, y))
         self.Conn.row_factory = sqlite3.Row # Results as a python dictionary
 
     # Execute a SQL query and return the result set as an array of dictionaries
@@ -37,9 +37,10 @@ class sql:
     
     def getHash(self, key):
         query = f"SELECT vhash from IPFS_HASH_INDEX WHERE pky={key}"
-        return sql.runQuery(self, query)[0][0]
-
-
-
+        try:
+            sql.runQuery(self, query)[0][0]
+            return sql.runQuery(self, query)[0][0]
+        except:
+            return ""
 
 
