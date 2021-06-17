@@ -1,19 +1,25 @@
-![pbsScreenShot](https://user-images.githubusercontent.com/11077042/113526398-9057f200-957f-11eb-9df6-db931096d147.png)
+![image](https://user-images.githubusercontent.com/11077042/122314019-04e2d180-cedd-11eb-9c60-7f51a835f059.png)
+
+![image](https://user-images.githubusercontent.com/11077042/122314061-12985700-cedd-11eb-8c9a-106e3e8a39ac.png)
+
 
 # Pirate-Box
 This is the new repository for all code I am contributing to Ernest Hancock's Pirate Box project.
 
-It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. Here is the text I have for the "About" menu item of the search tool:
+It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. Here is the text I have for the "About Pirate Box" menu item:
 
-                             About this Pirate Box
 
-This prototype Pirate Box was created by Thomas Freedman as a foundational platform to build a more refined and grandma friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
+                  pBoxSearch v0.0.2 - Thomas Freedman - 6/17/2021
 
-                      Basic IPFS Node and User Interface
+This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandma friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
 
-This is provided through the Chromium web browser with the IPFS Companion extension, which is the same User Interface found in IPFS Desktop. Node status, real time graphics of network utilization, ability to view, download, pin and unpin files, inspect IPFS configuration and other useful tools are provided. See https://github.com/ipfs-shipyard/ipfs-companion or https://docs.ipfs.io/install/ipfs-desktop/#windows. Note that future versions of Pirate Box will be based on the IPFS Desktop version for better integration with the Raspberry Pi menu system.
+--------------------------------------------------
+Basic IPFS Node and User Interface
 
-                         Pirate Box IPFS Search Tool
+This is provided through the Chromium web browser with the IPFS Companion extension, which is the same User Interface found in IPFS Desktop. Node status, real time graphics of network utilization, ability to view, download, pin and unpin files, inspect IPFS configuration and other useful tools are provided. See  https://github.com/ipfs-shipyard/ipfs-companion or  https://docs.ipfs.io/install/ipfs-desktop/#windows.  Future versions of Pirate Box may be based on the IPFS Desktop version for better integration with the Raspberry Pi menu system.
+
+----------------------------------------
+Pirate Box IPFS Search Tool
 
 This tool implements search functionality based on metadata collected when content is added to an IPFS node. Much more work is required to define the standards for metadata and how it will be collected. 
 
@@ -27,31 +33,28 @@ Audio and video content added to the local Pirate Box IPFS node using the Video 
 
 Other types of content providers besides audio and video will have different requirements for their metadata. More work needs to be done to define how metadata is:
 
-1) defined
-2) collected
-3) published
-4) represented in search tools
+                        1) defined
+                        2) collected
+                        3) published
+                        4) represented in search tools
 
 The search tool uses 20 metadata fields out of the 60+ available in the youtube-dl set. Whether a universal standard metadata definition can or will be developed to encompass all types of content has yet to be determined. 
 
-                                 Video Grabber
+---------------------------------------------
+Pirate Box Video Grabber (PBVG)
 
-The Video (and audio) Grabber tool is a fully functional command line program that uses the popular youtube-dl software to download content from a list of over 1000 platforms such as youtube and Vimeo. It is "batch" oriented, so content from many publishers on many platforms can be collected frequently. A cron job can automate collection of content from your favorite sources on a regular basis.
+The PBVG tool was originally developed as a command line program that uses the popular youtube-dl software to download content from a list of over 1000 platforms such as youtube and Vimeo. The full functionality of the program is available as a  "batch" oriented command line tool. However, with this release of the Pirate Box a simple GUI front end is now available to provide an easy to use interface to obtain content from a list of URLs. Content obtained this way is also searchable using the Pirate Box Search tool.
 
-The content to be captured by the Video Grabber is defined in a JSON formated config file that specifies the URLs to download content from, which can be individual files, channels or playlists. Metadata for each item downloaded is also collected from youtube-dl. The metadata and the video / audo content files are stored in a SQLite database and published at a static IPnS address for retrieval and use by search engines.
+Batch mode operation provides the ability to be selective of the content gathers using filter criteria such as upload date, duration of play and download quota limits. In addition, content from many different publishers on various platforms can be collected frequently. A scheduler such as cron can automate collection of content from your favorite sources on a regular basis.
 
-Further refinement of the search tool is envisioned including a GUI front end to create the JSON config file. The search tool described above is capable of searching any content added to te Pirate Box using the Video Grabber command line tool.
+The content to be captured by the PBVG is defined in a JSON formated config file that specifies the URLs to download content from, which can be individual files, channels or playlists. Metadata for each item downloaded is also collected. The metadata and the video / audio content files are stored in a SQLite database and published at a static IPnS address for retrieval and use by search engines.
 
-                                Liberty Library
+Further refinement of the PBVG is envisioned including a more comprehensive GUI front end to create the JSON config file. The search tool previously described is capable of searching any content added to te Pirate Box using the PBVG.
 
-The Pirate Box prototype includes a 1TB SSD drive / SD card containing hundreds of long play format video and audio content (60 - 90 minutes each) saved on IPFS over the last 2 years by Thomas Freedman. This content is available and pinned on the Pirate Box IPFS node and searchable using the Pirate Box IPFS Search too described above.  
+--------------------
+Liberty Library
 
-It is reletively easy to use an external IPFS repository filled with content if the external content has the same structure as the .ipfs folder. However that cannot be accessed concurrently with the local IPFS node's content. To make a plug & play "Liberty Library" to add to an existing IPFS node's content would require either 1) merging the 2 repositories into one, or 2) running a second IPFS server instance on the same node using different port numbers.
-
-The Liberty Library included in this release of the Pirate Box used the method of step 1. If the external storage is not plugged in the local IPFS node will fallback to a small repository included on the SD card. Alternatively if the SD card is large enough no external storage device is required.
-
-Currently IPFS does not provide a way to split the storage of a repository into separate segments which would make adding external content like a Liberty Library much easier.
-
+This release of the Pirate Box includes software infrastructure that supports plug & play content referred to as Liberty Libraries. Portable USB storage devices and USB sticks in very large capacities (currently up to 2 Terabytes) can store huge volumes of information on a  simple USB stick. One example I created was a 512GB drive containing almost 1800 1000 long play format (60 - 90 minutes each) video and audio files saved on IPFS over the last 2 years by Thomas Freedman. This content is available and can be pinned on Pirate Box IPFS nodes or saved on portable Liberty Library devices. Liberty Library content can also be searched with the Pirate Box Search tool described above.
 
 --------------------------------------------------------------------------------------------------
 This code is free to use under the terms of the [BipCot NoGov license](https://bipcot.org/). 
