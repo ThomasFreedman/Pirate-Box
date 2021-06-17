@@ -54,7 +54,7 @@ Further refinement of the PBVG is envisioned including a more comprehensive GUI 
 --------------------
 Liberty Library
 
-This release of the Pirate Box includes software infrastructure that supports plug & play content referred to as Liberty Libraries. Portable USB storage devices and USB sticks in very large capacities (currently up to 2 Terabytes) can store huge volumes of information on a  simple USB stick. One example I created was a 512GB drive containing almost 1800 1000 long play format (60 - 90 minutes each) video and audio files saved on IPFS over the last 2 years by Thomas Freedman. This content is available and can be pinned on Pirate Box IPFS nodes or saved on portable Liberty Library devices. Liberty Library content can also be searched with the Pirate Box Search tool described above.
+This release of the Pirate Box includes software infrastructure that supports plug & play content referred to as Liberty Libraries. Portable USB storage devices and USB sticks in very large capacities (currently up to 2 Terabytes) can store huge volumes of information on a  simple USB stick. One example I created was a 512GB drive containing almost 1800 long play format (60 - 90 minutes each) video and audio files saved on IPFS over the last 2 years by Thomas Freedman. This content is available and can be pinned on Pirate Box IPFS nodes or saved on portable Liberty Library devices. Liberty Library content can also be searched with the Pirate Box Search tool described above.
 
 --------------------------------------------------------------------------------------------------
 This code is free to use under the terms of the [BipCot NoGov license](https://bipcot.org/). 
