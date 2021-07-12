@@ -1,1 +1,1 @@
-empty placeholder file to create the PBVG subfolder
+This subfolder is created by the ytdlVideoGrabber.py program for content downloaded by the simple video grabber GUI tool. It corresponds to the grupe name found in the pbvgTemplate.json configuration file located in the bin/videoGrabber/config folder.
