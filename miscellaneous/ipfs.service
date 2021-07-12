@@ -1,0 +1,12 @@
+[Unit]
+Description=IPFS daemon
+#After=network.target
+[Service]
+User=ipfs
+Group=ipfs
+Environment="IPFS_PATH=/home/ipfs/.ipfs"
+ExecStart=/home/ipfs/go/bin/ipfs daemon --enable-namesys-pubsub
+Restart=on-failure
+StartLimitIntervalSec=60
+[Install]
+WantedBy=multi-user.target
