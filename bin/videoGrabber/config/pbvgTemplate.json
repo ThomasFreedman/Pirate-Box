@@ -1,0 +1,28 @@
+{
+   "Comments": [ "This is a template configuration file used by the Pirate Box",
+                 "Video Grabber tool (PBVG)."
+   ],
+   "DLbase": "/home/ipfs/bin/videoGrabber/ytDL/",
+   "DLeLog": "error.log",
+   "DLarch": "youtube-dl.history",
+   "DLmeta": "metadataFields.json",
+   "DLOpts": {
+      "retries": 5,
+      "format": "best",
+      "continuedl": true,
+      "ignoreerrors": true,
+      "merge-output-format": "mp4"
+   },
+
+   "Grupes": {
+      "PBVG": {
+           "Quota": 0,
+           "Active": true,
+           "Duration": 0,
+           "Start": null,
+           "End": null,
+           "Stop": 300,
+           "urls": []
+      }
+   }
+}
