@@ -1,0 +1,20 @@
+After you answer a few short questions we'll have you on your way. If you are not online now right click 2 red Xx to left of speaker icon in upper right, then select "Wireless and Wired Network Settings").
+
+Please be patient to complete this process or you may feel like walking the starboard plank!
+
+To minimize setup time the following defaults are used:
+
+1) Country:  United States
+2) Language: US English
+3) Timezone: Central
+4) Keyboard: Generic 105 key PC
+
+You may change those settings and customize your new Pirate Box after going through these steps by selecting "Preferences" from the upper left Pirate menu. 
+
+Setup will ask you to:
+
+- Provide a network name for your Pirate Box
+- Choose amount of available storage space to use for IPFS
+- Set a new password 
+
+After completing these steps you will be able to browse websites on IPFS and save your own files there too! Shall we get started?

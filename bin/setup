@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cd $HOME/bin
+
+`ping -c 3 1.1.1.1 > /dev/null 2>&1`
+if [ $? -ne 0 ]; then
+  OFFLINE='You must be online to complete setup.\nCancel setup and restart it\nwhen you are connected.'
+  zenity --error --title="Network not Detected" --text="$OFFLINE" --width=300 --height=100
+fi
+
+TITLE='Pirate Box Setup Wizard'
+MSG='To restart run "Pirate Box Setup"\nunder the main menu.'
+zenity --filename="$HOME/bin/setup.txt" --text-info --title="$TITLE" --width=550 --height=350
+  if [ $? -ne 0 ]; then
+    zenity --question --text="Cancel setup?" --width=150 --height=100
+    if [ $? -eq 0 ]; then exit; fi
+  fi
+
+sudo ./askUser.bash
+

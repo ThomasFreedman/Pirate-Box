@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 <hash> <Save to name>"
+  echo " Download a file from IPnS gateway and save"
+  echo " it as 'Save to name'"
+  exit 1
+fi
+
+pushd /home/ipfs/Downloads
+wget -O $2 http://127.0.0.1:8080/ipns/$1
+popd
+

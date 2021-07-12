@@ -1,0 +1,14 @@
+                     Welcome to Your New Pirate Box!
+
+To get started please connect your Pirate Box to the Internet by WiFi or ethernet cable. While an ethernet cable is easy and truly "plug & play", many prefer a wireless connection.
+
+To connect to WiFi, click the network icon directly to the left of the speaker icon in the upper right corner of the display and select your router or hotspot name (SSID), then enter the password to login. Once connected you will see a solid WiFi signal icon.
+
+When you're connected and ready, go to the main "Pirate" menu in the upper left corner and launch the "Pirate Box Setup" wizard.
+
+This message will be shown on every system start until you click the Cancel button.
+
+If you have questions or difficulties there is a world of info available about the Raspberry Pi computer this Pirate Box is based on. Use another computer or one of your computer saavy ship mates to help you out. Most importantly, have fun!
+
+Welcome to the liberty loving clan of peaceful pirates! 
+Captain Marque
