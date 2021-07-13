@@ -4,7 +4,7 @@
 
 
 # Pirate-Box
-This is the new repository for all code I am contributing to Ernest Hancock's Pirate Box project.
+This is the new repository for all code I am contributing to the Pirate Box Contest announced in June of 2021. This is the next step (not the final step!) in Ernest Hancock's Pirate Box project.
 
 It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. I have now created a folder structure here on github that mirrors that of the Pirate Box for software I created, most of which lives in the /home/ipfs/bin folder. I also added systemd files, symbolic links and various other files such as documentation and videos. These are not tracked as well, and are found in the Miscelaneous folder. Other application packages and additions were added to the base Raspberry Pi (buster) OS to create the Pirate Box. Here is the text I have for the "About Pirate Box" menu item:
 
