@@ -43,9 +43,9 @@ The search tool uses 20 metadata fields out of the 60+ available in the youtube-
 ---------------------------------------------
 Pirate Box Video Grabber (PBVG)
 
-The PBVG tool was originally developed as a command line program that uses the popular youtube-dl software to download content from a list of over 1000 platforms such as youtube and Vimeo. The full functionality of the program is available as a  "batch" oriented command line tool. However, with this release of the Pirate Box a simple GUI front end is now available to provide an easy to use interface to obtain content from a list of URLs. Content obtained this way is also searchable using the Pirate Box Search tool.
+The PBVG tool was originally developed as a command line program that uses the popular youtube-dl software to download content from a list of over 1000 platforms such as youtube and Vimeo. The full functionality of the program is available as a  "batch" oriented command line tool. However, with this release of the Pirate Box a simple GUI front end is now available to provide an easy to use interface to obtain content from a list of URLs. Content obtained this way is also searchable using the pirate Box Search tool.
 
-Batch mode operation provides the ability to be selective of the content gathers using filter criteria such as upload date, duration of play and download quota limits. In addition, content from many different publishers on various platforms can be collected frequently. A scheduler such as cron can automate collection of content from your favorite sources on a regular basis.
+Batch mode provides the ability to specify filter criteria such as upload date, duration of play and download quota limits. In addition, content from many different publishers on various platforms can be collected. A scheduler such as cron or systemd timers can automate collection of content from your favorite sources on a regular basis.
 
 The content to be captured by the PBVG is defined in a JSON formated config file that specifies the URLs to download content from, which can be individual files, channels or playlists. Metadata for each item downloaded is also collected. The metadata and the video / audio content files are stored in a SQLite database and published at a static IPnS address for retrieval and use by search engines.
 
