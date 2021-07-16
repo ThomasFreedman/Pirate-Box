@@ -333,12 +333,10 @@ class pBoxGUI:
                           pad=((15, 0), (0, 0))),
                  sg.Text('', key='-ROWS-', size=(10, 1), pad=((20, 0), (0, 0)), font=("Helvetica", 10))],
 
-                [sg.Text('00:00:00', key='-TIMR-', size=(8, 1), font=("Helvetica", 10, "bold"),
-                         visible=False,),  # Weird behavior, doesn't work; appears as 2 rows!
-                 sg.ProgressBar(None, orientation='horizontal', size=(86, 10), style='classic',
-                                border_width=3, relief=sg.RELIEF_SUNKEN, key='-PROG-', visible=False,
-                                bar_color=("gold", "orange"))]]
-                )
+                [sg.ProgressBar(None, size=(94, 10), key='-PROG-', orientation='horizontal',
+                                bar_color=("gold", "orange"), relief=sg.RELIEF_SUNKEN,
+                                style='classic', border_width=3, visible=False)]
+                ])
             ]
         ]
 
@@ -358,4 +356,3 @@ class pBoxGUI:
                        pad=((20, 0), (0, 0))),
              ]
         ]
-
