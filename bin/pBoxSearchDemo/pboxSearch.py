@@ -117,7 +117,7 @@ def main():
 
             elif event == "File Export Directory...":
                 msg = "Enter the folder to save search results:"
-                sg.popup_get_folder(msg, msg, pbq.SaveFolder,
+                pbq.SaveFolder = sg.popup_get_folder(msg, msg, pbq.SaveFolder,
                                     no_titlebar=True, modal=True,
                                     size=(20, 3),
                                     location=(locX + 420, locY + 120),
