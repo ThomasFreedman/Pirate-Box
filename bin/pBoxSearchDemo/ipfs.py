@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from nonblock import nonblock_read
-import ipfshttpclient as api
+import ipfshttpclient as api  # TODO - use this once it's ready for v0.8.0
 import PySimpleGUI as sg
 import subprocess as sp
 import inspect
@@ -114,23 +114,20 @@ class Ipfs:
 
 
     # Pin a file on this server to keep the IPFS garbage collector away from it.
-    # The timeLimit parameter sets the maxmum amount of time to wait for the pin
+    # The timeLimit parameter sets the max amount of time to wait for the pin
     # command to complete (default set above). Returns True on success False
-    # otherwise. No: displays progress bar & timer at bottom of result window.
-    # 4 SOME ODD REASON result window freezes, so switched to popup progressBar.
-    def pin(self, gui, hash, timeLimit):
+    # otherwise. Displays a timer and progress bar popup for activity.
+    def pin(self, gui, hash, timeLimit, idx):
         if timeLimit is None: timer = self.MaxWaitTime
         else: timer = timeLimit
-        max = timer
-        #self.Server.pin(hash)
-        try:                       ### Added shell == False...
-            p = sp.Popen([f"ipfs", "pin", "add", f"{hash}"],
-                         shell = False, stdout=sp.PIPE, stderr=sp.STDOUT)
+        try:
+            cmd = [f"ipfs", "pin", "add", "-r", "--progress", f"{hash}"]
+            p = sp.Popen(cmd, shell = False, stdout=sp.PIPE, stderr=sp.STDOUT)
         except Exception as e:
             sg.popup("Aw shucks, something went wrong...",
                      inspect.stack()[1][3] + ' error: ' + str(e))
             return False
-                
+
         output = ""
         result = None
         progress = 0
@@ -146,15 +143,11 @@ class Ipfs:
             elif len(pinOut) > 0:
                 output += str(pinOut)
                 progress += 1
- #               resWin['-PROG-'].update(current_count=progress, max=max)
             else:
                 time.sleep(1)
                 timer -= 1
-#                minutes, s = divmod(timer, 60)
-#                h, m = divmod(minutes, 60)                
                 if timer < 1: break
-#                else: resWin['-TIMR-'].update("%02d:%02d:%02d" % (h, m, s))                
-            gui.progressWindow(pop, 0, 0, progress, timer) # Decr timer
+            gui.progressWindow(pop, 0, 0, progress, timer) # Decrement timer
 
         gui.progressWindow(pop, 0, 0, -1, 0)   # Close the progress popup
         return result
