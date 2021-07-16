@@ -249,7 +249,7 @@ class pBoxGUI:
     # Set seconds == -1 to hide the timer. 
     # Return value on open is window obj to pass back in to close
     # or update. Update every second, set progress 0 - 50 (2% incr)
-    def progressWindow(self, window, x, y, progress, seconds):
+    def progressWindow(self, window, x, y, progress, seconds, max):
         show = False
         if seconds >= 0:
             minutes, s = divmod(seconds, 60)
@@ -271,7 +271,7 @@ class pBoxGUI:
             window.close()
         else:
             if show: window['-T-'].update(timer)
-            window['-P-'].update(current_count=progress / 2, max=50)
+            window['-P-'].update(current_count=progress, max=max)
 
 
     # ------ Top menu bar definition ------ #
