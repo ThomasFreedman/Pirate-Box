@@ -256,6 +256,7 @@ class pBoxQuery:
     def pinSelected(self, x, y):
         todo = list(self.Gui.ResultWin['-RESULTS-'].get_indexes())
         bad = []
+        progress = 0
         max = len(todo)
         self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=True, max=max)
         for idx in todo:
@@ -266,12 +267,15 @@ class pBoxQuery:
                 continue
             hash = self.Sql.getHash(key)
             if not hash.startswith("Qm") or len(hash) != 46: continue
-            if not self.Ipfs.pin(self.Gui, hash, None, idx):
+            if not self.Ipfs.pin(self.Gui, hash, None):
                 bad.append(idx)
-            self.Gui.ResultWin['-PROG-'].update(current_count=idx, visible=True, max=max)
+            progress +=1
+            self.Gui.ResultWin['-PROG-'].update(current_count=progress, visible=True, max=max)
 
         self.Gui.ResultWin['-RESULTS-'].update(set_to_index=bad)
-        sg.popup(f"Complete!\nPinning failed for the {len(bad)} highlighted items")
+        msg = "Pinning Complete!"
+        if bad: msg += f"\nPinning failed for the {len(bad)} highlighted items"
+        sg.popup(msg)
         self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=False, max=max)
 
 
