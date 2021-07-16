@@ -85,8 +85,8 @@ class Ipfs:
         output = ""
         result = False
         progress = 0
-        timer = self.MaxWaitTime
-        pop = gui.progressWindow("open", x, y, 0, timer) # Show progress popup
+        timer = max = self.MaxWaitTime
+        pop = gui.progressWindow("open", x, y, 0, timer, max) # Progress popup
         while True:
             getOut = nonblock_read(p.stdout)       # Get output if any
             if getOut is None:                     # Subprocess closed stream
@@ -101,9 +101,9 @@ class Ipfs:
                 time.sleep(1)                      # Wait a bit
                 timer -= 1
                 if timer < 1: break
-            gui.progressWindow(pop, x, y, progress, timer) # Decr timer
+            gui.progressWindow(pop, x, y, progress, timer, max) # Update progr.
 
-        gui.progressWindow(pop, 0, 0, -1, 0)       # Close the progress popup
+        gui.progressWindow(pop, 0, 0, -1, 0, 0)    # Close the progress popup
         return result
     
 
@@ -117,7 +117,7 @@ class Ipfs:
     # The timeLimit parameter sets the max amount of time to wait for the pin
     # command to complete (default set above). Returns True on success False
     # otherwise. Displays a timer and progress bar popup for activity.
-    def pin(self, gui, hash, timeLimit, idx):
+    def pin(self, gui, hash, timeLimit):
         if timeLimit is None: timer = self.MaxWaitTime
         else: timer = timeLimit
         try:
@@ -129,9 +129,10 @@ class Ipfs:
             return False
 
         output = ""
+        max = timer
         result = None
         progress = 0
-        pop = gui.progressWindow("open", 400, 200, 0, timer) # Show progress popup
+        pop = gui.progressWindow("open", 400, 200, 0, timer, max)
         while True:
             pinOut = nonblock_read(p.stdout)   # Get output if any available
             if pinOut is None:                 # Subprocess closed stream
@@ -141,13 +142,13 @@ class Ipfs:
                 else: result = False
                 break                          # We're done here
             elif len(pinOut) > 0:
-                output += str(pinOut)
+                output += str(pinOut)          # Accumulate output
                 progress += 1
             else:
                 time.sleep(1)
                 timer -= 1
                 if timer < 1: break
-            gui.progressWindow(pop, 0, 0, progress, timer) # Decrement timer
+            gui.progressWindow(pop, 0, 0, progress, timer, max) # Update
 
-        gui.progressWindow(pop, 0, 0, -1, 0)   # Close the progress popup
+        gui.progressWindow(pop, 0, 0, -1, 0, 0)  # Close the progress popup
         return result
