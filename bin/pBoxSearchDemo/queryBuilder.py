@@ -196,9 +196,8 @@ class pBoxQuery:
 
         self.Gui.ResultWin['-ROWS-'].update(f"{items} items")
         qry = [self.Sql.Sever + " where"] + self.Gui.AppWin['-TODO-'].get_list_values()
-        self.Gui.ResultWin['-RESULTS-'].metadata=qry
+        self.Gui.ResultWin['-RESULTS-'].metadata = qry
         self.Gui.ResultWin['-RESULTS-'].update(values=result)
-        self.Gui.ResultWin['-TIMR-'].update(visible=False)
         self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=False)
 
     # Save results to a file of the selected type, csv, text or VLC playlist
@@ -251,22 +250,29 @@ class pBoxQuery:
 
 
     # Pin each item selected in the result window one by one
-    # TODO: Resolve problem with progress / timer at bottom of result window
+    # TODO: Resolve problem with progress / timer at bottom of result window:
+    #       it should display timer and progress bar on a single row.
+    #       Removed the timer text element to "resolve" the issue.
     def pinSelected(self, x, y):
-        selected = list(self.Gui.ResultWin['-RESULTS-'].get()) # or get_indexes ??
-        max = self.Ipfs.MaxWaitTime
-#        self.Gui.ResultWin['-TIMR-'].update(visible=True)
-#        self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=True)
-        for item in selected:
+        todo = list(self.Gui.ResultWin['-RESULTS-'].get_indexes())
+        bad = []
+        max = len(todo)
+        self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=True, max=max)
+        for idx in todo:
+            item = self.Gui.ResultWin['-RESULTS-'].get_list_values()[idx]
             key = item.split(maxsplit=1)[0]  # We need the key to lookup hash to pin
             if not key.isdecimal() or int(key) < 1:
                 max -= 1                     # Skip header row or invalid keys
                 continue
             hash = self.Sql.getHash(key)
             if not hash.startswith("Qm") or len(hash) != 46: continue
-#            self.Gui.ResultWin['-PROG-'].update(current_count=0, max=max)
-            self.Ipfs.pin(self.Gui, hash, None)
-        sg.popup("Complete!")
+            if not self.Ipfs.pin(self.Gui, hash, None, idx):
+                bad.append(idx)
+            self.Gui.ResultWin['-PROG-'].update(current_count=idx, visible=True, max=max)
+
+        self.Gui.ResultWin['-RESULTS-'].update(set_to_index=bad)
+        sg.popup(f"Complete!\nPinning failed for the {len(bad)} highlighted items")
+        self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=False, max=max)
 
 
     # Process input collected from user and create SQL where clause for it.
@@ -471,4 +477,3 @@ class pBoxQuery:
                 self.Gui.InputWidget[0]['-TIM8-'].update("%02d:%02d:%02d" % (h, m, s))
                 self.Gui.InputWidget[0]['Ok8-'].update(disabled=False)
                 return {'seconds': secInput, 'min': values['-MIN8-'], 'max': values['-MAX8-']}
-
