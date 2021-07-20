@@ -46,14 +46,21 @@ class pBoxQuery:
         self.Calendar  = 6      # Date and optional time in SQLite3 format: 'YYYYMMDD HH:MM:SS'
         self.NumSlide  = 7      # Linear slider to select a numeric value or type one in
         self.Time      = 8      # Returns number of seconds. Displayed as HH:MM:SS
+        self.MultiText = 9      # Similar to TextBox but with different radio buttons
 
         #
         # CONSIDER LOADING THE FOLLOWING FROM A JSON CONFIG FILE
         #
+        # This list of database fields is searched against the keywords or phrases for state9
+        self.MultiFields = [
+            "grupe", "_filename", "album", "title", "fulltitle", "alt_title", "artist", "categories_0",
+            "creator", "description", "extractor", "format", "license", "webpage_url_basename"
+        ]
         # This dictionary maps Search Criteria to DB metadata fields which
         # correspond to input states (which are synonymous with input widget).
         # This would need to be defined by the metadata publisher
         self.SearchCriteria = {
+            "MULTI FIELD SEARCH": ["ALL", self.MultiText],
             "Item #": ["pky", self.NumSlide],
             "Title": ["title", self.TextBox],
             "Publisher": ["grupe", self.ListBox],
@@ -149,9 +156,8 @@ class pBoxQuery:
 
     # Run the search query using the criteria in the Where[Clause] list. Title must be last in
     # select list. The x and y parameters are where the result window is opened on the desktop.
-    # Display results in fixed size fields so appearance is in columns.
-    # Title must be last. To
-    # export results are split on whitespace, so title words must be joined to form 1 column.
+    # Display results in fixed size fields so appearance is in columns.  Export results can be
+    # split on whitespace and title must be last, so title words can be joined into 1 column.
     def doSearch(self, x, y):
         result = []
         query = "SELECT pky, upload_date, ext, CAST(vsize as FLOAT) / 1000000000 as size, "
@@ -195,8 +201,10 @@ class pBoxQuery:
                                        keep_on_top=False, disable_close=True, finalize=True)
 
         self.Gui.ResultWin['-ROWS-'].update(f"{items} items")
+        vhash = "vhash is prefixed as first column for csv and txt exports."
         qry = [self.Sql.Sever + " where"] + self.Gui.AppWin['-TODO-'].get_list_values()
-        self.Gui.ResultWin['-RESULTS-'].metadata = qry
+#        qry = [self.Sql.Sever + " where"] + [query]
+        self.Gui.ResultWin['-RESULTS-'].metadata = [vhash, "Query: "] + qry
         self.Gui.ResultWin['-RESULTS-'].update(values=result)
         self.Gui.ResultWin['-PROG-'].update(current_count=0, visible=False)
 
@@ -229,7 +237,10 @@ class pBoxQuery:
                 line = " ".join(search)
                 txt.write(line + '\n')
                 for row in dataOut:             # Write result rows out to file
-                    txt.write(" ".join(row) + '\n')
+                    key = row[0]  # Get pky to lookup hash
+                    if not key.isdecimal() or int(key) < 1:
+                        continue
+                    txt.write(" ".join([self.Sql.getHash(key)] + row) + '\n')
 
         # I've tried many variations of code but can't get rid of weird " chars
         elif type == 'csv':
@@ -241,7 +252,10 @@ class pBoxQuery:
                 line = line[:-1] + "\n"         # Replace last comma with a newline
                 csv.write(line)
                 for row in dataOut:             # Write result rows out to file
-                    line = ""
+                    key = row[0]                # Get pky to lookup hash
+                    if not key.isdecimal() or int(key) < 1:
+                        continue
+                    line = f'"{self.Sql.getHash(key)}",'  # vhash as first column
                     for col in row:
                         col.replace('"', '')    # Remove double quotes from data
                         line += f'"{col}",'     # Double quote all values
@@ -314,13 +328,13 @@ class pBoxQuery:
                 clause += f"{field} = {input['text']}"
                 show += f"{criteria} = '{input['text']}'"
             elif input['has']:
-                clause += f"{field} like '%" + input['text'] + "%'"
+                clause += f"{field} like '%{input['text']}%'"
                 show += f"{criteria} contains '{input['text']}'"
             elif input['str']:
-                clause += f"{field} like '" + input['text'] + "%'"
+                clause += f"{field} like '{input['text']}%'"
                 show += f"{criteria} starts with '{input['text']}'"
             elif input['end']:
-                clause += f"{field} like '%" + input['text'] + "'"
+                clause += f"{field} like '%{input['text']}%'"
                 show += f"{criteria} ends with '{input['text']}'"
 
         # TODO: Figure out how to handle items whose selections come from DB
@@ -355,12 +369,28 @@ class pBoxQuery:
             clause += f"CAST({field} as int) {mnx} {input['seconds']}"
             show += f"{criteria} {mnx} {input['seconds']} seconds"
 
+        # Process multi-text input
+        elif state == self.MultiText:
+            if input['has']:
+                words = input['text'].split()
+                for field in self.MultiFields:
+                    for word in words:
+                        clause += f"{field} like '%{word}%' or "
+                clause += "0=1"
+                show += f"{criteria} matches any word: {input['text'].replace(' ', ', ')}"
+            elif input['all']:
+                for field in self.MultiFields:
+                    clause += f"{field} like '%{input['text']}%' or "
+                clause += "0=1"
+                show += f"{criteria} matches phrase: '{input['text']}'"
+
         self.Where['Clause'].append(clause)
         self.Where['Show'].append(show)
         self.Gui.AppWin['-TODO-'].update(values=self.Where['Show'])
 
 
-    # ----------- Widget EVENT PROCESSING methods ----------- #
+
+# ----------- Widget EVENT PROCESSING methods ----------- #
     # These methods process events generated from the gui layouts.
     def handleState1(self, event, values):
         if event == '-LBOX1-':
@@ -481,3 +511,15 @@ class pBoxQuery:
                 self.Gui.InputWidget[0]['-TIM8-'].update("%02d:%02d:%02d" % (h, m, s))
                 self.Gui.InputWidget[0]['Ok8-'].update(disabled=False)
                 return {'seconds': secInput, 'min': values['-MIN8-'], 'max': values['-MAX8-']}
+
+    def handleState9(self, event, values):
+        txtInput = None
+        if event in ('-TXT9-','-HAS9-','-ALL9-'):
+            if event in ('-TXT9-'):
+                txtInput = str(values['-TXT9-'])
+                self.Gui.InputWidget[0]['-HAS9-'].update(disabled=False)
+                self.Gui.InputWidget[0]['-ALL9-'].update(disabled=False)
+                self.Gui.InputWidget[0]['Ok9-'].update(disabled=False)
+            if txtInput is not None and len(txtInput) > 0:
+                self.Txt9 = txtInput
+                return {'text': self.Txt9, 'has': values['-HAS9-'], 'all': values['-ALL9-']}
