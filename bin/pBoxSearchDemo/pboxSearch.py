@@ -2,7 +2,7 @@
 import PySimpleGUI  as sg   # Simple GUI
 import queryBuilder as qb   # Query Builder
 import subprocess   as sp
-import time
+import pyperclip
 import sys
 import os
 
@@ -237,7 +237,8 @@ def main():
                 fields = values['-RESULTS-'][0].split()
                 if fields[0].isdecimal():
                     hash = pbq.Sql.getHash(fields[0])
-                    # Popup a window so users can copy the hash from it
+                    pyperclip.copy(hash)
+                    # Popup a window so users can see hash or cancel opening
                     sg.Window("Opening IPFS Address", [[sg.Multiline(hash, size=(55, 1),
                                                         no_scrollbar=True,
                                                         enter_submits=True)],
