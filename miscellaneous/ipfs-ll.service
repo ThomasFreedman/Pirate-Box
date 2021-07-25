@@ -1,0 +1,18 @@
+# This unit starts additional IPFS server for Liberty Library.
+# It runs on alternate ports without a gateway, but is a hard-
+# coded peer to the primary & public Pirate Box IPFS server.
+# All Liberty Library content is available using the primary
+# Pirate Box IPFS node.
+[Unit]
+Description=Liberty Library IPFS daemon
+#After=network.target
+
+[Service]
+User=ipfs
+Group=ipfs
+ExecStart=/home/ipfs/bin/libertyLibrary/ipfsLL.bash
+#Restart=on-failure
+#StartLimitIntervalSec=60
+
+[Install]
+WantedBy=multi-user.target

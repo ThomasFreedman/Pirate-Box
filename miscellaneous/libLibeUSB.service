@@ -1,0 +1,13 @@
+[Unit]
+Description=USB Monitor daemon for Liberty Library
+
+[Service]
+User=ipfs
+Group=ipfs
+
+ExecStart=/home/ipfs/bin/libertyLibrary/uDevPython.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
