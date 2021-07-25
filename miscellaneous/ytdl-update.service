@@ -1,0 +1,12 @@
+[Unit]
+Description=Updates youtube-dl periodically for all users
+
+[Service]
+Type=simple
+ExecStart=/home/ipfs/bin/videoGrabber/ytdl-update.bash
+#User=ipfs  this needs to run as root
+
+#[Install]
+#WantedBy=multi-user.target
+#WantedBy=graphical.target
+

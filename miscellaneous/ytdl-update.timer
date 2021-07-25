@@ -1,0 +1,13 @@
+[Unit]
+Description=Updates youtube-dl periodically for all users
+
+[Timer]
+Unit=ytdl-update.service
+OnBootSec=15m
+OnUnitActiveSec=8h
+#OnCalendar=10/8 run 3 times a day (every 8 hrs) starting from 10:00 am
+#OnCalendar=Mon|Tue|Wed... YYYY-MO-DY HH:MM:SS - wildcard= *
+
+[Install]
+WantedBy=timers.target
+
