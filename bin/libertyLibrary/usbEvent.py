@@ -38,10 +38,19 @@ lg.basicConfig(filename=LOG, level=lg.INFO, format=FMT[0], datefmt=FMT[1])
 # to the main Pirate Box IPFS server. The PeerID values will be
 # added at runtime based on the values in pBox node .ipfs/config
 LL_Bootstrap = ["/ip4/127.0.0.1/tcp/4001/p2p/"]
+LL_Addresses = {
+    "Swarm": [
+      "/ip4/0.0.0.0/tcp/4010",                # Remove IPv6 addresses
+      "/ip4/0.0.0.0/udp/4010/quic"
+    ],
+    "Announce": ["/ip4/127.0.0.1/tcp/5010"],  # Announce API port
+    "NoAnnounce": [],
+    "API": "/ip4/127.0.0.1/tcp/5010"
+}
 LL_Peers = {
     "Peers": [
         {
-            "ID": "",
+            "ID": "",                         # Replace with PB Peer ID 
             "Addrs": ["/ip4/127.0.0.1/tcp/4001"]
         }
     ]
@@ -57,16 +66,17 @@ def checkOut(errs, mask):
 
 
 # Copies src to dst. Only for small files like ipfs config
-def copyFile(src, dst):
-    lg.info(f"Making backup for {src}...")
+def copyFile(src, dst, msg=None):
+    if not msg: msg = "Making backup for"
+    lg.info(f"{msg} {src}...")
     try:
         with open(src, 'r') as s, open(dst, 'w') as d:
             d.write(s.read())
     except IOError as e:
-        lg.info(f"I/O error ({e.errno}): {e.strerror}")
+        lg.info(f"{dst}\nI/O error ({e.errno}): {e.strerror}")
         exit(-100)
     except Exception as e:  # Handle all other exceptions
-        lg.info(f"Unexpected error: {e}")
+        lg.info(f"{dst}\nUnexpected error: {e}")
         exit(-200)
     else:
         return
@@ -101,8 +111,10 @@ def getMountPoint(dev):
 # 4. Get PeerID of Liberty Library's IPFS node from the USB device it's on
 # 5. Append the Liberty Library IPFS PeerID to main IPFS node's peers list
 # 6. Add the main IPFS node's PeerID to .ipfs/config file for Liberty Library
-# 7. Re/start both IPFS nodes, main 1st, Liberty Library 2nd
+# 7. Remove Gateway and fix Addresses section of Liberty Library config
+# 8. Re/start both IPFS nodes, main 1st, Liberty Library 2nd
 if action == "add" and os.path.exists(CFG_PB):
+    lg.info(f"{action}, {device}, {label}")
     pbPeers = ""
     pbID = ""
     lLID = ""
@@ -127,11 +139,11 @@ if action == "add" and os.path.exists(CFG_PB):
             pbID = configPB["Identity"]["PeerID"]
             pbPeers = configPB["Peering"]["Peers"]
         except IOError as e:
-            lg.info(f"I/O error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_PB}\nI/O error ({e.errno}): {e.strerror}")
         except JSONDecodeError as e:
-            lg.info(f"JSON decoder error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_PB}\nJSON decoder error ({e.errno}): {e.strerror}")
         except Exception as e:  # Handle all other exceptions
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_PB}\nUnexpected error: {e}")
         else:
             errs &= 0b1110  # Reset bit 0, no errors reading main IPFS config
 
@@ -141,11 +153,11 @@ if action == "add" and os.path.exists(CFG_PB):
                 configLL = json.load(llCfg)
             llID = configLL["Identity"]["PeerID"]
         except IOError as e:
-            lg.info(f"I/O error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_LL}\nI/O error ({e.errno}): {e.strerror}")
         except JSONDecodeError as e:
-            lg.info(f"JSON decoder error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_LL}\nJSON decoder error ({e.errno}): {e.strerror}")
         except Exception as e:  # Handle all other exceptions
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_LL}\nUnexpected error: {e}")
         else:
             errs &= 0b1101  # Reset bit 1, no errors reading LL config
 
@@ -158,13 +170,13 @@ if action == "add" and os.path.exists(CFG_PB):
             with open(CFG_PB, 'w') as out:
                 out.write(pretty)
         except KeyError as e:
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_PB}\nKey Error error: {e}")
         except IOError as e:
-            lg.info(f"I/O error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_PB}\nI/O error ({e.errno}): {e.strerror}")
         except JSONDecodeError as e:
-            lg.info(f"JSON decoder error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_PB}\nJSON decoder error ({e.errno}): {e.strerror}")
         except Exception as e:  # Handle all other exceptions
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_PB}\nUnexpected error: {e}")
         else:
             errs &= 0b1011  # Reset bit 2, no errors updating main IPFS config
 
@@ -174,18 +186,20 @@ if action == "add" and os.path.exists(CFG_PB):
             LL_Bootstrap[0] += pbID
             LL_Peers["Peers"][0]["ID"] += pbID
             configLL["Bootstrap"] = LL_Bootstrap
+            configLL["Addresses"] = LL_Addresses
             configLL["Peering"] = LL_Peers
+            if configLL["Gateway"]: del configLL["Gateway"]
             pretty = json.dumps(configLL, indent=2)
             with open(CFG_LL, 'w') as out:
                 out.write(pretty)
         except KeyError as e:
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_LL}\nUnexpected error: {e}")
         except IOError as e:
-            lg.info(f"I/O error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_LL}\nI/O error ({e.errno}): {e.strerror}")
         except JSONDecodeError as e:
-            lg.info(f"JSON decoder error ({e.errno}): {e.strerror}")
+            lg.info(f"{CFG_LL}\nJSON decoder error ({e.errno}): {e.strerror}")
         except Exception as e:  # Handle all other exceptions
-            lg.info(f"Unexpected error: {e}")
+            lg.info(f"{CFG_LL}\nUnexpected error: {e}")
         else:
             errs &= 0b0111  # Reset bit 3, no errors updating Liberty Lib cnfg
 
@@ -203,13 +217,14 @@ if action == "add" and os.path.exists(CFG_PB):
         p = sp.Popen(["sudo", "systemctl", "start",
                       "ipfs-ll"])
         p.wait()
+        # Detection of successful LL server start needs improvement!!!
         while sp.call(["sudo", "systemctl", "is-active", "--quiet",
                        "ipfs-ll"]) != 0:
             time.sleep(0.1)
         lg.info("The Liberty Library IPFS server has started")
 
     else:
-        lg.info(f"{CFG_LL} not found!") 
+        lg.info(f"{CFG_LL} not found!")
 
 
 # Stop the ipfs daemon and wait for it to quit. The remove event only
@@ -218,10 +233,22 @@ if action == "add" and os.path.exists(CFG_PB):
 # to be locked, so this code here is of little to no value. To safely
 # remove the Liberty Library device a separate program in Pirate Menu
 # is thus used to shutdown the  LL IPFS server and prompt the user to
-# eject it.
+# eject it. Since this code doesn't run until the device is physicaly
+# removed,, it isn't possible to restore the config.back file for LL.
 if action == "remove":
-    lg.info(f"Stopping Liberty Library IPFS server if running...")
+    lg.info("Stopping Liberty Library IPFS server...")
     sp.call(["sudo", "systemctl", "stop", "ipfs-ll"])
     while sp.call(["sudo", "systemctl", "is-active", "--quiet",
                    "ipfs-ll"]) != 3:
         time.sleep(0.1)
+
+    lg.info("Restarting Pirate Box IPFS server configuration...")
+    copyFile(CFG_PBBK, CFG_PB, "Restoring PB config from backup")
+    p = sp.Popen(["sudo", "systemctl", "restart",
+                  "ipfs"])
+    p.wait()
+    while sp.call(["sudo", "systemctl", "is-active", "--quiet",
+                   "ipfs"]) != 0:
+        time.sleep(0.1)
+    lg.info("Liberty Library removal process complete.\n")
+

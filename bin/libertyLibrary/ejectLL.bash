@@ -14,9 +14,13 @@ while : ; do
 done
 
 MNT_PNT=$(lsblk -o MOUNTPOINT | grep LIBERTY_LIBRARY)
-sudo umount $MNT_PNT
-
 TITLE='Eject Liberty Library'
-MSG='It is now safe to remove the\nLiberty Library USB device'
+sudo umount $MNT_PNT
+if [ $? -eq 0 ]; then
+    MSG='It is now safe to remove the\nLiberty Library USB device'
+else
+    MSG='Please wait!\nFailed to unmount the\nLiberty Library USB device'
+fi
 zenity --info --title="$TITLE" --text="$MSG" --width=280 --height=80
+
 
