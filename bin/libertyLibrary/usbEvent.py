@@ -34,6 +34,9 @@ LOG = LL + "usbEvent.log"
 FMT = ["%(asctime)s %(message)s", "%m/%d/%Y %H:%M:%S"]
 lg.basicConfig(filename=LOG, level=lg.INFO, format=FMT[0], datefmt=FMT[1])
 
+# Log what brought us here
+lg.info(f"{action}, {device}, {label}")
+
 # Sections of the Liberty Library config to update so it can connect
 # to the main Pirate Box IPFS server. The PeerID values will be
 # added at runtime based on the values in pBox node .ipfs/config
@@ -104,6 +107,8 @@ def getMountPoint(dev):
     return out
 
 # Process USB "add" event for Liberty Library & start an IPFS server for it.
+# Remove events are no longer handled here. They are processed by ejectLL.bash.
+#
 # 1. Verify the Pirate Box IPFS node has been configured (.ipfs/config exists)
 #    and Liberty Library USB device has been mounted and its config exists.
 #    Make copies of both IPFS server's config files as config.bak
@@ -113,8 +118,15 @@ def getMountPoint(dev):
 # 6. Add the main IPFS node's PeerID to .ipfs/config file for Liberty Library
 # 7. Remove Gateway and fix Addresses section of Liberty Library config
 # 8. Re/start both IPFS nodes, main 1st, Liberty Library 2nd
-if action == "add" and os.path.exists(CFG_PB):
-    lg.info(f"{action}, {device}, {label}")
+if not os.path.exists(CFG_PB):
+#    No popup shows up when this script is run from uDevPython!
+    title = "Liberty Library Inserted"
+    msg = "Please first run the Pirate Box Setup Wizard!"
+    p = sp.Popen(["zenity", "--error", f"--title={title}", f"--text={msg}",
+                  "--width=350"])
+    p.wait()
+    lg.info(f"{CFG_PB} not found!")  # TODO: fix popup 
+elif action == "add": 
     pbPeers = ""
     pbID = ""
     lLID = ""
@@ -225,30 +237,4 @@ if action == "add" and os.path.exists(CFG_PB):
 
     else:
         lg.info(f"{CFG_LL} not found!")
-
-
-# Stop the ipfs daemon and wait for it to quit. The remove event only
-# occurs when the device is physically removed, not just when it gets
-# unmounted.  In practice the running LL-IPFS server causes the mount
-# to be locked, so this code here is of little to no value. To safely
-# remove the Liberty Library device a separate program in Pirate Menu
-# is thus used to shutdown the  LL IPFS server and prompt the user to
-# eject it. Since this code doesn't run until the device is physicaly
-# removed,, it isn't possible to restore the config.back file for LL.
-if action == "remove":
-    lg.info("Stopping Liberty Library IPFS server...")
-    sp.call(["sudo", "systemctl", "stop", "ipfs-ll"])
-    while sp.call(["sudo", "systemctl", "is-active", "--quiet",
-                   "ipfs-ll"]) != 3:
-        time.sleep(0.1)
-
-    lg.info("Restarting Pirate Box IPFS server configuration...")
-    copyFile(CFG_PBBK, CFG_PB, "Restoring PB config from backup")
-    p = sp.Popen(["sudo", "systemctl", "restart",
-                  "ipfs"])
-    p.wait()
-    while sp.call(["sudo", "systemctl", "is-active", "--quiet",
-                   "ipfs"]) != 0:
-        time.sleep(0.1)
-    lg.info("Liberty Library removal process complete.\n")
 
