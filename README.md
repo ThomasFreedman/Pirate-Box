@@ -9,7 +9,7 @@ This is the new repository for all code I am contributing to the Pirate Box Cont
 It includes the Pirate Box IPFS Search Demo and Batch Video Grabber tools. I have now created a folder structure here on github that mirrors that of the Pirate Box for software I created, most of which lives in the /home/ipfs/bin folder. I also added systemd files, symbolic links and various other files such as documentation and videos. These are not tracked as well, and are found in the Miscellaneous folder. Other application packages and additions were added to the base Raspberry Pi (buster) OS to create the Pirate Box. Here is the text I have for the "About Pirate Box" menu item:
 
 
-                  pBoxSearch v0.0.2 - Thomas Freedman - 6/17/2021
+                  pBoxSearch v0.0.3 - Thomas Freedman - 7/29/2021
 
 This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandma friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
 
