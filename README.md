@@ -16,7 +16,7 @@ This prototype Pirate Box was created by Thomas Freedman as a foundation to buil
 --------------------------------------------------
 Basic IPFS Node and User Interface
 
-This is provided through the Chromium web browser with the IPFS Companion extension, which is the same User Interface found in IPFS Desktop. Node status, real time graphics of network utilization, ability to view, download, pin and unpin files, inspect IPFS configuration and other useful tools are provided. See  https://github.com/ipfs-shipyard/ipfs-companion or  https://docs.ipfs.io/install/ipfs-desktop/#windows.  Future versions of Pirate Box may be based on the IPFS Desktop version for better integration with the Raspberry Pi menu system.
+This is provided through the Chromium web browser with the IPFS Companion extension, which is the same User Interface found in IPFS Desktop. Node status, real time graphics of network utilization, ability to view, download, pin and unpin files, inspect IPFS configuration and other useful tools are provided. See  https://github.com/ipfs-shipyard/ipfs-companion or  https://docs.ipfs.io/install/ipfs-desktop/#windows.
 
 ----------------------------------------
 Pirate Box IPFS Search Tool
