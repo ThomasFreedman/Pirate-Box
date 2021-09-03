@@ -1,5 +1,5 @@
 #~/bin/bash
-# This script will initialize IPFS software and establish initial settings.
+# This script will initialize IPFS software and establish initial settings
 #
 
 GOVER=1.12.17               # Info only - version in use in this SD image
