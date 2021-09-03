@@ -1,0 +1,59 @@
+PBIP6.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 6
+
+To install this patch open a terminal window and copy the PBIP6.tgz patch file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP6.tgz
+sudo ./PBIP6.install
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+It adds firewall rules to ufw and then enables the firewall. Although the firewall was already installed, it was never activated. This patch resolves that oversight.
+
+The following files where changed:
+
+/etc/ufw/user.rules
+/etc/ufw/user6.rules
+
+This patch enables the firewall and opens external access to the following services:
+
+Port 22    --  SSH (OpenSSH)
+Port 8080  --  IPFS WebUI (depending on Pirate Box Public Gateway setting)
+Port 80    --  http (non-secured web access)
+Port 443   --  https (SSL - secure socket layer)
+Port 4001  --  IPFS Swarm protocol 
+Port 5900  --  VNC (Remote Desktop service, RealVNC)
+Port 123   --  NTP (Network Time Protocol)
+
+All other ports are implicitly denied access, except those defined in /etc/defaults/ufw.
+[2:45 PM]
+The patch should print the list of allwed ports like this:
+
+Firewall is active and enabled on system startup
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+8080/tcp                   ALLOW       Anywhere
+OpenSSH                    ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+4001/tcp                   ALLOW       Anywhere
+5900                       ALLOW       Anywhere
+123                        ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+8080/tcp (v6)              ALLOW       Anywhere (v6)
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+443/tcp (v6)               ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+4001/tcp (v6)              ALLOW       Anywhere (v6)
+5900 (v6)                  ALLOW       Anywhere (v6)
+123 (v6)                   ALLOW       Anywhere (v6)
+[2:46 PM]
+

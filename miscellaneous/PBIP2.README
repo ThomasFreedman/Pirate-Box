@@ -1,0 +1,22 @@
+PBIP2.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 2 
+
+To install this patch open a terminal window and copy the PBIP2.tgz patch 
+file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP2.tgz
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+1) It fixes problems with the progress bar while pinning items with the IPFS Search tool. The following files where changed:
+
+pBoxSearchDemo/pboxSearch.py 
+pBoxSearchDemo/queryBuilder.py
+pBoxSearchDemo/guiLayouts.py
+pBoxSearchDemo/ipfs.py
+

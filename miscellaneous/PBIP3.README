@@ -1,0 +1,25 @@
+PBIP3.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 3
+
+To install this patch open a terminal window and copy the PBIP3.tgz patch file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP3.tgz
+sudo pip3 install pyperclip
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+It adds new functionality to the IPFS Search tool. 1) When opening a single item from the results list it automatically copies the CID (hash)  of the item to the clipboard. 2) A new MULTI FIELD SEARCH criteria item provides a UX like "google" that will match a list of keywords (OR) or a phrase (AND) if contained in any of 14 different fields.
+
+The following files where changed:
+
+pBoxSearchDemo/pboxSearch.py 
+pBoxSearchDemo/queryBuilder.py
+pBoxSearchDemo/guiLayouts.py
+
+The automatic clipboard feature requires a new python3 package: pyperclip.
+

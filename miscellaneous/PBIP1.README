@@ -1,0 +1,62 @@
+PBIP1.README
+------------
+
+This is the readme file for Pirate Box Image Patch 1 
+
+To install this patch open a terminal window and copy the PBIP1.tgz patch 
+file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP1.tgz
+./PBIP1.install
+
+
+WHAT THIS PATCH DOES
+--------------------
+
+1) It fixes the bug in the Pirate Box Video Grabber by updating the
+   following 6 files:
+
+videoGrabber/pbvg.bash 
+videoGrabber/README.txt
+videoGrabber/example.sqlite
+videoGrabber/addUrls2Template.py 
+videoGrabber/ytdlVideoGrabber.py
+videoGrabber/ytdlServerDefinitions.py 
+
+
+2) It installs a systemd timer to automatically keep youtube-dl updated
+   which the video grabber relies on. These 3 files accomplish that:
+
+videoGrabber/ytdl-update.bash
+videoGrabber/ytdl-update.timer
+videoGrabber/ytdl-update.service
+
+
+3) Fixes the bug that erroneously reports invalid values for IPFS
+   storage. That bug was fixed in the file:
+
+askUser.bash
+
+PBIP1.tgz was verified by: 
+
+1) Downloading the contest image from the IPFS link on piratebox.info
+
+2) Using the Raspberry Pi Imager program to copy that image to a 16GB micro SD card
+
+3) Booting a Raspberry Pi 4 with that SD card
+
+4) Copying PBIP1.tgz to the Raspberry Pi 4 into /home/ipfs/bin
+
+5) Opening a terminal and doing a "cd /home/ipfs/bin" 
+
+6) Running "tar xzf PBIP1.tgz", then "./PBIP1.install"
+
+7) Connecting the Pi to the Internet and then running Pirate Box Setup to initialize and start the IPFS node
+
+8) Verifying operation of the Pirate Box Video Grabber using this URL: https://www.youtube.com/watch?v=eNHJjGkTLy4
+
+9) Opening the Pirate Box Search Tool and setting the search source to "PBVG Database"
+
+10) Selecting "Item #" from criteria list and clicking "More or =" (to 0) radio button and then OK button, then Search button to display the search results(edited)
+

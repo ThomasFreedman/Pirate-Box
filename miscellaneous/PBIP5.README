@@ -1,0 +1,23 @@
+PBIP5.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 5
+
+To install this patch open a terminal window and copy the PBIP5.tgz patch file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP5.tgz
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+It fixes bugs in the software that supports USB Liberty Libraries, improving the user experience by increasing reliability and robustness of the design. 
+
+The following files where changed:
+
+libertyLibrary/usbEvent.py
+libertyLibrary/uDevPython.py
+libertyLibrary/removeLL.bash
+libertyLibrary/ejectLL.bash
+

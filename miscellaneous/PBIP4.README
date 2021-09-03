@@ -1,0 +1,29 @@
+PBIP4.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 4
+
+To install this patch open a terminal window and copy the PBIP4.tgz patch file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP4.tgz
+./PBIP4.install
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+It provides more options for Pirate Box WiFi hotspots, to assist using the Pirate Box for other use cases, such as "headless" operation (no screen or keyboard attached). A new Hotspot Control GUI menu is added to provide these options and help for them. Please note a limited amount of testing has been done for all possible hotspot scenarios; read the NOTES section of the help file (option 8) for changes concerning WiFi connections.
+
+The following files where changed:
+
+hotspot/config  <------------a new folder containing 17 files
+hotspot/config/hostapd.conf
+hotspot/ReadMe.txt
+hotspot/autohotspot-setup-PB.bash
+hotspot/dispatch.bash
+toggleAP.bash  <----------deleted
+
+/etc/hostapd/hostapd.conf
+~/.local/share/applications/alacarte-made-2.desktop
+
