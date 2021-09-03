@@ -61,3 +61,9 @@ This release of the Pirate Box includes software infrastructure that supports pl
 Hotspot Control 
 
 To provide additional flexibility for "headless" use cases and others requiring additional network options, I have integrated the autohotspot scripts from [RaspberryConnect.com](https://github.com/RaspberryConnect).The integration presents all options in a GUI menu along with a popup help panel to explain each of them. With the correct choice the Pirate Box can power up as an Access Point (hotspot) to facilitate connecting to it from a tablet, laptop or smartphone via WiFi. If the Pirate Box is also connected to the Internet through the wired Ethernet port, then devices connected via the WiFi hotspot can also have Internet.
+
+---------------------------------
+Upgrade IPFS Storage
+
+This tool provides the user a way to increase the size of their IPFS repository by adding an external USB storage device such as an SSD or traditional hard drive. Over time the IPFS repository on microSD cards will become unreliable and will eventually fail. This tool not only increases the size of storage space available for IPFS it substantially improves the reliability of it.
+
