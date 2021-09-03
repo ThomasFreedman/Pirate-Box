@@ -1,0 +1,29 @@
+PBIP7.README
+------------------
+
+This is the readme file for Pirate Box Image Patch 7
+
+To install this patch open a terminal window and copy the PBIP7.tgz patch file to the /home/ipfs/bin folder, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP7.tgz
+./PBIP7.install
+
+NOTE: A reboot is required to update the menu system!
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+It adds a new menu item, "Upgrade IPFS Storage" to the "Advanced & Experimental Tools" submenu and the code that supports it. This new tool can be used to increase the size of the IPFS storage space by using an external USB device. It is highly recommended to use a Solid State Drive (SSD) or traditional hard disk for your external IPFS repository.
+
+The following files where changed:
+
+/home/ipfs/bin/addUSBterm.bash
+/home/ipfs/bin/addUSBdrive.bash
+/home/ipfs/bin/initializeIPFS.bash
+/home/ipfs/.local/share/applications/alacarte-made-5.desktop
+/home/ipfs/.config/menus/lxde-pi-applications.menu
+
+
+

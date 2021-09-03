@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Increase IPFS Storage
+Terminal=false
+Name=Upgrade IPFS Storage
+Exec=/home/ipfs/bin/addUSBterm.bash
+Type=Application
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
