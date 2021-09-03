@@ -18,11 +18,15 @@ fi
 if [ ! -d /home/ipfs/.ipfs/ ]; then
   mkdir /home/ipfs/.ipfs/; chown ipfs.ipfs /home/ipfs/.ipfs/
 elif [ -L /home/ipfs/.ipfs ]; then
-  MSG='Your .ipfs folder links to a\nLIBERTY LIBRARY!\nAborting IPFS setup'
-  zenity --info --title="$TITLE" --text="$MSG" --width=280 --height=80
-  exit
+  MSG='Your .ipfs folder links to an external repository, continue?'
+  zenity --question --text="$MSG" --width=250 --height=80
+  if [ $? -ne 0 ]; then 
+    MSG="Using previous IPFS setup, but hostname and account password were changed."
+    zenity --info --text="$MSG" --width=200 --height=100
+    exit 1
+  fi
 fi
-
+exit
 rm -rf /home/ipfs/.ipfs/*  # Start from a blank slate; use explicit path here!
 echo "Initializing your new IPFS node, please be patient..."
 runuser -l ipfs -c "ipfs init > $REPO/init.log 2>&1"   # Initialize IPFS and log output
