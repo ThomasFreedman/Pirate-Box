@@ -5,13 +5,13 @@
 #This script can be shared but all references to RaspberryConnect.com in this file
 #and other files used by this script should remain in place.
 
-# dispatch version PB-0.72.1 (22 Jul 2021)
+# dispatch version PB-0.72.2 (21 Sep 2021)
 
 # This script is called from a zenity menu now to provide a GUI front end. It is almost
 # identical to the autohotspot-setup script from RaspberryConnect.com. The entrypoint at
 # the bottom of this file is what was the "go" function in the original. The remainder of
 # user presentation is done via terminal interaction with perhaps a few zenity elements
-# thrown in here and there to streamline the UX.
+# thrown in here and there to streamline the UX. This script must run as root.
 
 #This script will alter network settings and may overwrite existing settings if allowed.
 #/etc/hostapd/hostapd.conf (backup old), /etc/dnsmasq.conf (backup old), modifies /etc/dhcpcd.conf (modifies)
@@ -28,7 +28,7 @@ cpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 opt="X"
 vhostapd="N" vdnsmasq="N" autoH="N"
 autoserv="N" iptble="N" nftble="N"
-
+www=/var/www/html   # Default www root installed with nginx / PBIP8
 
 check_op_sys()
 {
@@ -348,15 +348,17 @@ interface()
 
 remove()
 {
-	if systemctl -all list-unit-files hostapd.service | grep "hostapd.service enabled" ;then
+	if systemctl -all list-unit-files hostapd.service | \
+                grep "hostapd.service enabled" >/dev/null 2>&1; then
 		systemctl disable hostapd >/dev/null 2>&1
 	fi
-	if systemctl -all list-unit-files dnsmasq.service | grep "dnsmasq.service enabled" ;then
+	if systemctl -all list-unit-files dnsmasq.service | \
+                grep "dnsmasq.service enabled" >/dev/null 2>&1; then
 		systemctl disable dnsmasq >/dev/null 2>&1
 	fi
 	auto_script #Remove Autohotspot Scripts
 	#Reset DHCPCD.conf
-	if [ -f "/etc/dhcpcd-RCbackup.conf" ] ;then #restore backup
+	if [ -f "/etc/dhcpcd-RCbackup.conf" ]; then #restore backup
 		mv "/etc/dhcpcd-RCbackup.conf" "/etc/dhcpcd.conf"
 	else #or remove edits if no backup
 		echo "Removing config from dhcpcd.conf"
@@ -369,39 +371,58 @@ remove()
 	auto_service #remove autohotspot.service
 }
 
-Hotspotssid()
+Hotspotssid() # Change the Default Hotspot SSID and Password
 {
-	#Change the Default Hotspot SSID and Password
-	if  [ ! -f "/etc/hostapd/hostapd.conf" ] ;then
-		echo "A hotspot is not installed. No Password to change"
-		echo "press enter to continue"
-		read
-		#menu
-		exit
+	conf=/etc/hostapd/hostapd.conf
+	ahot=$cpath/config/hostapd.conf
+
+	# Generate a new SSID and password
+	newHSssid="PirateBox$((1 + $RANDOM % 9999))"
+	newHSpass="@RRRsp0t"
+
+	# Get existing SSID and password
+	p1='ssid='
+	p2='wpa_passphrase='
+	HSssid=$(grep "^$p1" $conf | sed 's/$p1//')
+	HSpass=$(grep "^$p2" $conf | sed 's/$p2//')
+	if [ "$HSssid" == "" ]; then
+		HSssid=$newHSssid
+		HSpass=$newHSpass
 	fi
-	HSssid=($(cat "/etc/hostapd/hostapd.conf" | grep '^ssid='))
-	HSpass=($(cat "/etc/hostapd/hostapd.conf" | grep '^wpa_passphrase='))
+
 	echo "Change the Hotspot's SSID and Password. press enter to keep existing settings"
-	echo "The current SSID is:" "${HSssid:5}"
-	echo "The current SSID Password is:" "${HSpass:15}"
+	echo "The current SSID is:" "${HSssid}"
+	echo "The current SSID Password is:" "${HSpass}"
 	echo "Enter the new Hotspots SSID:"
 	read ssname
 	echo "Enter the hotspots new password. Minimum 8 characters"
 	read sspwd
-	if [ ! -z $ssname ] ;then
+	if [ ! -z $ssname ]; then # Changing the ssid & password
 		echo "Changing Hotspot SSID to:" "$ssname"
-		sed -i -e "/^ssid=/c\ssid=$ssname" /etc/hostapd/hostapd.conf
+		HSssid=$ssname
+
+		# If PBIP8 is installed, update docs under web server
+		if [ -f ${www}/pbox-ssid.html ]; then
+                	sed -i "s/^\(.*is:\).*\(<\/p>\)$/\1 $HSssid\2/" ${www}/pbox-ssid.html
+			h="href='pbox-ssid.html'"
+			t="title='SSID="$HSssid"'"
+            		sed -i "s/\(<a\).*\(>Pirate Box Hotspot<\/a>\)/\1 $h $t\2/" ${www}/index.html
+			sed -i "s/<\!--ssid-->/<a $h $t>Pirate Box Hotspot<\/a>/" ${www}/index.html
+		fi
 	else
-		echo "The Hotspot SSID is"  ${HSssid: 5}
+		echo "The Hotspot SSID is"  ${HSssid}
 	fi
 	if [ ! -z $sspwd ] && [ ${#sspwd} -ge 8 ] ;then
 		echo "Changing Hotspot Password to:" "$sspwd"
-		sed -i -e "/^wpa_passphrase=/c\wpa_passphrase=$sspwd" /etc/hostapd/hostapd.conf
+		HSpass=$sspwd
 	else
-		echo "The Hotspot Password is:"  ${HSpass: 15}
+		echo "The Hotspot Password is:" ${HSpass}
 	fi
-	echo ""
-	echo "The new setup will be available next time the hotspot is started"
+	sed -i -e "/^ssid=/c\ssid=${HSssid}" $conf
+	sed -i -e "/^wpa_passphrase=/c\wpa_passphrase=${HSpass}" $conf
+	cp $conf $ahot
+
+	echo -e "\nThe new setup will be available next time the hotspot is started"
 	echo "Press a key to continue"
 	read
 	#menu
@@ -668,4 +689,3 @@ check_wificountry
 	echo "Press any key to continue"  # <-- This is handled by the zenity menu
 	read
 #}
-
