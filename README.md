@@ -4,12 +4,12 @@
 
 
 # Pirate-Box
-This is the new repository for all code I am producing for the Pirate Box. This project was started in February 2021 when Ernest Hancock's gave his positive endorsement to create a "Pirate Box" based on the popular Raspberry Pi computer that had an IPFS node and IPFS Companion installed as a basic user interface. This code repository is my attempt to meet Ernest's continuously changing requirements for a Pirate Box, despite delivering on the original idea in April.
+This is the new repository for all code I am producing for the Pirate Box. This project was started in February 2021 when Ernest Hancock gave his positive endorsement on Telegram's "Pirate Box Project" group to create a "Pirate Box" based on the popular Raspberry Pi computer that had an IPFS node and IPFS Companion installed as a basic user interface. This code repository is my attempt to meet Ernest's continuously changing requirements for a Pirate Box, despite delivering on the original idea in April.
 
-The Pirate Box is now far more than a basic IPFS node and IPFS Companion browser extention. Here is a summary of its' current features: 
+The Pirate Box is now far more than a basic IPFS node and IPFS Companion browser extention I originally proposed. Here is a summary of its' current features: 
 
 
-                  pBoxSearch v0.0.4 - Thomas Freedman - 9/21/2021
+                  Version 0.0.4 - Thomas Freedman - 9/21/2021
 
 This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandpa friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
 
