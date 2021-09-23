@@ -1,0 +1,31 @@
+PBIP8.README
+------------------
+
+NOTE: Your Pirate Box must be online to install this patch. It perform an update and ask if you also want to do an upgrade of your installed system software, which could require a significant amount of time (an hour or so) to complete.
+
+This is the readme file for Pirate Box Image Patch 8
+
+To install this patch open a terminal window and copy the PBIP8.tgz patch file to /home/ipfs/bin, and run these commands:
+
+cd /home/ipfs/bin
+tar xzf PBIP8.tgz
+./PBIP8.install
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+This patch installs the nginx webserver and offline documentation for IPFS. It also reorganizes and installs new menu items, such as the IPFS Keys tool under the Advanced & Experimental submenu. A bug was fixed in the code that generates a random SSID for the default hotspot.
+
+Files installed (excluding nginx files and contents of ipfs-docs folder under ~/Documents):
+
+/home/ipfs/bin/welcome.bash
+/home/ipfs/bin/ipfsKeys.bash
+/home/ipfs/bin/hotspot/dispatch.bash
+/home/ipfs/bin/pBoxSearchDemo/about.txt
+/home/ipfs/bin/hotspot/config/hostapd.conf
+/home/ipfs/.config/menus/lxde-pi-applications.menu
+/home/ipfs/.local/share/applications/alacarte-made*.desktop   (13 files)
+
+
+
