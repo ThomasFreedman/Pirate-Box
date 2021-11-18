@@ -16,7 +16,7 @@ MAX=`expr $FREE / 1320000000`      # Approximately 75% of free space (in GB)
 printf -v STORAGE_MAX %dG $MAX     # The default StorageMax parameter value
 
 UNIT=/etc/systemd/system/ipfs.service
-PKGS=tmux vlc
+PKGS=tmux net-tools
 CMDL=$#                            # How many command line options provided
 AUTO=0                             # Default autostart method 0 == systemd, 1 == cron @reboot
 WAIT=0                             # Default value for single step / debug mode (no wait)
