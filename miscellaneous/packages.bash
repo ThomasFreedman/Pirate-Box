@@ -12,8 +12,8 @@ if [ $? -ne 0 ] || [ $(id -u) -ne 0 ]; then
 fi
 
 apt-get update -y
-apt-get install -y net-tools xterm sqlite3 gparted simplescreenrecorder rpi-imager hostapd dnsmasq iptables-persistent netfilter-persistent smartmontools remmina 
+apt-get install -y nginx xterm sqlite3 gparted simplescreenrecorder rpi-imager hostapd dnsmasq iptables-persistent netfilter-persistent smartmontools vlc remmina 
 
 pip3 install --upgrade pip
-pip3 install beautifulsoup4 html5lib numpy pip-date pyperclip PySimpleGUI pyudev simplejson tinytag youtube-dl 
-
+pip3 install PySimpleGUI==4.38.0
+pip3 install python-nonblock ipfshttpclient beautifulsoup4 html5lib numpy pip-date pyperclip pyudev simplejson tinytag youtube-dl 
