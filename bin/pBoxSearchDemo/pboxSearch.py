@@ -7,6 +7,7 @@ import sys
 import os
 
 def initialize():
+    runDir = os.path.dirname(os.path.realpath(__file__)) + '/'
     sg.set_options(debug_win_size=(200, 100))
     pbq = qb.pBoxQuery()    # Creates all object classes
     gui = pbq.Gui           # This is reference to pBoxGUI class
@@ -17,11 +18,11 @@ def initialize():
     state = pbq.resetAll()  # Initialize to state 0
     cfg = sys.argv[0].replace(".py", ".json")
     pbq.restoreSettings(cfg)
-    return [cfg, pbq, gui, gui.AppWin, state]
+    return [cfg, pbq, gui, gui.AppWin, state, runDir]
 
 
 def main():
-    cfgFile, pbq, gui, window, state = initialize()
+    cfgFile, pbq, gui, window, state, runDir = initialize()
     idx = None
     deList = []    # List of search conditions selected
     while True:
@@ -55,7 +56,7 @@ def main():
         # Handle top menu bar events
         if event in gui.TopMenuList:
             if event == 'Basic Operation...':
-                with open("basics.txt", 'r') as txt:
+                with open(f"{runDir}basics.txt", 'r') as txt:
                     basics = "".join(txt.readlines())
                 sg.popup_scrolled("Basic Operation", basics, size=(60, 24),
                                   # image=gui.Icon,
@@ -63,7 +64,7 @@ def main():
                                   modal=True, keep_on_top=True)
 
             if event == 'About...':
-                with open("about.txt", 'r') as txt:
+                with open(f"{runDir}about.txt", 'r') as txt:
                     about = "".join(txt.readlines())
                 sg.popup_scrolled("About This Software", about, size=(60, 24),
                                   # image=gui.Icon,
