@@ -261,7 +261,7 @@ if [ $WAIT == 1 ]; then read -n 1 -p "Press ^C to exit, any other key to proceed
 
 cat /home/$ACCT/.ipfs/init.log
 echo -e "\nIPFS is now installed on this system.\n"
-echo "Now set a password for the ipfs account. Press ^C and abort this now"
+echo "Now set a password for the $ACCT account. Press ^C and abort this now"
 echo "unless you are certain you have setup your system with appropriate"
 echo "locale, keyboard etc. Otherwise you may not be able to login."
 passwd $ACCT
