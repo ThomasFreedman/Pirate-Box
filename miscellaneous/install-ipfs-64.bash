@@ -112,12 +112,13 @@ fi
 if [ $WAIT == 1 ]; then read -n 1 -p "Press ^C to exit, any other key to proceed..." key; fi
 
 if [ ! -d /home/$ACCT ]; then
-  echo -e "\nPreparing the ipfs user account..."
+  echo -e "\nPreparing the $ACCT user account..."
   if [ ! -d /home/$ACCT ]; then useradd -m -s /bin/bash ipfs; fi
   if [ ! -d /home/$ACCT/.ipfs ]; then mkdir /home/$ACCT/.ipfs; fi
   mkdir /home/$ACCT/go
   echo "source /usr/local/bin/goInit" >> /home/$ACCT/.profile  # Sets PATH and GOPATH
   chown -R ${ACCT}.${ACCT} /home/$ACCT
+  usermod -aG video $ACCT  # Required for vcgencmd (to read pi's temperature)
   echo "Creation of user account named $ACCT is complete."
 else
   echo -e "\nThe $ACCT account already exists!"
