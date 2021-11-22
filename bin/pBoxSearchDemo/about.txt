@@ -1,7 +1,7 @@
 
-                  pBoxSearch v0.0.4 - Thomas Freedman - 9/21/2021
+                  pBoxSearch v0.0.5 - Thomas Freedman - 11/19/2021
 
-This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandpa friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
+This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandpa friendly product. This release of the Pirate Box uses the recently released 64 bit version of Raspberry Pi OS. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
 
 --------------------------------------------------
 Basic IPFS Node and User Interface
