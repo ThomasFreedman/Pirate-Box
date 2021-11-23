@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/11077042/122314019-04e2d180-cedd-11eb-9c60-7f51a835f059.png) (image above is not up to date)
+![image](https://github.com/[username]/[reponame]/blob/[branch]/pboxMenus0.0.5.jpg?raw=true)
 
 ![image](https://user-images.githubusercontent.com/11077042/122314061-12985700-cedd-11eb-8c9a-106e3e8a39ac.png)
 
@@ -8,10 +8,9 @@ This is the new repository for all code I am producing for the Pirate Box. This 
 
 The Pirate Box is now far more than a basic IPFS node and IPFS Companion browser extention I originally proposed. Here is a summary of its' current features: 
 
+                  pBoxSearch v0.0.5 - Thomas Freedman - 11/19/2021
 
-                  Version 0.0.4 - Thomas Freedman - 9/21/2021
-
-This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandpa friendly product. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
+This prototype Pirate Box was created by Thomas Freedman as a foundation to build a more refined and grandpa friendly product. This release of the Pirate Box uses the recently released 64 bit version of Raspberry Pi OS. It is a standalone IPFS node customized to demonstrate portable, personal and out of the box functionality including:
 
 --------------------------------------------------
 ***Basic IPFS Node and User Interface***
@@ -80,3 +79,9 @@ To serve the documentation and provide support for other homegrown web applicati
 ***Support for Moonbeam***
 
 Moonbeam, a self publisher solution from agoristhosting.com is a browser based application that provides a way to capture and publish content to IPFS. When Moonbeam becomes available, it can be used on the Pirate Box. A simple to use tool to create, list and remove keys for use with Moonbeam or IPNS is now included.
+
+-------------------------------------
+***Support for Mesh Networks***
+
+Support for 3 different mesh netwoking protocols and associated documentation is now included in this release. The 3 mesh protocols are XMPP / Jabber (the prosody client), Reticulum and yggdrasil. None of these are configured. The documentation is available offline directly from the Pirate Box *Advanced and Experimental* submenu.
+
