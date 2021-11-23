@@ -28,9 +28,7 @@ The IPFS Search Demo tool uses the metadata captured by the Video Grabber tool. 
 
 It's important to note only content captured by the Video Grabber tool is currently searchable. Two IPFS video / audio repositories with well over 12,000 items published in the past 2 years from platforms such as youtube, Vimeo, Brightcove and others are searchable. New content is provided daily and is within the scope of the search tool. Content from over 20 publishers is provided on those 2 IPFS repositories. In addition, the "Liberty Library" content is also searchable (see below).
 
-Audio and video content added to the local Pirate Box IPFS node using the Video Grabber program is also searchable, however that capability is not yet fully developed nor a GUI for it yet designed.
-
-Other types of content providers besides audio and video will have different requirements for their metadata. More work needs to be done to define how metadata is:
+Providers of content types besides audio and video will have different requirements for their metadata. More work needs to be done to define how metadata is:
 
                         1) defined
                         2) collected
