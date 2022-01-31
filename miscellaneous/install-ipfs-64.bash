@@ -1,4 +1,4 @@
-#!/bin/bash
+##!/bin/bash
 
 # TODO: "Goo-ify" this script (Add GUI for it) using zenity and terminal windows
 # This script will install IPFS software and establish initial settings.
@@ -16,27 +16,28 @@ MAX=`expr $FREE / 1320000000`      # Approximately 75% of free space (in GB)
 printf -v STORAGE_MAX %dG $MAX     # The default StorageMax parameter value
 
 UNIT=/etc/systemd/system/ipfs.service
-PKGS=tmux net-tools
+PKGS="net-tools"
 CMDL=$#                            # How many command line options provided
 AUTO=0                             # Default autostart method 0 == systemd, 1 == cron @reboot
-WAIT=0                             # Default value for single step / debug mode (no wait)
+WAIT=1                             # Default value for single step / debug mode (no wait)
 ACCT=ipfs                          # User account to install IPFS in
-ARCH=arm64                         # This script only for arm 64 bit systems
+ARCH=amd64                         # default system architecture
 DISTUP=0                           # Default value for dist-upgrade (don't do it!)
-RPI_UFW=0                          # Default value to install firewall on RPi (no)
+UFW=0                              # Default value to install firewall (no)
 GOVER=1.12.17                      # Default version to use (tho now -g requires version)
 CONFIG=/home/$ACCT/.ipfs/config    # IPFS configuration file
-IPFS=/home/$ACCT/go/bin/ipfs
+IPFS=/home/$ACCT/bin/ipfs
 
 usage() {
-  echo "$0 [-a] [-d] [-g <version> ] [-m <int> ] [-w] [-h | --help]"
+  echo "$0 [-a] [-d] [-g <version> ] [-m <int> ] [-p <amd64 | arm64>] [-w] [-h | --help]"
   echo "-a == autostart method. Use cron @reboot instead of systemd unit"
   echo "-d == distribution upgrade. Specify -d to do a dist-upgrade"
-  # Firewall needs logic to start it automatically if chosen
+  # Firewall may need logic to start it automatically if chosen
   echo "-f == firewall on Raspberry Pi. Default is no. Use -f to enable on the RPi"
   echo "-g == go version. -g requires a version"
   echo "-m == max storage space. Default is 75% of disk. Option value integer in gigabytes"
-  echo "-w == Wait after each step / debug mode. Default is no waiting"
+  echo "-p == Platform architechure - amd64, arm64 or armhl for 32 bit ARM systems"
+  echo "-w == Wait after each step / debug mode. Default is to wait"
   echo "-h == print this usage info and exit. Also for --help"
 }
 
@@ -47,7 +48,7 @@ if [ $? -ne 4 ]; then echo "Ouch! getopt not available on this system - Bye!"; e
 # Process command line options
 # NOTE: double colons after g option (should be optional param for -g) swallows -m !!!
 # getopt from util-linux 2.29.2 on Raspbian Stretch Lite OS, 4/8/2019 release
-OPTS=`getopt -o adfg:m:wh --long help -n "$0" -- "$@"`
+OPTS=`getopt -o adfg:m:p:wh --long help -n "$0" -- "$@"`
 eval set -- "$OPTS"
 
 # extract options and their arguments and set appropriate variables.
@@ -55,7 +56,7 @@ while true; do
     case "$1" in
         -a) AUTO=1;    shift ;;
         -d) DISTUP=1;  shift ;;
-        -f) RPI_UFW=1; shift ;;
+        -f) UFW=1;     shift ;;
         -g) if [ "$2" != "" ]; then
               GOVER=$2
               echo "Will use golang version $GOVER"
@@ -69,6 +70,12 @@ while true; do
             STORAGE_MAX="$2G";
             shift 2
             ;;
+        -p) if [ "$2" != "" ]; then
+              ARCH=$2
+              echo "Will use $ARCH architecture"
+            fi
+            shift 2
+            ;;
         -h|--help) usage; exit 0 ;;
         -w) WAIT=1; shift ;;
         --) shift;  break ;;
@@ -77,10 +84,10 @@ while true; do
 done
 
 # Show options parsed for this installation
-echo -e "\nACCT=$ACCT, ARCH=$ARCH, AUTO=$AUTO, DISTUP=$DISTUP, RPI_UFW=$RPI_UFW, GOVER=$GOVER, STORAGE_MAX=$STORAGE_MAX, WAIT=$WAIT"
+echo -e "\nACCT=$ACCT, ARCH=$ARCH, AUTO=$AUTO, DISTUP=$DISTUP, UFW=$UFW, GOVER=$GOVER, STORAGE_MAX=$STORAGE_MAX, WAIT=$WAIT"
 if [ $CMDL -lt 1 ]; then
   echo ">>>No options provided, use defaults for all?"
-else if [ $CMDL -lt 1 ] || [ $WAIT == 1 ]; then 
+else if [ $CMDL -lt 1 ] || [ $WAIT == 1 ]; then
   read -n 1 -p "Press ^C to exit, any other key to proceed..." key; fi
 fi
 
@@ -115,10 +122,12 @@ if [ ! -d /home/$ACCT ]; then
   echo -e "\nPreparing the $ACCT user account..."
   if [ ! -d /home/$ACCT ]; then useradd -m -s /bin/bash ipfs; fi
   if [ ! -d /home/$ACCT/.ipfs ]; then mkdir /home/$ACCT/.ipfs; fi
-  mkdir /home/$ACCT/go
-  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.profile  # Sets PATH and GOPATH
+  mkdir /home/$ACCT/bin > /dev/null 2>&1  # ipfs-update will install binary here
+  mkdir /home/$ACCT/go > /dev/null 2>&1
+  mkdir /home/$ACCT/go/bin > /dev/null 2>&1
+  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.bashrc  # Sets PATH and GOPATH
   chown -R ${ACCT}.${ACCT} /home/$ACCT
-  usermod -aG video $ACCT  # Required for vcgencmd (to read pi's temperature)
+#  usermod -aG video $ACCT  # Required for vcgencmd (to read Rpi's temperature)
   echo "Creation of user account named $ACCT is complete."
 else
   echo -e "\nThe $ACCT account already exists!"
@@ -130,7 +139,7 @@ if [ ! -e "/usr/local/bin/go$GOVER.linux-$ARCH.tar.gz" ]; then
   echo -e "\nInstalling go version $GOVER..."
   pushd /usr/local/bin > /dev/null 2>&1
   echo "Installing binary golang version $GOVER from googleapis. Please be patient..."
-  wget https://storage.googleapis.com/golang/go$GOVER.linux-$ARCH.tar.gz
+  wget https://go.dev/dl/go$GOVER.linux-$ARCH.tar.gz
   tar -C /usr/local -xzf go$GOVER.linux-$ARCH.tar.gz
   popd > /dev/null 2>&1
 fi
@@ -142,8 +151,8 @@ source /usr/local/bin/goInit # We need those vars now to proceed
 if [ ! -d /root/go ]; then mkdir /root/go; fi
 
 # Don't add to ACCT .profile if it's already there
-if ! grep -Fq goInit /home/$ACCT/.profile; then
-  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.profile
+if ! grep -Fq goInit /home/$ACCT/.bashrc; then
+  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.bashrc
 fi
 
 VER=`go version`  # Verify Installation
@@ -160,13 +169,17 @@ apt-get -y install $PKGS
 if [ $WAIT == 1 ]; then read -n 1 -p "Press ^C to exit, any other key to proceed..." key; fi
 
 # TODO: Investigate ufw auto startup at boot bug, implement a solution
-if [[ $RPI_UFW == 1 ]]; then 
+#       No problem on 64 bit OS.
+if [[ $UFW == 1 ]]; then
   echo -e "\nInstalling ufw firewall and configuring allowed ports..."
-  apt-get -y install ufw; 
+  apt-get -y install ufw;
   echo "Opening required firewall ports..."
   ufw allow 22/tcp
   ufw allow 123/tcp
   ufw allow 443/tcp
+  ufw allow 4242/tcp
+  ufw allow 4242/udp
+  ufw allow 42042/tcp
   ufw allow 4001/tcp
   ufw allow 5900/tcp
   ufw allow 8080/tcp
@@ -176,12 +189,12 @@ if [[ $RPI_UFW == 1 ]]; then
 fi
 
 # TODO: find a way to download latest ipfs-update version
-# Install ipfs-update and use it to install latest IPFS server 
+# Install ipfs-update and use it to install latest IPFS server
 if [ ! -e "/usr/local/bin/ipfs-update" ]; then
   echo -e "\nInstalling ipfs-update utility..."
   # This runs forever looking for things then comes to dead stop, no success no error
   #runuser -l $ACCT -c 'GO111MODULE=on go get -u github.com/ipfs/ipfs-update'
-  wget -O ipfsUpdate.tgz https://dist.ipfs.io/ipfs-update/v1.7.1/ipfs-update_v1.7.1_linux-arm64.tar.gz
+  wget -O ipfsUpdate.tgz https://dist.ipfs.io/ipfs-update/v1.7.1/ipfs-update_v1.7.1_linux-${ARCH}.tar.gz
   tar -xzf ipfsUpdate.tgz
   mv ipfs-update/ipfs-update /usr/local/bin/.  # Copy binary into place
   if [ "`which ipfs-update`" != "/usr/local/bin/ipfs-update" ]; then
@@ -265,3 +278,4 @@ echo "Now set a password for the $ACCT account. Press ^C and abort this now"
 echo "unless you are certain you have setup your system with appropriate"
 echo "locale, keyboard etc. Otherwise you may not be able to login."
 passwd $ACCT
+
