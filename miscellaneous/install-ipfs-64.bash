@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 # TODO: "Goo-ify" this script (Add GUI for it) using zenity and terminal windows
 # This script will install IPFS software and establish initial settings.
@@ -26,6 +26,7 @@ DISTUP=0                           # Default value for dist-upgrade (don't do it
 UFW=0                              # Default value to install firewall (no)
 GOVER=1.12.17                      # Default version to use (tho now -g requires version)
 CONFIG=/home/$ACCT/.ipfs/config    # IPFS configuration file
+GOINIT=/usr/local/bin/goInit
 IPFS=/home/$ACCT/bin/ipfs
 
 usage() {
@@ -36,8 +37,8 @@ usage() {
   echo "-f == firewall on Raspberry Pi. Default is no. Use -f to enable on the RPi"
   echo "-g == go version. -g requires a version"
   echo "-m == max storage space. Default is 75% of disk. Option value integer in gigabytes"
-  echo "-p == Platform architechure - amd64, arm64 or armhl for 32 bit ARM systems"
-  echo "-w == Wait after each step / debug mode. Default is to wait"
+  echo "-p == Platform architechure amd64, arm64 or armhl for 32 bit ARM systems"
+  echo "-w == Wait after each step / debug mode. Default is no waiting"
   echo "-h == print this usage info and exit. Also for --help"
 }
 
@@ -125,7 +126,7 @@ if [ ! -d /home/$ACCT ]; then
   mkdir /home/$ACCT/bin > /dev/null 2>&1  # ipfs-update will install binary here
   mkdir /home/$ACCT/go > /dev/null 2>&1
   mkdir /home/$ACCT/go/bin > /dev/null 2>&1
-  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.bashrc  # Sets PATH and GOPATH
+  echo "source $GOINIT" >> /home/$ACCT/.bashrc  # Sets PATH and GOPATH
   chown -R ${ACCT}.${ACCT} /home/$ACCT
 #  usermod -aG video $ACCT  # Required for vcgencmd (to read Rpi's temperature)
   echo "Creation of user account named $ACCT is complete."
@@ -145,14 +146,14 @@ if [ ! -e "/usr/local/bin/go$GOVER.linux-$ARCH.tar.gz" ]; then
 fi
 
 # Create a bit of code to set env vars for all to source in their .profile
-echo 'export GOPATH=/home/$USER/go' > /usr/local/bin/goInit
-echo 'export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin' >> /usr/local/bin/goInit
-source /usr/local/bin/goInit # We need those vars now to proceed
+echo 'export GOPATH=/home/$USER/go' > $GOINIT
+echo 'export PATH=$PATH:/home/$USER/bin:/usr/local/go/bin:$GOPATH/bin' >> $GOINIT
+source $GOINIT # We need those vars now to proceed
 if [ ! -d /root/go ]; then mkdir /root/go; fi
 
 # Don't add to ACCT .profile if it's already there
 if ! grep -Fq goInit /home/$ACCT/.bashrc; then
-  echo "source /usr/local/bin/goInit" >> /home/$ACCT/.bashrc
+  echo "source $GOINIT" >> /home/$ACCT/.bashrc
 fi
 
 VER=`go version`  # Verify Installation
@@ -263,7 +264,7 @@ SYSD_UNIT
 else   # Use this alternate way to start service on system start
   echo -e "\nCreating a cron @reboot entry and script to start IPFS on boot..."
   echo "#!/bin/bash" > /home/$ACCT/autostart.bash
-  echo "source /usr/local/bin/goInit" >> /home/$ACCT/autostart.bash
+  echo "source $GOINIT" >> /home/$ACCT/autostart.bash
   echo "export IPFS_PATH=/home/$ACCT/.ipfs" >> /home/$ACCT/autostart.bash
   echo "/home/$ACCT/go/bin/ipfs daemon --enable-namesys-pubsub" >> /home/$ACCT/autostart.bash
   echo "@reboot $ACCT /bin/bash /home/$ACCT/autostart.bash" > /etc/cron.d/autoStart
@@ -278,4 +279,3 @@ echo "Now set a password for the $ACCT account. Press ^C and abort this now"
 echo "unless you are certain you have setup your system with appropriate"
 echo "locale, keyboard etc. Otherwise you may not be able to login."
 passwd $ACCT
-
