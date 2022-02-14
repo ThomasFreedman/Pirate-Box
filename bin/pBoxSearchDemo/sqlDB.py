@@ -11,16 +11,18 @@ class sql:
 
     # Open the SQLite database, which may come from IPFS or local storage.
     # Databases coming from IPFS are cached locally. See ipfs module for details.
+    # Upon error neither Server or Conn will be valid.
     def openDatabase(self, server, gui, x, y):
         try:
-            if self.Conn:
-                self.Conn.close()     # Close database if previous opened
-                self.Conn = None
             self.Conn = sqlite3.connect(self.Ipfs.getDB(server, gui, x, y))
             self.Conn.row_factory = sqlite3.Row # Results as a python dictionary
+            v = self.Conn.cursor().execute('pragma schema_version;').fetchone()[0]
+            if v == 0: raise sqlite3.OperationalError
             self.Sever = server
         except Exception as e:
-            pass
+            if self.Conn: self.Conn.close() # Close any file we might've opened
+            self.Sever = None
+            self.Conn = None
 
     # Execute a SQL query and return the result set as an array of dictionaries
     # rs[0] = { column name 1: value, column 2: value, column 3: value ...}
@@ -29,7 +31,7 @@ class sql:
             rs = []
             rs = self.Conn.cursor().execute(query).fetchall()
         except sqlite3.OperationalError as e:
-            pass  # ignore for now
+            return None
         return rs
 
     # Perform a SQL query that selects only 1 column and return the results in a list
@@ -47,5 +49,4 @@ class sql:
             return sql.runQuery(self, query)[0][0]
         except:
             return ""
-
 
