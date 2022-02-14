@@ -7,11 +7,14 @@
 
 # dispatch version PB-0.72.2 (21 Sep 2021)
 
+#THIS SCRIPT MUST BE RUN WITH ROOT PRIVILEDGES
+
 # This script is called from a zenity menu now to provide a GUI front end. It is almost
 # identical to the autohotspot-setup script from RaspberryConnect.com. The entrypoint at
 # the bottom of this file is what was the "go" function in the original. The remainder of
 # user presentation is done via terminal interaction with perhaps a few zenity elements
-# thrown in here and there to streamline the UX. This script must run as root.
+# thrown in here and there to streamline the UX. This script is called from 
+# autohotspot-setup-PB.bash using sudo.
 
 #This script will alter network settings and may overwrite existing settings if allowed.
 #/etc/hostapd/hostapd.conf (backup old), /etc/dnsmasq.conf (backup old), modifies /etc/dhcpcd.conf (modifies)
@@ -30,6 +33,7 @@ vhostapd="N" vdnsmasq="N" autoH="N"
 autoserv="N" iptble="N" nftble="N"
 www=/var/www/html   # Default www root installed with nginx / PBIP8
 
+# Obsolete for Pirate Box and released 64 bit version of Raspbian OS.
 check_op_sys()
 {
   if [ "${osver[2]}" -ge 10 ]; then
@@ -46,6 +50,7 @@ check_op_sys()
   fi
 }
 
+# Obsolete for Pirate Box and released 64 bit version of Raspbian OS.
 check_installed()
 {
 	#check if required software is already installed
@@ -70,7 +75,7 @@ check_installed()
 	fi
 }
 
-# This function is no longer used as changes made for Pirate Box render it useless now.
+# Obsolete for Pirate Box and released 64 bit version of Raspbian OS.
 check_reqfiles()
 {
 	fstatus=0
@@ -88,6 +93,26 @@ check_reqfiles()
 		exit
 	fi
 
+}
+
+# Change the condition of the hostapd or dnsmasq service
+# $1 == service to change ("dnsmasq" or "hostapd")
+# $2 == state ("enable" or "disable")
+change_systemd_service()
+{
+	# First, unmask the service if it is masked. This removes a symlink to /dev/null
+	if systemctl -all list-unit-files $1.service | grep "$1.service masked" ;then
+		systemctl unmask $1 >/dev/null 2>&1
+	fi
+	if [ "$2" == "enable" ]; then	
+		if systemctl -all list-unit-files $1.service | grep "$1.service disabled" ;then
+			systemctl enable $1 >/dev/null 2>&1
+		fi
+	else
+		if systemctl -all list-unit-files $1.service | grep "$1.service enabled" ;then
+			systemctl disable $1 >/dev/null 2>&1
+		fi
+	fi
 }
 
 check_wificountry()
@@ -109,51 +134,19 @@ check_wificountry()
 
 hostapd_config()
 {
-	echo "hostapd Config"
-	echo "Hostapd Status is " $vhostapd
-	if [ "$vhostapd" = "N" ]; then
-		echo "Hostapd not installed- now installing"
-		apt -q install hostapd
-		echo "Recheck install Status"
-		check_installed
-		if [ "$vhostapd" = "N" ]; then
-			echo ""
-			echo ""
-			echo "Hostapd failed to install. Check there is internet access"
-			echo "and try again"
-			echo "Press a key to continue"
-			read
-			#menu
-			exit
-		fi
-	fi
 	echo "Hostapd is installed"
-	if ! grep -F "RaspberryConnect.com" "/etc/hostapd/hostapd.conf" ;then
-		#not a autohotspot file, create backup
-		mv "/etc/hostapd/hostapd.conf" "/etc/hostapd/hostapd-RCbackup.conf"
-	fi
 	cp "$cpath/config/hostapd.conf" /etc/hostapd/hostapd.conf
 	if [ "${osver[2]}" -lt 10 ]; then
 		cp "$cpath/config/hostapd" /etc/default/hostapd
 	fi
 	if [ "$opt" = "AHN" ] || [ "$opt" = "AHD" ]; then
-		#For Autohotspots
+		# For Autohotspots
 		echo "Unmask & Disable Hostapd"
-		if systemctl -all list-unit-files hostapd.service | grep "hostapd.service masked" ;then
-			systemctl unmask hostapd.service >/dev/null 2>&1
-		fi
-		if systemctl -all list-unit-files hostapd.service | grep "hostapd.service enabled" ;then
-			systemctl disable hostapd.service >/dev/null 2>&1
-		fi
+		change_systemd_service("hostapd", "disable")
 	elif [ "$opt" = "SHS" ]; then
-		#for Static Hotspot
+		# For Static Hotspot
 		echo "Unmask and enable hostapd"
-		if systemctl -all list-unit-files hostapd.service | grep "hostapd.service masked" ;then
-			systemctl unmask hostapd >/dev/null 2>&1
-		fi
-		if systemctl -all list-unit-files hostapd.service | grep "hostapd.service disabled" ;then
-			systemctl enable hostapd >/dev/null 2>&1
-		fi
+		change_systemd_service("hostapd", "enable")
 	elif [ "$opt" = "REM" ]; then
 		if [ -f "/etc/hostapd/hostapd-RCbackup.conf" ] ; then
 			mv "/etc/hostapd/hostapd-RCbackup.conf" "/etc/hostapd/hostapd.conf"
@@ -171,23 +164,9 @@ hostapd_config()
 dnsmasq_config()
 {
 	echo "Dnsmasq Config"
-	if [ "$vdnsmasq" = "N" ]; then
-		apt -q install dnsmasq
-		check_installed
-		if [ "$vdnsmasq" = "N" ]; then
-		    echo ""
-		    echo ""
-			echo "dnsmasq failed to install. Check there is internet access"
-			echo "and try again"
-			echo "Press a key to continue"
-			read
-			#menu
-			exit
-		fi
-	fi
 	if [ -f "/etc/dnsmasq.conf" ] ; then
 		if ! grep -F "RaspberryConnect.com" "/etc/dnsmasq.conf" ;then
-			#not a autohotspot file, create backup
+			# Not a autohotspot file, create a backup
 			mv "/etc/dnsmasq.conf" "/etc/dnsmasq-RCbackup.conf"
 		fi
 	fi
@@ -200,23 +179,13 @@ dnsmasq_config()
 		cp "${cpath}/config/dnsmasqSHS.conf" "/etc/dnsmasq.conf"
 	fi
 	if [ "$opt" = "AHN" ] || [ "$opt" = "AHD" ]; then
-		#For Autohotspots
+		# For Autohotspots
 		echo "Unmask & Disable Dnsmasq"
-		if systemctl -all list-unit-files dnsmasq.service | grep "dnsmasq.service masked" ;then
-			systemctl unmask dnsmasq >/dev/null 2>&1
-		fi
-		if systemctl -all list-unit-files dnsmasq.service | grep "dnsmasq.service enabled" ;then
-			systemctl disable dnsmasq >/dev/null 2>&1
-		fi
+		change_systemd_service("dnsmasq", "disable")
 	elif [ "$opt" = "SHS" ]; then
-		#for Static Hotspot
+		# For Static Hotspot
 		echo "Unmask & Enable Dnsmasq"
-		if systemctl -all list-unit-files dnsmasq.service | grep "dnsmasq.service masked" ;then
-			systemctl unmask dnsmasq >/dev/null 2>&1
-		fi
-		if systemctl -all list-unit-files dnsmasq.service | grep "dnsmasq.service disabled" ;then
-			systemctl enable dnsmasq >/dev/null 2>&1
-		fi
+		change_systemd_service("dnsmasq", "enable")
 	fi
 	if [ "$opt" = "REM" ]; then
 		if [ -f "/etc/dnsmasq-RCbackup.conf" ] ; then
@@ -371,24 +340,13 @@ remove()
 	auto_service #remove autohotspot.service
 }
 
-Hotspotssid() # Change the Default Hotspot SSID and Password
+Hotspotssid() # Change the Hotspot SSID and Password
 {
-	conf=/etc/hostapd/hostapd.conf
 	ahot=$cpath/config/hostapd.conf
 
-	# Generate a new SSID and password
-	newHSssid="PirateBox$((1 + $RANDOM % 9999))"
-	newHSpass="@RRRsp0t"
-
-	# Get existing SSID and password
-	p1='ssid='
-	p2='wpa_passphrase='
-	HSssid=$(grep "^$p1" $conf | sed 's/$p1//')
-	HSpass=$(grep "^$p2" $conf | sed 's/$p2//')
-	if [ "$HSssid" == "" ]; then
-		HSssid=$newHSssid
-		HSpass=$newHSpass
-	fi
+	# Get the current SSID and password
+	HSssid=$(sed -n "s/^ssid=\(.*\)$/\1/p" $ahot)
+	HSpass=$(sed -n "s/^wpa_passphrase=\(.*\)$/\1/p" $ahot)
 
 	echo "Change the Hotspot's SSID and Password. press enter to keep existing settings"
 	echo "The current SSID is:" "${HSssid}"
@@ -401,14 +359,8 @@ Hotspotssid() # Change the Default Hotspot SSID and Password
 		echo "Changing Hotspot SSID to:" "$ssname"
 		HSssid=$ssname
 
-		# If PBIP8 is installed, update docs under web server
-		if [ -f ${www}/pbox-ssid.html ]; then
-                	sed -i "s/^\(.*is:\).*\(<\/p>\)$/\1 $HSssid\2/" ${www}/pbox-ssid.html
-			h="href='pbox-ssid.html'"
-			t="title='SSID="$HSssid"'"
-            		sed -i "s/\(<a\).*\(>Pirate Box Hotspot<\/a>\)/\1 $h $t\2/" ${www}/index.html
-			sed -i "s/<\!--ssid-->/<a $h $t>Pirate Box Hotspot<\/a>/" ${www}/index.html
-		fi
+		# Update docs under web server
+		~/bin/setDefaults.bash
 	else
 		echo "The Hotspot SSID is"  ${HSssid}
 	fi
@@ -418,9 +370,8 @@ Hotspotssid() # Change the Default Hotspot SSID and Password
 	else
 		echo "The Hotspot Password is:" ${HSpass}
 	fi
-	sed -i -e "/^ssid=/c\ssid=${HSssid}" $conf
-	sed -i -e "/^wpa_passphrase=/c\wpa_passphrase=${HSpass}" $conf
-	cp $conf $ahot
+	cp $ahot /etc/hostapd/hostapd.conf
+
 
 	echo -e "\nThe new setup will be available next time the hotspot is started"
 	echo "Press a key to continue"
@@ -553,7 +504,7 @@ updatessid()
 forceswitch()
 {
 	if [ ! -f "/etc/systemd/system/autohotspot.service" ] ;then
-		echo "No Autohotspot script installed, unable to continue"
+		echo "Autohotspot is not currently enabled!"
 		echo "press enter to continue"
 		read
 		#menu
@@ -637,7 +588,7 @@ then
 fi
 }
 
-display_HS_IP() #get ip address from current active hotspot script
+display_HS_IP() #get ip address from current hotspot systemd unit
 {
     Aserv=($(cat /etc/systemd/system/autohotspot.service 2>/dev/null| grep "ExecStart="))  #which hotspot is active?
     if [ ${Aserv: -4} = "spot" ] >/dev/null 2>&1  ;then #Direct
