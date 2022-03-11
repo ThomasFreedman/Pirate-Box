@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from nonblock import nonblock_read
-import ipfshttpclient as api  # TODO - use this once it's ready for v0.8.0
+import ipfshttpclient as api
 import PySimpleGUI as sg
 import subprocess as sp
 import inspect
@@ -25,11 +25,11 @@ class Ipfs:
         self.DLfolder = os.getenv('HOME') + '/Downloads/ipfs/'
         self.DBlist = {
             'Texas (IPFS)':
-                'QmWQeoj8mRKcCtveuiQ8Db9tKW4Y5u75LXQUC5ob38J2Xw',
+                'ipns/QmWQeoj8mRKcCtveuiQ8Db9tKW4Y5u75LXQUC5ob38J2Xw',
             'New York (IPFS)':
-                'k2k4r8kzf2pxvn73cm1nwtz57zh6e363r7m61k0ghailc0oazmwc4nox',
+                'ipns/k2k4r8kzf2pxvn73cm1nwtz57zh6e363r7m61k0ghailc0oazmwc4nox',
             'PBVG Database':
-                'pbvg',
+                'pbvg.sqlite',
             'Liberty Library on USB':
                 'llbry.sqlite'
         }
@@ -37,28 +37,33 @@ class Ipfs:
     # Get latest SQLite database from IPFS for the named server or use cache
     def getDB(self, serverName, gui, x, y):
         hash = self.DBlist[serverName]
-        cache = self.DLfolder + hash
-        if not serverName.endswith("USB"):        # USB DB - Liberty Library?
-            cache += '.sqlite'
-            stat = os.stat(cache)
-            age = (time.time() - stat.st_mtime) / 3600 # Cache age in hrs
-            if age > self.DBcacheTime:            # If old, ask user to refresh
-                msg = f"Update metadata for {serverName}?"
-                a = sg.popup_yes_no(msg, no_titlebar=True,
-                                    location=(x + 450, y + 100),
-                                    background_color="#3E3E30",
-                                    grab_anywhere=True)
-                if a == "Yes":
-                    dt = time.strftime("_%Y%m%d_%H:%M:%S",
-                                       time.gmtime(stat.st_ctime))
-                    os.rename(cache, cache + dt)
-                    if not Ipfs.get(self, hash, gui, x, y, 'ipns', cache):
-                        sg.popup("Oh no!", "A problem occured while",
-                                 f"updating the metadata from {serverName}!",
-                                 "Reverting to the previous metadata.",
-                                 no_titlebar=True, location=(x + 450, y + 100),
-                                 background_color="#602020", grab_anywhere=True)
-                        os.rename(cache + dt, cache)
+        if hash.startswith("ipns"):                  # Only cache ipNs databases
+            hash = self.DBlist[serverName][5:]       # Strip ipns prefix
+            cache = self.DLfolder + hash + '.sqlite'
+            if os.path.exists(cache):
+                stat = os.stat(cache)
+                fmt = "_%Y%m%d_%H:%M:%S"
+                dt = time.strftime(fmt, time.gmtime(stat.st_ctime))
+                age = (time.time() - stat.st_mtime) / 3600   # Cache age in hrs
+                if age > self.DBcacheTime:        # If old, ask user to refresh
+                    msg = f"Update metadata for {serverName}?"
+                    a = sg.popup_yes_no(msg, no_titlebar=False,
+                                        location=(x + 450, y + 100),
+                                        background_color="#3E3E30",
+                                        grab_anywhere=True)
+                    if a == "Yes":
+                        if not Ipfs.get(self, hash, gui, x, y, 'ipns', cache):
+                            sg.popup("Oh no!", "A problem occured while",
+                                     f"updating the metadata from {serverName}!",
+                                     "Reverting to the previous metadata.",
+                                     no_titlebar=False, location=(x + 450, y + 100),
+                                     background_color="#602020", grab_anywhere=True)
+                        else: os.rename(cache + dt, cache)
+            else:
+                # No notify-send on Raspberry Pi
+                #gui.showNotification("No file!", "Initializing the cache...")
+                Ipfs.get(self, hash, gui, x, y, 'ipns', cache)
+        else: cache = self.DLfolder + hash
         return cache
 
 
@@ -69,8 +74,8 @@ class Ipfs:
         if save: out = save
         else: out = hash + ".file"
         if ipns: hash = '/ipns/' + hash   # Add ipNs prefix
-        #self.Server.get(hash, out)
-        args = [f"ipfs", "get", f"-o={out}", f"{hash}"]
+        #self.Server.get(hash, target=self.DLfolder)
+        args = ["ipfs", "get", f"-o={out}", f"{hash}"]
 
         # Use command line for now to run the IPFS command
         try:
@@ -85,8 +90,9 @@ class Ipfs:
         output = ""
         result = False
         progress = 0
-        timer = max = self.MaxWaitTime
-        pop = gui.progressWindow("open", x, y, 0, timer, max) # Progress popup
+        max = self.MaxWaitTime
+        timer = max
+        pop = gui.progressWindow("open", x, y, 0, timer, max) # Show progress popup
         while True:
             getOut = nonblock_read(p.stdout)       # Get output if any
             if getOut is None:                     # Subprocess closed stream
@@ -101,9 +107,9 @@ class Ipfs:
                 time.sleep(1)                      # Wait a bit
                 timer -= 1
                 if timer < 1: break
-            gui.progressWindow(pop, x, y, progress, timer, max) # Update progr.
+            gui.progressWindow(pop, x, y, progress, timer, max) # Decr timer
 
-        gui.progressWindow(pop, 0, 0, -1, 0, 0)    # Close the progress popup
+        gui.progressWindow(pop, 0, 0, -1, 0, max)       # Close the progress popup
         return result
     
 
@@ -114,25 +120,27 @@ class Ipfs:
 
 
     # Pin a file on this server to keep the IPFS garbage collector away from it.
-    # The timeLimit parameter sets the max amount of time to wait for the pin
+    # The timeLimit parameter sets the maxmum amount of time to wait for the pin
     # command to complete (default set above). Returns True on success False
-    # otherwise. Displays a timer and progress bar popup for activity.
+    # otherwise. No: displays progress bar & timer at bottom of result window.
+    # 4 SOME ODD REASON result window freezes, so switched to popup progressBar.
     def pin(self, gui, hash, timeLimit):
         if timeLimit is None: timer = self.MaxWaitTime
         else: timer = timeLimit
-        try:
-            cmd = [f"ipfs", "pin", "add", "-r", "--progress", f"{hash}"]
-            p = sp.Popen(cmd, shell = False, stdout=sp.PIPE, stderr=sp.STDOUT)
+        max = timer
+        #self.Server.pin(hash)
+        try:                       ### Added shell == False...
+            p = sp.Popen(["ipfs", "pin", "add", f"{hash}"],
+                         shell = False, stdout=sp.PIPE, stderr=sp.STDOUT)
         except Exception as e:
             sg.popup("Aw shucks, something went wrong...",
                      inspect.stack()[1][3] + ' error: ' + str(e))
             return False
-
+                
         output = ""
-        max = timer
         result = None
         progress = 0
-        pop = gui.progressWindow("open", 400, 200, 0, timer, max)
+        pop = gui.progressWindow("open", 400, 200, 0, timer, max) # Show progress popup
         while True:
             pinOut = nonblock_read(p.stdout)   # Get output if any available
             if pinOut is None:                 # Subprocess closed stream
@@ -142,13 +150,17 @@ class Ipfs:
                 else: result = False
                 break                          # We're done here
             elif len(pinOut) > 0:
-                output += str(pinOut)          # Accumulate output
+                output += str(pinOut)
                 progress += 1
+#               resWin['-PROG-'].update(current_count=progress, max=max)
             else:
                 time.sleep(1)
                 timer -= 1
+#                minutes, s = divmod(timer, 60)
+#                h, m = divmod(minutes, 60)                
                 if timer < 1: break
-            gui.progressWindow(pop, 0, 0, progress, timer, max) # Update
+#                else: resWin['-TIMR-'].update("%02d:%02d:%02d" % (h, m, s))                
+            gui.progressWindow(pop, 0, 0, progress, timer, max) # Decr timer
 
-        gui.progressWindow(pop, 0, 0, -1, 0, 0)  # Close the progress popup
+        gui.progressWindow(pop, 0, 0, -1, 0, max)   # Close the progress popup
         return result
