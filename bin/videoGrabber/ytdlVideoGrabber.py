@@ -470,7 +470,7 @@ def processVideo(file):
 
     # If vHash is valid create a SQLite entry for it, regardless of metadata
     finally:
-        if vHash[0] == 'Q':
+        if len(vHash) == 46 and vHash[0] == 'Q':
             SQLrows2Add.append([grp, vHash, vSize, mHash, jFlat])   # add to DB
 #            os.remove(file)               # Delete after adding to IPFS
 # This "appears" to mess up adding to entries to the database
