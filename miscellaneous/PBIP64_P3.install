@@ -1,0 +1,120 @@
+#!/bin/bash
+
+www=/var/www/html
+user=ipfs
+home=/home/$user
+sdk=$home/.sdkman/bin/sdkman-init.sh
+java=$home/.sdkman/candidates/java/current/bin/java
+conf=$home/bin/hotspot/config/hostapd.conf
+auto=$home/.config/autostart
+rtic=$home/.reticulum
+nmad=$home/.nomadnetwork
+
+# Temporarily correct an invalid hostname
+# until user runs the setup wizard
+sudo 2> /tmp/err ls > /dev /null
+if grep -q "unable to resolve host" /tmp/err ; then
+  sudo 2> /dev/null hostname pbox.io
+fi
+
+$(ping -c 1 1.1.1.1 > /dev/null 2>&1)
+if [ $? -ne 0 ] || [ $(id -u 2> /dev/null) -ne 0 ]; then
+  echo "Woops! You need to be online and run this as root or with sudo prefix:"
+  echo -e "\tsudo /home/ipfs/PBIP64_P3.install\n"
+  if id -nG $user 2> /dev/null | grep -qw "netdev"; then
+    exit;    # $user is already a member of netdev group
+  else
+    sudo 2> /dev/null usermod -G netdev $user
+    echo "The $user account has been added to group 'netdev'."
+    echo -e "This will correct a WiFi connection problem.\n"
+    echo "Please reboot to apply this fix and rerun the patch."
+    exit
+  fi
+fi
+
+echo -e "\nInstalling Pirate Box Image Patch 1-3, please be patient..."
+
+# Save existing Reticulum and Nomadnet folders
+bak=$((1 + $RANDOM % 999))
+echo "Saving existing Reticulum & Nomadnet configurations, if any..."
+if [ -d $rtic ]; then mv $rtic ${rtic}.$bak; fi
+if [ -d $nmad ]; then mv $nmad ${nmad}.$bak; fi
+
+# Install the nomadnet client as root so all accounts can use it
+# Reticulum is already installed as root
+echo "Installing / upgrading system's nomadnet..."
+pip3 install --upgrade nomadnet -q > /dev/null 2>&1
+if [ "$(which nomadnet)" != "/usr/local/bin/nomadnet" ]; then
+  echo -e "nomadnet client failed to install as root!\n"
+  echo "This will occur if the Pirate Box is not connected to the Internet."
+  echo "Please repeat this patch installation after it is connected."
+  echo "Allow the installation to continue as that may help getting online."
+  read -s -n 1 -p "Press ^C to exit, any other key to proceed..."
+fi
+
+# Wipe entire html tree and old patch artifacts
+rm -rf $www $home/pboxMenus64.tgz $home/sysd.tgz
+sed -i "s/^127.0.1.1.*$//" /etc/hosts
+
+# Extract & replace all files as required by this patch
+echo "Replacing homepage and web server documents..."
+pushd / > /dev/null 2>&1
+tar xzf $home/pbx64-p3.tgz > /dev/null 2>&1
+chown -R $user.$user $home
+chown -R www-data.www-data $www
+popd > /dev/null 2>&1
+cp $conf /etc/hostapd/. > /dev/null 2>&1
+
+# Use the sdkman.bash script in ~/bin added above to install the manager,
+# then use the manager to install a specific java version
+echo "Installing zip..."
+apt install zip > /dev/null 2>&1
+echo "Installing sdkman to manage Java..."
+runuser -l $user -c "$home/bin/sdkman.bash > $home/.sdkman.log 2>&1"
+if [ -f $sdk ]; then
+  runuser -l $user -c "source $sdk ; sdk install java 17.0.2-tem"
+  if $java -version 2>&1 | head -n 1 | grep -q 17.0.2; then
+    echo "Success! Java has been upgraded"
+  else
+    echo -e "A problem occurred installing Java version 17.0.2!\n"
+  fi
+else
+  echo -e "A problem occurred installing sdkman!\n"
+  echo "This is a Java administration tool to manage & install Java."
+  echo "This is not a critical error, but as a result Java will not be"
+  echo "upgraded to Java version 17 at this time. "
+  read -s -n 1 -p "Press ^C to exit, any other key to proceed..."
+fi
+
+# Fix ipfs group membership by matching pi account
+echo "Mirroring pi user's group membership..."
+usermod -G www-data,netdev,prosody,adm,dialout,cdrom,audio,\
+video,plugdev,games,users,input,spi,i2c,gpio,lpadmin ipfs > /dev/null 2>&1
+
+# Ensure proper file permissions are set
+echo "Setting file and folder permissions..."
+chown -R ipfs.ipfs $auto > /dev/null 2>&1
+chown -R www-data.www-data ${www} > /dev/null 2>&1
+chmod 775 ${www} > /dev/null 2>&1
+chmod 664 ${www}/index.html ${www}/pbox-ssid.html > /dev/null 2>&1
+
+# Fix PATH for console/ssh login by moving reference to goInit
+sed -i "s|source /usr/local/bin/goInit.*$||" $home/.profile
+if ! grep -q "/usr/local/bin/goInit" $home/.bashrc; then
+  echo "source /usr/local/bin/goInit" >> $home/.bashrc
+fi
+
+# Open ports for Reticulum
+echo "Opening ports 4242 and 42042 (UDP & TCP) for reticulum..."
+ufw allow 4242/udp > /dev/null 2>&1
+ufw allow 4242/tcp > /dev/null 2>&1
+ufw allow 42042/udp > /dev/null 2>&1
+ufw allow 42042/tcp > /dev/null 2>&1
+
+# Save this patch in root's home folder
+if cp PBIP64_P3.tgz /root/. > /dev/null 2>&1; then
+  rm -rf PBIP64_P3.install PBIP64_P3.README pbx64-p3.tgz
+fi
+
+echo -e "\nPatch installation complete!"
+

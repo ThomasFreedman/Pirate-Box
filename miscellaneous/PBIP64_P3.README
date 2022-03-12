@@ -1,0 +1,62 @@
+PBIP64_P3.README
+------------------
+
+This is the readme file for Pirate Box Image (64 bit) Patch 3. This patch obsoletes earlier patches and may be installed whether earlier patches were installed or not.
+
+NOTES: 
+     - This patch must be run with the Pirate Box online to the Internet.
+     - Any "unable to resolve host" messages you may see are not important.
+     - Some items such as network status are slow to update and may require
+       hovering or clicking once to refresh.
+     - You will need to logout & back in again to update group permissions
+       after running the patch installer.
+     - Pay attention to the messages reported and follow any instructions given.
+     - This patch saves existing reticulum and nomadnet configuration folders
+       (~/.reticulum and ~/.nomadnetwork) by appending a random number to them.
+
+To install this patch open a terminal window and copy the PBIP64_P3.tgz patch file to the /home/ipfs folder, and run these commands:
+
+cd /home/ipfs
+tar xzf PBIP64_P3.tgz
+sudo ./PBIP64_P3.install
+
+
+WHAT THIS PATCH DOES
+-------------------------------
+
+- It adds the ipfs user account to the same groups as the pi account. 
+- Resolves the failure of the welcome text window appearing at startup. 
+- Fixes the logic that assigns a random SSID to the hotspot configuration files.
+- Creates a new default website homepage instead of going to IPFS documentation.
+- Installs nomadnet client for Reticulum and sets initial configuration.
+- Installs sdkman and Java 17.0.2 to support briar messaging app when available.
+- Opens ports 4242 and 42042 for both TCP and UDP for Reticulum.
+- Fixes some problems noticed in the hotspot code.
+- Fixes bugs found in the PBVG video grabber
+- Resolved a problem preventing the IPFS Search Demo from downloading metadata
+
+The following files where changed or added:
+
+/home/ipfs/bin/ipfs             <--- a symbolic link to ../go/bin/ipfs
+/home/ipfs/bin/sdkman.bash
+/home/ipfs/bin/welcome.bash
+/home/ipfs/bin/setDefaults.bash
+/home/ipfs/bin/hotspot/dispatch.bash
+/home/ipfs/bin/hotspot/config/hostapd.conf
+/home/ipfs/bin/videoGrabber/ytdlVideoGrabber.py
+/home/ipfs/bin/videoGrabber/pbvg.bash
+/home/ipfs/bin/pBoxSearchDemo/ipfs.py
+/home/ipfs/.sdkman*
+/home/ipfs/.nomandnet/*
+/home/ipfs/.reticulum/*
+/home/ipfs/.config/autostart/welcome.desktop
+/home/ipfs/.config/autostart/setDefaults.desktop
+/home/ipfs/.config/menus/lxde-pi-applications.menu
+/home/ipfs/.local/share/desktop-directories/PirateBoxTools.directory
+/home/ipfs/.local/share/desktop-directories/PirateBoxAdvanced.directory
+/home/ipfs/.local/share/applications/*.desktop
+/home/ipfs/Videos/pBoxWiFiQuickFix.mp4
+/home/ipfs/Documents/*-docs
+/var/www/html/*
+
+
