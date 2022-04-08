@@ -1,0 +1,75 @@
+{
+   "checksum": "65bd97781ca637a8bf91621dadcacb71",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13259556151520658",
+            "guid": "f11b23d0-3852-4dc9-8b04-e4b113278927",
+            "id": "11",
+            "name": "Pirates w/o Borders",
+            "type": "url",
+            "url": "http://k2k4r8l8zgv45qm2sjt7p16l7pvy69l4jr1o50cld4s98wbnanl0zn6t.ipns.localhost:8080/"
+         }, {
+            "date_added": "13259556716448094",
+            "guid": "a4597b9f-7a24-4fde-bc6d-713f192db03d",
+            "id": "13",
+            "name": "Corbett Report",
+            "type": "url",
+            "url": "http://k2k4r8jllj4k33jxoa4vaeleqkrwu8b7tqz7tgczhptbfkhqr2i280fm.ipns.localhost:8080/"
+         }, {
+            "date_added": "13259556755149248",
+            "guid": "a47dfa7c-77d4-4ebe-b1ef-bb3b93b6761b",
+            "id": "14",
+            "name": "Freedoms Phoenix",
+            "type": "url",
+            "url": "http://k2k4r8magsykrprepvtuvd1h8wonxy7rbdkxd09aalsvclqh7wpb28m1.ipns.localhost:8080/"
+         }, {
+            "date_added": "13259556539086199",
+            "guid": "d7d66a73-0fb2-47a4-a815-15e88b75b29d",
+            "id": "12",
+            "name": "Highwire",
+            "type": "url",
+            "url": "http://k2k4r8pkk8wevtty3rpqw8mh2njz0snop5xpha1ybafquvb7dcgayh4j.ipns.localhost:8080/"
+         }, {
+            "date_added": "13259307701401700",
+            "guid": "929fffaa-b225-4679-bf78-1d3b3e77c5ea",
+            "id": "9",
+            "name": "IPFS Control Panel",
+            "type": "url",
+            "url": "http://localhost:5001/webui"
+         }, {
+            "date_added": "13259557336794355",
+            "guid": "cecf0533-b639-4c8f-a049-a8ecde515f9f",
+            "id": "15",
+            "name": "Video Collections",
+            "type": "url",
+            "url": "http://bafybeifwmkmoigmxnedeyza7zmr5nxkmuk2xo3g6zpgzsfn2jemwbrvc6e.ipfs.localhost:8080/"
+         } ],
+         "date_added": "13259192806478848",
+         "date_modified": "13260406122688895",
+         "guid": "00000000-0000-4000-a000-000000000002",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13259192806486366",
+         "date_modified": "0",
+         "guid": "00000000-0000-4000-a000-000000000003",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13259192806486374",
+         "date_modified": "0",
+         "guid": "00000000-0000-4000-a000-000000000004",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

@@ -1,0 +1,6 @@
+[Desktop Entry]
+# Put in $HOME/.config/autostart to launch on login
+Type=Application
+Name=Set default values
+Path=$HOME/bin
+Exec=setDefaults.bash

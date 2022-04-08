@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Pirate Box Setup Wizard
+Exec=/home/ipfs/bin/ipfsSetupWizard.bash
+Comment=Start here to setup your IPFS node
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application
+Categories=PirateBoxToolsCategory;

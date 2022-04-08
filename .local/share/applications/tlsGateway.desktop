@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Public Gateway Control
+Exec=/home/ipfs/bin/gateway.bash
+Comment=Enable or disable public gateway for other computers
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

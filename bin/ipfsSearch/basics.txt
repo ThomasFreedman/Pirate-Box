@@ -1,0 +1,43 @@
+
+=====================
+Step 1
+Selecting a Server to Search
+
+Use "Open Search Source" under the file menu to select an IPFS server or local Liberty Library source of search criteria (metadata).
+
+=====================
+Step 2
+Build a List of Search Criteria
+
+Select an item in the Search Crieria list to find items based on that type of information.
+
+Step 3
+
+Use the small popup form to provide the specific filter values to locate your items. For example to find items containing the word freedom in the title select Title fron the search critera list, then add the word "freedom" (no quotes) into the input area. Click OK to add that to the list of filters that will grow on the right of the Search Criteria list.
+
+Step 4
+
+Repeat steps 2 and 3, adding search filters as necessary to define what you are looking for.
+
+Step 5
+
+Click the Search button below the Search Critera List to display the list of items that match your criteria.
+That's it!
+
+You must pick at least 1 Search Criteria item to filter results. However, you can start with only 1 and add more after seeing the list of results it provides. You can also remove filter criteria by clicking on it and on the "Delete Selected Criteria" button below the list. 
+
+You must close the search results window to perform another search. You can start over from scratch and build a new list of search criteria by clicking the "Clear All" button.
+
+
+================================
+What Can You do With the Items You Find?
+
+- Open a single item in the web browser to watch video or listen to audio
+
+- If your search source is a remote IPFS server you can pin one or more items you select on your Pirate Box so it will be available to you when your Pirate Box is not connected to the Internet
+
+- Copy & paste the IPFS address (CID) for use with other programs such as the IPFS Companion, email program etc.
+
+- Export the information in a file for use elsewhere such as a spreadsheet or document
+ 
+

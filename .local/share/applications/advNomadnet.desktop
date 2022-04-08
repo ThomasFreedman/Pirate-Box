@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Nomadnet Client
+Exec=lxterminal -e nomadnet
+Comment=Starts Nomadnet Client on Reticulum Network
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application

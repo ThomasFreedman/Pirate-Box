@@ -1,0 +1,9 @@
+[2022-04-04 12:12:26] [Notice] Configuration loaded from /home/ipfs/.nomadnetwork/config
+[2022-04-04 12:12:26] [Notice] No Primary Identity file found, creating new...
+[2022-04-04 12:12:26] [Notice] Created new Primary Identity <8f42de75800b095c2661>
+[2022-04-04 12:12:26] [Notice] No peer settings file found, creating new...
+[2022-04-04 12:12:26] [Notice] Created new peer settings file
+[2022-04-04 12:12:26] [Notice] LXMF Router ready to receive on: <9b9209d9a37d74424854>
+[2022-04-04 12:12:26] [Notice] LXMF Propagation Node started on: <baf9934e1a20025fbf5f>
+[2022-04-04 12:12:26] [Warning] Could not autoselect a prepagation node! LXMF propagation will not be available until a trusted node announces on the network.
+[2022-04-04 12:12:26] [Info] Starting user interface...

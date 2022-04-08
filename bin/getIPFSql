@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <tx|ny>"
+  echo " Download most recent SQLite file from IPFS for TX or NY server."
+  echo " Save as YR-MO-DY_[tx|ny].sqlite"
+  exit 1
+fi
+
+pushd /home/ipfs/Downloads  # Where to download the databases
+
+# Get latest file matching pattern "svr"
+getLatest() {
+  find . -name "$1" -print0 | xargs -r -0 ls -1 -t | head -1
+}
+
+# Set proper IPNS key to get latest SQLite DB for chosen server
+NAME="$(date '+%Y-%m-%d_'$1.sqlite)"
+if [ "$1"  == "tx" ];
+  then KEY="QmWQeoj8mRKcCtveuiQ8Db9tKW4Y5u75LXQUC5ob38J2Xw"
+  else KEY="k2k4r8kzf2pxvn73cm1nwtz57zh6e363r7m61k0ghailc0oazmwc4nox"
+fi
+
+# Get name and size of last file saved for the chosen server
+lastSql=$(getLatest "*$1.sqlite")
+oldSize=$(find "$lastSql" -printf "%s" 2> /dev/null)
+if [ "$oldSize" == "" ]; then oldSize=0; fi
+
+# Get newest file and its' size from chosen IPFS server
+NEW=$1_new.sqlite
+wget -O $NEW https://ipfs.io/ipns/$KEY
+newSize=$(find $NEW -printf "%s")
+if [ "$newSize" == "" ]; then newSize=0; fi
+
+# If newest is bigger than old file, remove old and rename new
+echo "old=$oldSize, new=$newSize"
+if [ $newSize -gt $oldSize ]; then
+  rm -rf $lastSql
+  mv $NEW $NAME
+  touch $NAME
+else
+  echo "Newest file is not bigger than old. Not touching either!"
+fi
+
+popd

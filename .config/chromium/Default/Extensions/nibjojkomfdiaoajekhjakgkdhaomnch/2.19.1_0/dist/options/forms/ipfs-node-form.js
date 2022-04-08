@@ -1,0 +1,71 @@
+'use strict'
+/* eslint-env browser, webextensions */
+
+const browser = require('webextension-polyfill')
+const html = require('choo/html')
+const { braveNodeType } = require('../../lib/ipfs-client/brave')
+
+function ipfsNodeForm ({ ipfsNodeType, ipfsNodeConfig, onOptionChange, withNodeFromBrave }) {
+  const onIpfsNodeTypeChange = onOptionChange('ipfsNodeType')
+  const onIpfsNodeConfigChange = onOptionChange('ipfsNodeConfig')
+  const braveClass = ipfsNodeType === braveNodeType ? 'brave' : ''
+  return html`
+    <form>
+      <fieldset class="mb3 pa1 pa4-ns pa3 bg-snow-muted charcoal">
+        <h2 class="ttu tracked f6 fw4 teal mt0-ns mb3-ns mb1 mt2 ">${browser.i18n.getMessage('option_header_nodeType')}</h2>
+        <div class="flex-row-ns pb0-ns">
+          <label for="ipfsNodeType">
+            <dl>
+              <dt>${browser.i18n.getMessage('option_ipfsNodeType_title')}</dt>
+              <dd>
+                <p>${browser.i18n.getMessage('option_ipfsNodeType_external_description')}</p>
+                ${withNodeFromBrave ? html`<p>${browser.i18n.getMessage('option_ipfsNodeType_brave_description')}</p>` : null}
+                <p>${browser.i18n.getMessage('option_ipfsNodeType_embedded_description')}</p>
+                <p><a class="link underline hover-aqua" href="https://docs.ipfs.io/how-to/companion-node-types/" target="_blank">
+                  ${browser.i18n.getMessage('option_legend_readMore')}
+                </a></p>
+              </dd>
+            </dl>
+          </label>
+          <select id="ipfsNodeType" name='ipfsNodeType' class="self-center-ns bg-white navy ${braveClass}" onchange=${onIpfsNodeTypeChange}>
+            <option
+              value='external'
+              selected=${ipfsNodeType === 'external'}>
+              ${browser.i18n.getMessage('option_ipfsNodeType_external')}
+            </option>
+            ${withNodeFromBrave
+            ? html`<option
+                  value='external:brave'
+                  selected=${ipfsNodeType === 'external:brave'}>
+                  ${browser.i18n.getMessage('option_ipfsNodeType_brave')}
+                </option>`
+              : null}
+            <option
+              value='embedded'
+              selected=${ipfsNodeType === 'embedded'}>
+              ${browser.i18n.getMessage('option_ipfsNodeType_embedded')} (${browser.i18n.getMessage('option_experimental')})
+            </option>
+          </select>
+        </div>
+        ${ipfsNodeType.startsWith('embedded')
+        ? html`<div class="flex-row-ns pb0-ns">
+            <label for="ipfsNodeConfig">
+              <dl>
+                <dt>${browser.i18n.getMessage('option_ipfsNodeConfig_title')}</dt>
+                <dd>${browser.i18n.getMessage('option_ipfsNodeConfig_description')}</dd>
+              </dl>
+            </label>
+            <textarea
+              class="bg-white navy self-center-ns"
+              spellcheck="false"
+              id="ipfsNodeConfig"
+              rows="${Math.min((ipfsNodeConfig.match(/\n/g) || []).length + 1, 30)}"
+              onchange=${onIpfsNodeConfigChange}>${ipfsNodeConfig}</textarea>
+          </div>`
+          : null}
+      </fieldset>
+    </form>
+  `
+}
+
+module.exports = ipfsNodeForm

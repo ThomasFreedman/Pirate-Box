@@ -1,0 +1,5 @@
+Pirate Box IPFS Search Version 0.1.0 Apr 4, 2022
+
+Please see http://localhost/about/index.html for
+a description of all Pirate Box tools, or the PDF
+documents in the Documents folder.

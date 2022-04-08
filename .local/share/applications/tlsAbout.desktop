@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=About Pirate Box
+Exec=chromium-browser --password-store=basic /var/www/html/about/index.html
+Comment=A summary of Pirate Box Solutions
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Eject USB Liberty Library Safely
+Exec=/home/ipfs/bin/libertyLibrary/ejectLL.bash
+Comment=Use this to revent damage to your Liberty Library
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

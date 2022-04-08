@@ -1,0 +1,55 @@
+@import url('~tachyons/css/tachyons.css');
+@import url('~ipfs-css/ipfs.css');
+@import url('../heartbeat.css');
+@import url('../../pages/components/switch-toggle.css');
+
+.bg-near-white--hover:hover {
+  background-color: #F4F4F4;
+}
+
+.header-icon:active {
+  color: #edf0f4;
+  transform: translateY(2px);
+}
+.header-icon[disabled],
+.header-icon[disabled]:active {
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+.outline-0--focus:focus {
+  outline: 0;
+}
+
+.no-user-select {
+  -webkit-user-select: none; /* Old Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Non-prefixed version, Chrome and Opera */
+}
+
+.force-select-all {
+  -webkit-user-select: all;  /* Chrome 49+ */
+  -moz-user-select: all;     /* Firefox 43+ */
+  -ms-user-select: all;      /* No support yet */
+  user-select: all;          /* Likely future */
+}
+
+.fade-in {
+  animation: fade-in 600ms;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.blink {
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

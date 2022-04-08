@@ -1,0 +1,722 @@
+{
+   "browserAction_title": {
+      "description": "A pop-up title when user hovers on Browser Action button (browserAction_title)",
+      "message": "IPFS Companion"
+   },
+   "contextMenu_importToIpfs": {
+      "description": "An item in right-click context menu (contextMenu_importToIpfs)",
+      "message": "Import to IPFS"
+   },
+   "contextMenu_importToIpfsSelection": {
+      "description": "An item in right-click context menu (contextMenu_importToIpfsSelection)",
+      "message": "Import Selected Text to IPFS"
+   },
+   "contextMenu_parentAudio": {
+      "description": "An item in right-click context menu (contextMenu_parentAudio)",
+      "message": "음원 선택"
+   },
+   "contextMenu_parentImage": {
+      "description": "An item in right-click context menu (contextMenu_parentImage)",
+      "message": "이미지 선택"
+   },
+   "contextMenu_parentLink": {
+      "description": "An item in right-click context menu (contextMenu_parentLink)",
+      "message": "연결된 콘텐츠"
+   },
+   "contextMenu_parentPage": {
+      "description": "An item in right-click context menu (contextMenu_parentPage)",
+      "message": "해당 페이지"
+   },
+   "contextMenu_parentText": {
+      "description": "An item in right-click context menu (contextMenu_parentText)",
+      "message": "선택된 문자열"
+   },
+   "contextMenu_parentVideo": {
+      "description": "An item in right-click context menu (contextMenu_parentVideo)",
+      "message": "동영상 선택"
+   },
+   "manifest_extensionDescription": {
+      "description": "Extension description in the Manifest file (manifest_extensionDescription)",
+      "message": "Harness the power of IPFS in your browser"
+   },
+   "manifest_extensionName": {
+      "description": "Extension name in the Manifest file (manifest_extensionName)",
+      "message": "IPFS Companion"
+   },
+   "manifest_shortExtensionName": {
+      "description": "Short extension name in the Manifest file (manifest_shortExtensionName)",
+      "message": "IPFS Companion"
+   },
+   "notify_addonIssueMsg": {
+      "description": "A message in system notification (notify_addonIssueMsg)",
+      "message": "브라우저 콘솔창을 열어 상세한 정보를 확인하세요."
+   },
+   "notify_addonIssueTitle": {
+      "description": "A title of system notification (notify_addonIssueTitle)",
+      "message": "IPFS 애드온 문제"
+   },
+   "notify_apiOfflineAutomaticModeMsg": {
+      "description": "A message in system notification (notify_apiOfflineAutomaticModeMsg)",
+      "message": "자동 모드: 공공 게이트웨이를 실패할 경우 사용합니다."
+   },
+   "notify_apiOfflineTitle": {
+      "description": "A title of system notification (notify_apiOfflineTitle)",
+      "message": "IPFS API가 사용 불가능 합니다."
+   },
+   "notify_apiOnlineAutomaticModeMsg": {
+      "description": "A message in system notification (notify_apiOnlineAutomaticModeMsg)",
+      "message": "자동 모드: 로컬 게이트웨이로 리다이렉트가 활성화 됩니다."
+   },
+   "notify_apiOnlineTitle": {
+      "description": "A title of system notification (notify_apiOnlineTitle)",
+      "message": "IPFS API가 사용 가능합니다."
+   },
+   "notify_copiedTitle": {
+      "description": "A title of system notification (notify_copiedTitle)",
+      "message": "복사됨"
+   },
+   "notify_importErrorTitle": {
+      "description": "A title of system notification (notify_importErrorTitle)",
+      "message": "IPFS API를 사용하여 가져올 수 없습니다"
+   },
+   "notify_importTrackingProtectionErrorMsg": {
+      "description": "(notify_importTrackingProtectionErrorMsg)",
+      "message": "추적 보호 기능을 비활성화 해보세요. (Ctrl+Shift+J 키를 눌러 자세히 보기)"
+   },
+   "notify_inlineErrorMsg": {
+      "description": "A generic placeholder for error notification (notify_inlineErrorMsg)",
+      "message": "$1 (ctrl+shift+j 를 눌러 더 상세한 정보)"
+   },
+   "notify_inlineMsg": {
+      "description": "A generic placeholder for notification message, leave as-is (notify_inlineMsg)",
+      "message": "$1"
+   },
+   "notify_pinErrorTitle": {
+      "description": "A title of system notification (notify_pinErrorTitle)",
+      "message": "IPFS 리소스를 고정하는 중에 오류가 발생했습니다."
+   },
+   "notify_pinnedIpfsResourceTitle": {
+      "description": "A title of system notification (notify_pinnedIpfsResourceTitle)",
+      "message": "IPFS 리소스가 고정되었습니다."
+   },
+   "notify_startIpfsNodeErrorTitle": {
+      "description": "System notification title displayed when starting an IPFS node fails (notify_startIpfsNodeErrorTitle)",
+      "message": "IPFS 노드 실행 실패"
+   },
+   "notify_stopIpfsNodeErrorTitle": {
+      "description": "System notification title displayed when stopping an IPFS node fails (notify_stopIpfsNodeErrorTitle)",
+      "message": "IPFS 노드 중단 실패"
+   },
+   "notify_unpinErrorTitle": {
+      "description": "A title of system notification (notify_unpinErrorTitle)",
+      "message": "IPFS 고정을 제거하는 도중에 오류가 발생했습니다."
+   },
+   "notify_unpinnedIpfsResourceTitle": {
+      "description": "A title of system notification (notify_unpinnedIpfsResourceTitle)",
+      "message": "IPFS 고정이 삭제되었습니다."
+   },
+   "option_automaticMode_description": {
+      "description": "An option description on the Preferences screen (option_automaticMode_description)",
+      "message": "Enable/disable use of your custom gateway as appropriate when IPFS API availability changes."
+   },
+   "option_automaticMode_title": {
+      "description": "An option title on the Preferences screen (option_automaticMode_title)",
+      "message": "Use Automatic Mode"
+   },
+   "option_catchUnhandledProtocols_description": {
+      "description": "An option description on the Preferences screen (option_catchUnhandledProtocols_description)",
+      "message": "Enable provisional support for ipfs://, ipns://, and dweb: requests by redirecting them to an HTTP gateway."
+   },
+   "option_catchUnhandledProtocols_title": {
+      "description": "An option title on the Preferences screen (option_catchUnhandledProtocols_title)",
+      "message": "Catch Unhandled IPFS Protocols"
+   },
+   "option_customGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_customGatewayUrl_description)",
+      "message": "Set the URL of your preferred custom local gateway."
+   },
+   "option_customGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_customGatewayUrl_title)",
+      "message": "로컬 게이트웨이 설정"
+   },
+   "option_customGatewayUrl_warning": {
+      "description": "A warning on the Preferences screen, displayed when URL does not belong to Secure Context (option_customGatewayUrl_warning)",
+      "message": "IPFS content will be blocked from loading on HTTPS websites unless your gateway URL starts with “http://127.0.0.1”, “http://[::1]” or “https://”"
+   },
+   "option_detectIpfsPathHeader_description": {
+      "description": "An option description on the Preferences screen (option_detectIpfsPathHeader_description)",
+      "message": "Load items with x-ipfs-path headers over IPFS (instead of HTTP) if the header value is an IPFS path. To redirect IPNS paths as well, enable DNSLink support."
+   },
+   "option_detectIpfsPathHeader_title": {
+      "description": "An option title on the Preferences screen (option_detectIpfsPathHeader_title)",
+      "message": "Detect x-ipfs-path Headers"
+   },
+   "option_displayNotifications_description": {
+      "description": "An option description on the Preferences screen (option_displayNotifications_description)",
+      "message": "Display OS-level notifications when a link is copied to the clipboard,the API state changes, etc."
+   },
+   "option_displayNotifications_title": {
+      "description": "An option title on the Preferences screen (option_displayNotifications_title)",
+      "message": "알림 활성화"
+   },
+   "option_dnslinkDataPreload_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkDataPreload_description)",
+      "message": "Preload DNSLink sites to your local IPFS node, enabling offline access and improving your resiliency against network failure."
+   },
+   "option_dnslinkDataPreload_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkDataPreload_title)",
+      "message": "Preload Visited Pages"
+   },
+   "option_dnslinkPolicy_bestEffort": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_bestEffort)",
+      "message": "HTTP 요청 후 확인"
+   },
+   "option_dnslinkPolicy_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkPolicy_description)",
+      "message": "Choose your policy for looking up and displaying contextual actions on DNSLink-enabled sites."
+   },
+   "option_dnslinkPolicy_disabled": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_disabled)",
+      "message": "꺼짐"
+   },
+   "option_dnslinkPolicy_enabled": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_enabled)",
+      "message": "HTTP 요청 전 확인"
+   },
+   "option_dnslinkPolicy_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkPolicy_title)",
+      "message": "DNSLink Lookup Policy"
+   },
+   "option_dnslinkRedirect_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkRedirect_description)",
+      "message": "When global gateway redirect is enabled, include DNSLink websites by redirecting them to their respective /ipns/{fqdn} paths at your custom gateway."
+   },
+   "option_dnslinkRedirect_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkRedirect_title)",
+      "message": "Load DNSLink Sites from Custom Gateway"
+   },
+   "option_dnslinkRedirect_warning": {
+      "description": "A warning on the Preferences screen, displayed when URL does not belong to Secure Context (option_customGatewayUrl_warning)",
+      "message": "Do not use if your IPFS node does not support *.ipfs.localhost. Redirecting to a path-based gateway breaks the origin-based security isolation of DNSLink websites, so make sure you understand the related risks."
+   },
+   "option_experimental": {
+      "description": "Warning label added to experimental options on the Preferences screen (option_experimental)",
+      "message": "experimental"
+   },
+   "option_experiments_warning": {
+      "description": "Warning about Experiments section on the Preferences screen (option_experiments_warning)",
+      "message": "Warning! These experimental features are works in progress and are subject to changes in availability and functionality."
+   },
+   "option_header_api": {
+      "description": "A section header on the Preferences screen (option_header_api)",
+      "message": "API"
+   },
+   "option_header_dnslink": {
+      "description": "A section header on the Preferences screen (option_header_dnslink)",
+      "message": "DNSLink"
+   },
+   "option_header_experiments": {
+      "description": "A section header on the Preferences screen (option_header_experiments)",
+      "message": "실험 기능"
+   },
+   "option_header_fileImport": {
+      "description": "A section header on the Preferences screen (option_header_fileImport)",
+      "message": "파일 가져오기"
+   },
+   "option_header_gateways": {
+      "description": "A section header on the Preferences screen (option_header_gateways)",
+      "message": "게이트웨이"
+   },
+   "option_header_nodeType": {
+      "description": "A section header on the Preferences screen (option_header_nodeType)",
+      "message": "IPFS 노드"
+   },
+   "option_header_reset": {
+      "description": "A section header on the Preferences screen (option_header_reset)",
+      "message": "Reset Preferences"
+   },
+   "option_importDir_description": {
+      "description": "An option description on the Preferences screen (option_importDir_description)",
+      "message": "Set the directory you wish to use for files you import using IPFS Companion."
+   },
+   "option_importDir_title": {
+      "description": "An option title on the Preferences screen (option_importDir_title)",
+      "message": "파일을 가져오는 디렉터리"
+   },
+   "option_ipfsApiPollMs_description": {
+      "description": "An option description on the Preferences screen (option_ipfsApiPollMs_description)",
+      "message": "Specify how frequently (in milliseconds) to refresh your peer count."
+   },
+   "option_ipfsApiPollMs_title": {
+      "description": "An option title on the Preferences screen (option_ipfsApiPollMs_title)",
+      "message": "상태 폴링 주기"
+   },
+   "option_ipfsApiUrl_description": {
+      "description": "An option description on the Preferences screen (option_ipfsApiUrl_description)",
+      "message": "Set the URL of your IPFS API. (Hint: this is where /api/v0/config lives.)"
+   },
+   "option_ipfsApiUrl_title": {
+      "description": "An option title on the Preferences screen (option_ipfsApiUrl_title)",
+      "message": "IPFS API URL"
+   },
+   "option_ipfsNodeConfig_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeConfig_description)",
+      "message": "Additional configuration for the embedded JS IPFS node. Must be valid JSON."
+   },
+   "option_ipfsNodeConfig_title": {
+      "description": "An option title on the Preferences screen (option_ipfsNodeConfig_title)",
+      "message": "IPFS 노드 설정"
+   },
+   "option_ipfsNodeType_embedded": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_embedded)",
+      "message": "내장 노드"
+   },
+   "option_ipfsNodeType_embedded_chromesockets": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_embedded_chromesockets)",
+      "message": "내장 노드 + chrome.sockets"
+   },
+   "option_ipfsNodeType_embedded_chromesockets_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_description)",
+      "message": "Embedded with Chrome Sockets: run js-ipfs node in your browser with access to chrome.sockets APIs (details under the link below)"
+   },
+   "option_ipfsNodeType_embedded_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_description)",
+      "message": "Set to \"Embedded\" to run a js-ipfs node directly in your browser. (Click \"Read more\" to learn about the limitations of this experimental feature.)"
+   },
+   "option_ipfsNodeType_external": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_external)",
+      "message": "외부 노드"
+   },
+   "option_ipfsNodeType_external_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_description)",
+      "message": "Set to \"External\" to connect to a local node using the HTTP API."
+   },
+   "option_ipfsNodeType_title": {
+      "description": "An option title on the Preferences screen (option_ipfsNodeType_title)",
+      "message": "IPFS 노드 타입"
+   },
+   "option_ipfsProxy_description": {
+      "description": "An option description for the IPFS proxy (option_ipfsProxy_description)",
+      "message": "IPFS is added to the window object on every page. Enable/disable access to the functions it exposes."
+   },
+   "option_ipfsProxy_link_manage_permissions": {
+      "description": "Link text for managing permissions",
+      "message": "권한 관리"
+   },
+   "option_ipfsProxy_title": {
+      "description": "An option title for enabling/disabling the IPFS proxy (option_ipfsProxy_title)",
+      "message": "Support for window.ipfs"
+   },
+   "option_legend_readMore": {
+      "description": "A generic link in option description on the Preferences screen (option_legend_readMore)",
+      "message": "더 읽기"
+   },
+   "option_linkify_description": {
+      "description": "An option description on the Preferences screen (option_linkify_description)",
+      "message": "Turn /ipfs/ paths displayed as plaintext on web pages into clickable links."
+   },
+   "option_linkify_title": {
+      "description": "An option title on the Preferences screen (option_linkify_title)",
+      "message": "Linkify IPFS Addresses"
+   },
+   "option_logNamespaces_description": {
+      "description": "An option description for the log level (option_logNamespaces_description)",
+      "message": "Namespaces in this comma-separated list will be logged to your browser's console. Changing this list will restart IPFS Companion."
+   },
+   "option_logNamespaces_title": {
+      "description": "An option title for tweaking log level (option_logNamespaces_title)",
+      "message": "로그 네임스페이스"
+   },
+   "option_noIntegrationsHostnames_description": {
+      "description": "An option description on the Preferences screen (option_noRedirectHostnames_description)",
+      "message": "Sites in this list (one hostname per line) will have all IPFS integrations disabled."
+   },
+   "option_noIntegrationsHostnames_title": {
+      "description": "An option title on the Preferences screen (option_noIntegrationsHostnames_title)",
+      "message": "Site Opt-Out List"
+   },
+   "option_openViaWebUI_description": {
+      "description": "An option description on the Preferences screen (option_openViaWebUI_description)",
+      "message": "After importing a file, open it in the Files screen instead of opening it or its parent directory in the gateway."
+   },
+   "option_openViaWebUI_title": {
+      "description": "An option title on the Preferences screen (option_openViaWebUI_title)",
+      "message": "Open Imported Files in the Files Screen"
+   },
+   "option_page_header": {
+      "description": "Main header on the Preferences screen (option_page_header)",
+      "message": "Companion Preferences"
+   },
+   "option_preloadAtPublicGateway_description": {
+      "description": "An option description on the Preferences screen (option_preloadAtPublicGateway_description)",
+      "message": "Automatically preload assets imported to IPFS via asynchronous HTTP HEAD requests to a public gateway."
+   },
+   "option_preloadAtPublicGateway_title": {
+      "description": "An option title on the Preferences screen (option_preloadAtPublicGateway_title)",
+      "message": "Preload Imported Assets"
+   },
+   "option_publicGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_publicGatewayUrl_description)",
+      "message": "Set a default public gateway to use in publicly shareable links and as a fallback URL when your custom gateway is not available."
+   },
+   "option_publicGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_publicGatewayUrl_title)",
+      "message": "기본 공공 게이트웨이"
+   },
+   "option_publicSubdomainGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_publicSubdomainGatewayUrl_description)",
+      "message": "Set a default public subdomain gateway for the recovery of broken subdomain gateways."
+   },
+   "option_publicSubdomainGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_publicSubdomainGatewayUrl_title)",
+      "message": "Default Public Subdomain Gateway"
+   },
+   "option_recoverFailedHttpRequests_description": {
+      "description": "An option description on the Preferences screen (option_recoverFailedHttpRequests_description)",
+      "message": "Redirect failed HTTP requests for IPFS resources to the public gateway."
+   },
+   "option_recoverFailedHttpRequests_title": {
+      "description": "An option title on the Preferences screen (option_recoverFailedHttpRequests_title)",
+      "message": "Recover Failed HTTP Requests"
+   },
+   "option_resetAllOptions_description": {
+      "description": "An option description on the Preferences screen (option_resetAllOptions_description)",
+      "message": "Reset all IPFS Companion preferences to their default values (warning: cannot be undone!)."
+   },
+   "option_resetAllOptions_title": {
+      "description": "An option title and button label on the Preferences screen (option_resetAllOptions_title)",
+      "message": "모두 초기화"
+   },
+   "option_useCustomGateway_description": {
+      "description": "An option description on the Preferences screen (option_useCustomGateway_description)",
+      "message": "Redirect requests for IPFS resources to your custom local gateway."
+   },
+   "option_useCustomGateway_title": {
+      "description": "An option title on the Preferences screen (option_useCustomGateway_title)",
+      "message": "로컬 게이트웨이 사용"
+   },
+   "option_useLatestWebUI_description": {
+      "description": "An option description on the Preferences screen (option_useLatestWebUI_description)",
+      "message": "Use the very latest version of the Status, Files, Explore, Peers, and Settings screens from webui.ipfs.io (via DNSLink) instead of the hard-coded CIDs shipped with the IPFS daemon. (Enable only if you trust your DNS resolver and understand how to set up the required CORS headers.)"
+   },
+   "option_useLatestWebUI_title": {
+      "description": "An option title on the Preferences screen (option_useLatestWebUI_title)",
+      "message": "Use Latest Version of IPFS Web UI"
+   },
+   "option_useSubdomains_description": {
+      "description": "An option description on the Preferences screen (option_useSubdomains_description)",
+      "message": "Isolate content roots from each other by loading them as subdomains (at *.localhost) and creating a unique origin for each CID, IPNS, or DNSLink record. Requires go-ipfs 0.5.0 or later on your local node."
+   },
+   "option_useSubdomains_title": {
+      "description": "An option title on the Preferences screen (option_useSubdomains_title)",
+      "message": "Use Subdomains"
+   },
+   "pageAction_titleIpfsAtCustomGateway": {
+      "description": "A tooltip displayed over Page Action in location bar (pageAction_titleIpfsAtCustomGateway)",
+      "message": "IPFS 리소스가 로컬 게이트웨이를 통해 로드 되었습니다."
+   },
+   "pageAction_titleIpfsAtPublicGateway": {
+      "description": "A tooltip displayed over Page Action in location bar (pageAction_titleIpfsAtPublicGateway)",
+      "message": "IPFS 리소스가 공공 게이트웨이를 통해 로드 되었습니다."
+   },
+   "pageAction_titleNonIpfs": {
+      "description": "Default label for icon hidden in Page Action menu (pageAction_titleNonIpfs)",
+      "message": "IPFS 리소스가 아닌"
+   },
+   "page_landingWelcome_installSteps_cli_install": {
+      "description": "Install steps copy (page_landingWelcome_installSteps_cli_install)",
+      "message": "Start IPFS by entering \u003Ccode class=\"yellow\">ipfs daemon\u003C/code> in your terminal. If you don't have IPFS installed yet, follow the \u003C0>CLI quick-start guide\u003C/0> first."
+   },
+   "page_landingWelcome_installSteps_cli_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_cli_title)",
+      "message": "Command-line users"
+   },
+   "page_landingWelcome_installSteps_desktop_install": {
+      "description": "Install steps copy (page_landingWelcome_installSteps_desktop_install)",
+      "message": "Make sure IPFS Desktop is running. Don't have it installed? \u003C0>Download IPFS Desktop now.\u003C/0>"
+   },
+   "page_landingWelcome_installSteps_desktop_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_desktop_title)",
+      "message": "IPFS Desktop users"
+   },
+   "page_landingWelcome_installSteps_notRunning_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_notRunning_title)",
+      "message": "IPFS가 실행 중이지 않습니다"
+   },
+   "page_landingWelcome_logo_title": {
+      "description": "Extension name after the IPFS logo (page_landingWelcome_logo_title)",
+      "message": "IPFS Companion"
+   },
+   "page_landingWelcome_projects_title": {
+      "description": "Projects section title (page_landingWelcome_projects_title)",
+      "message": "연관된 프로젝트"
+   },
+   "page_landingWelcome_resources_build_examples": {
+      "description": "Resources copy (page_landingWelcome_resources_build_examples)",
+      "message": "See what \u003C0>awesome things\u003C/0> others are building with IPFS"
+   },
+   "page_landingWelcome_resources_build_tutorials": {
+      "description": "Resources copy (page_landingWelcome_resources_build_tutorials)",
+      "message": "Find \u003C0>how-tos and tutorials\u003C/0> to help get you started"
+   },
+   "page_landingWelcome_resources_community_contribute": {
+      "description": "Community copy (page_landingWelcome_resources_community_contribute)",
+      "message": "\u003C0>Contribute\u003C/0> with code, documentation, and more"
+   },
+   "page_landingWelcome_resources_community_resources": {
+      "description": "Community copy (page_landingWelcome_resources_community_resources)",
+      "message": "Explore all \u003C0>IPFS community resources\u003C/0>"
+   },
+   "page_landingWelcome_resources_community_translate": {
+      "description": "Community copy (page_landingWelcome_resources_community_translate)",
+      "message": "\u003C0>Translate\u003C/0> IPFS into your favorite language"
+   },
+   "page_landingWelcome_resources_get_help": {
+      "description": "Resources copy (page_landingWelcome_resources_get_help)",
+      "message": "Ask questions and discuss IPFS in the \u003C0>official forums\u003C/0>"
+   },
+   "page_landingWelcome_resources_new_ipfs_companion_features": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_companion_features)",
+      "message": "Read about \u003C0>IPFS Companion's features\u003C/0>"
+   },
+   "page_landingWelcome_resources_new_ipfs_concepts": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_concepts)",
+      "message": "Learn basic concepts in the \u003C0>How IPFS Works\u003C/0> guide"
+   },
+   "page_landingWelcome_resources_new_ipfs_docs": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_docs)",
+      "message": "Visit the \u003C0>IPFS documentation site\u003C/0> to dig deeper"
+   },
+   "page_landingWelcome_resources_title_build": {
+      "description": "Resources title (page_landingWelcome_resources_title_build)",
+      "message": "Build on IPFS"
+   },
+   "page_landingWelcome_resources_title_community": {
+      "description": "Community title (page_landingWelcome_resources_title_community)",
+      "message": "Join the community"
+   },
+   "page_landingWelcome_resources_title_get_help": {
+      "description": "Resources title (page_landingWelcome_resources_title_get_help)",
+      "message": "Get help"
+   },
+   "page_landingWelcome_resources_title_new_ipfs": {
+      "description": "Resources title (page_landingWelcome_resources_title_new_ipfs)",
+      "message": "Learn about IPFS"
+   },
+   "page_landingWelcome_title": {
+      "description": "Page title (page_landingWelcome_title)",
+      "message": "IPFS Companion - 환영합니다!"
+   },
+   "page_landingWelcome_videos_how_ipfs_works": {
+      "description": "Videos section title (page_landingWelcome_videos_how_ipfs_works)",
+      "message": "How IPFS Works"
+   },
+   "page_landingWelcome_videos_why_ipfs": {
+      "description": "Videos section title (page_landingWelcome_videos_why_ipfs)",
+      "message": "Why IPFS?"
+   },
+   "page_landingWelcome_welcome_filesButton_text": {
+      "description": "Ready message button text for opening Web UI files page (page_landingWelcome_welcome_filesButton_text)",
+      "message": "파일"
+   },
+   "page_landingWelcome_welcome_peers": {
+      "description": "Ready message copy (page_landingWelcome_welcome_peers)",
+      "message": "Your node is connected to \u003C0>$1\u003C/0> peers."
+   },
+   "page_landingWelcome_welcome_peersButton_text": {
+      "description": "Ready message button text for opening Web UI files page (page_landingWelcome_welcome_peersButton_text)",
+      "message": "피어"
+   },
+   "page_landingWelcome_welcome_statusButton_text": {
+      "description": "Ready message button text for opening Web UI status page (page_landingWelcome_welcome_statusButton_text)",
+      "message": "상태"
+   },
+   "page_proxyAccessDialog_allowButton_text": {
+      "description": "Button text for allowing a permission (page_proxyAccessDialog_allowButton_text)",
+      "message": "허용"
+   },
+   "page_proxyAccessDialog_denyButton_text": {
+      "description": "Button text for denying a permission (page_proxyAccessDialog_allowButton_text)",
+      "message": "거부"
+   },
+   "page_proxyAccessDialog_title": {
+      "description": "Main title of the access permission dialog (page_proxyAccessDialog_title)",
+      "message": "Should IPFS Companion allow «$1» to access «$2» at the connected node?"
+   },
+   "page_proxyAccessDialog_wildcardCheckbox_label": {
+      "description": "Label for the apply permissions to all checkbox (page_proxyAccessDialog_wildcardCheckbox_label)",
+      "message": "Apply this decision to all current and future permissions in this scope"
+   },
+   "page_proxyAcl_allow_button_value": {
+      "description": "Button value for allow (page_proxyAcl_allow_button_value)",
+      "message": "허용"
+   },
+   "page_proxyAcl_confirm_revoke": {
+      "description": "Confirmation message for revoking a permission for a scope (page_proxyAcl_confirm_revoke)",
+      "message": "Revoke permission $1 for $2?"
+   },
+   "page_proxyAcl_confirm_revoke_all": {
+      "description": "Confirmation message for revoking all permissions for an scope (page_proxyAcl_confirm_revoke_all)",
+      "message": "Revoke all permissions for $1?"
+   },
+   "page_proxyAcl_deny_button_value": {
+      "description": "Button value for deny",
+      "message": "거부"
+   },
+   "page_proxyAcl_no_perms": {
+      "description": "Message displayed when no permissions have been granted (page_proxyAcl_no_perms)",
+      "message": "권한이 주어지지 않았습니다."
+   },
+   "page_proxyAcl_revoke_all_button_title": {
+      "description": "Button title for revoking all permissions (page_proxyAcl_revoke_all_button_title)",
+      "message": "모든 권한 무효화"
+   },
+   "page_proxyAcl_revoke_button_title": {
+      "description": "Button title for revoking a permission (page_proxyAcl_revoke_button_title)",
+      "message": "$1무효"
+   },
+   "page_proxyAcl_subtitle": {
+      "description": "Page sub title for the IPFS proxy ACL page (page_proxyAcl_subtitle)",
+      "message": "View, change and revoke granted access rights to your IPFS instance."
+   },
+   "page_proxyAcl_title": {
+      "description": "Page title for the IPFS proxy ACL page (page_proxyAcl_title)",
+      "message": "권한 관리"
+   },
+   "page_proxyAcl_toggle_to_allow_button_title": {
+      "description": "Button title for toggling permission from deny to allow (page_proxyAcl_toggle_to_allow_button_title)",
+      "message": "클릭하여 허용"
+   },
+   "page_proxyAcl_toggle_to_deny_button_title": {
+      "description": "Button title for toggling permission from allow to deny (page_proxyAcl_toggle_to_deny_button_title)",
+      "message": "클릭하여 거부"
+   },
+   "panelCopy_copyRawCid": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panelCopy_copyRawCid)",
+      "message": "CID 복사"
+   },
+   "panelCopy_currentIpfsAddress": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panelCopy_currentIpfsAddress)",
+      "message": "Copy IPFS content path"
+   },
+   "panel_activeTabSectionHeader": {
+      "description": "A menu item in Browser Action pop-up (panel_activeTabSiteRedirectEnable)",
+      "message": "Active Tab"
+   },
+   "panel_activeTabSiteIntegrationsToggle": {
+      "description": "A menu item in Browser Action pop-up (panel_activeTabSiteIntegrationsToggle)",
+      "message": "Enable on $1"
+   },
+   "panel_activeTabSiteIntegrationsToggleTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_activeTabSiteIntegrationsToggleTooltip)",
+      "message": "Click to toggle all IPFS integrations on $1"
+   },
+   "panel_contextMenuViewOnGateway": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panel_contextMenuViewOnGateway)",
+      "message": "View on Gateway"
+   },
+   "panel_copyCurrentPublicGwUrl": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panel_copyCurrentPublicGwUrl)",
+      "message": "Copy shareable link"
+   },
+   "panel_headerActiveToggleTitle": {
+      "description": "A label for an embedded IPFS node (panel_headerActiveToggleTitle)",
+      "message": "Toggle all IPFS integrations"
+   },
+   "panel_headerIpfsNodeIconLabel": {
+      "description": "A label for IPFS icon (panel_headerIpfsNodeIconLabel)",
+      "message": "IPFS Companion"
+   },
+   "panel_openPreferences": {
+      "description": "A menu item in Browser Action pop-up (panel_openPreferences)",
+      "message": "브라우저 확장의 설정 열기"
+   },
+   "panel_openWebui": {
+      "description": "A menu item in Browser Action pop-up (panel_openWebui)",
+      "message": "Web UI 열기"
+   },
+   "panel_pinCurrentIpfsAddress": {
+      "description": "A menu item in Browser Action pop-up (panel_pinCurrentIpfsAddress)",
+      "message": "Pin IPFS resource"
+   },
+   "panel_pinCurrentIpfsAddressTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_pinCurrentIpfsAddressTooltip)",
+      "message": "Pinning a CID tells your IPFS node that this data is important and mustn’t be thrown away."
+   },
+   "panel_quickImport": {
+      "description": "A menu item in Browser Action pop-up (panel_quickImport)",
+      "message": "IPFS로 파일 공유하기"
+   },
+   "panel_redirectToggle": {
+      "description": "A menu item in Browser Action pop-up (panel_redirectToggle)",
+      "message": "Redirect to Gateway"
+   },
+   "panel_redirectToggleTooltip": {
+      "description": "A menu item in Browser Action pop-up (panel_redirectToggleTooltip)",
+      "message": "Click to toggle all gateway redirects"
+   },
+   "panel_statusApiAddress": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusApiAddress)",
+      "message": "API"
+   },
+   "panel_statusGatewayAddress": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayAddress)",
+      "message": "게이트웨이"
+   },
+   "panel_statusGatewayVersion": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayVersion)",
+      "message": "버전"
+   },
+   "panel_statusOffline": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusOffline)",
+      "message": "오프라인"
+   },
+   "panel_statusSwarmPeers": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusSwarmPeers)",
+      "message": "피어들"
+   },
+   "panel_statusSwarmPeersTitle": {
+      "description": "A label tooltip in Node status section of Browser Action pop-up (panel_statusSwarmPeersTitle)",
+      "message": "연결할 수 있는 다른 IPFS 노드의 수"
+   },
+   "panel_toolsSectionHeader": {
+      "description": "A menu item in Browser Action pop-up (panel_toolsSectionHeader)",
+      "message": "도구"
+   },
+   "quickImport_drop_it_here": {
+      "description": "Partial info stats beneath the header on the share files page (quickImport_drop_it_here)",
+      "message": "여기에 파일을 놔서 공유"
+   },
+   "quickImport_options_importDir": {
+      "description": "Textbox label on the share files page (quickImport_options_importDir)",
+      "message": "Path to store imported files"
+   },
+   "quickImport_options_openViaWebUI": {
+      "description": "Checkbox label on the share files page (quickImport_options_openViaWebUI)",
+      "message": "웹 UI에서 열기"
+   },
+   "quickImport_options_show": {
+      "description": "Button on the share files page (quickImport_options_show)",
+      "message": "가져오기 옵션"
+   },
+   "quickImport_or": {
+      "description": "seperates the pick a file button from the drop message (quickImport_or)",
+      "message": "혹은"
+   },
+   "quickImport_pick_file_button": {
+      "description": "Text on the 'pick a file' button (quickImport_pick_file_button)",
+      "message": "파일 선택"
+   },
+   "quickImport_state_buffering": {
+      "description": "Status label on the share files page (quickImport_state_buffering)",
+      "message": "(버퍼링, 기다려주세요)"
+   },
+   "quickImport_state_importing": {
+      "description": "Status label on the share files page (quickImport_state_importing)",
+      "message": "가져오는 중.."
+   },
+   "quickImport_subhead_peers": {
+      "description": "Partial info stats beneath the header on the share files page (quickImport_subhead_peers)",
+      "message": " $1개의 피어에 연결됨"
+   }
+}

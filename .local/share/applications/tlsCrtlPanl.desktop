@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=IPFS Control Panel
+Exec=chromium-browser --password-store=basic http://127.0.0.1:5001/ipfs/bafybeif4zkmu7qdhkpf3pnhwxipylqleof7rl6ojbe7mq3fzogz6m4xk3i/#/welcome
+Comment=The IPFS User Interface, same as IPFS Desktop
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

@@ -1,0 +1,30 @@
+{
+  "Comments": [
+    "This is a template configuration file used by the Pirate Box",
+    "Media Grabber tool (PBMG)."
+  ],
+  "DLbase": "/home/ipfs/bin/mediaGrabber/ytDL/",
+  "DLeLog": "error.log",
+  "DLarch": "youtube-dl.history",
+  "DLmeta": "metadataFields.json",
+  "DLOpts": {
+    "retries": 5,
+    "format": "best",
+    "continuedl": true,
+    "ignoreerrors": true,
+    "merge-output-format": "mp4"
+  },
+  "Grupes": {
+    "PBMG": {
+      "Quota": 0,
+      "Active": true,
+      "Duration": 0,
+      "Start": null,
+      "End": null,
+      "Stop": 300,
+      "urls": [
+        "https://www.youtube.com/watch?v=83m261lAlrs"
+      ]
+    }
+  }
+}

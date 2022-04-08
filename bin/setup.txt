@@ -1,0 +1,18 @@
+An IPFS server with 1GB of storage is already setup.
+You may change that or create a Liberty Library using 
+this setup wizard.
+
+To minimize setup time the following are used:
+1) Country:  United States
+2) Language: US English
+3) Timezone: Central
+4) Keyboard: Generic 105 key PC
+
+You may change those settings and customize your new Pirate Box after going through these steps by selecting "Preferences" from the upper left Pirate menu. 
+
+This setup wizard will ask you to:
+
+- Change the default password for the ipfs account 
+- Choose a folder and amount of storage space to use for IPFS
+
+After completing those 2 steps and getting online you will be able to browse websites on IPFS and save your own files there too! Shall we get started?

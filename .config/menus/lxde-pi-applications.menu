@@ -1,0 +1,182 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
+<Menu>
+	<Name>Applications</Name>
+	<MergeFile type="parent">/etc/xdg/menus/lxde-pi-applications.menu</MergeFile>
+	<Menu>
+		<Name>DesktopSettings</Name>
+		<Include>
+			<Filename>pcmanfm-desktop-pref.desktop</Filename>
+		</Include>
+		<AppDir>/home/ipfs/.local/share/applications</AppDir>
+		<Include>
+			<Filename>lxappearance.desktop</Filename>
+		</Include>
+		<Exclude>
+			<Filename>qt5ct.desktop</Filename>
+		</Exclude>
+	</Menu>
+	<DefaultLayout inline="false"/>
+	<Menu>
+		<Name>PirateBoxTools</Name>
+		<Directory>PirateBoxTools.directory</Directory>
+		<Include>
+			<And>
+				<Category>PirateBoxToolsCategory</Category>
+			</And>
+		</Include>
+		<Include>
+			<Filename>tlsAbout.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsSetupWiz.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsIpfsDocs.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsCrtlPanl.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsPBVGrabr.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsHotspot.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsGateway.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>tlsEjectLL.desktop</Filename>
+		</Include>
+		<DefaultLayout inline="false"/>
+		<Menu>
+			<Name>PirateBoxAdvanced</Name>
+			<Directory>PirateBoxAdvanced.directory</Directory>
+			<Include>
+				<Filename>advSearchGUI.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advSearchOps.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advPBVGinfo.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advUpgrIpfs.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advNomadnet.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advReticulm.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advXmppMesh.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advYggdrasl.desktop</Filename>
+			</Include>
+			<Include>
+				<Filename>advMoonbeam.desktop</Filename>
+			</Include>
+			<Layout>
+				<Merge type="menus"/>
+				<Filename>advSearchGUI.desktop</Filename>
+				<Filename>advSearchOps.desktop</Filename>
+				<Filename>advPBVGinfo.desktop</Filename>
+				<Filename>advUpgrIpfs.desktop</Filename>
+				<Filename>advNomadnet.desktop</Filename>
+				<Filename>advReticulm.desktop</Filename>
+				<Filename>advXmppMesh.desktop</Filename>
+				<Filename>advYggdrasl.desktop</Filename>
+				<Filename>advMoonbeam.desktop</Filename>
+				<Merge type="files"/>
+			</Layout>
+		</Menu>
+		<Layout>
+			<Merge type="menus"/>
+			<Filename>tlsAbout.desktop</Filename>
+			<Filename>tlsSetupWiz.desktop</Filename>
+			<Filename>tlsIpfsDocs.desktop</Filename>
+			<Filename>tlsCrtlPanl.desktop</Filename>
+			<Filename>tlsPBVGrabr.desktop</Filename>
+			<Filename>tlsHotspot.desktop</Filename>
+			<Filename>tlsGateway.desktop</Filename>
+			<Filename>tlsEjectLL.desktop</Filename>
+		    <Separator/>
+			<Menuname>PirateBoxAdvanced</Menuname>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+	<Layout>
+		<Merge type="menus"/>
+		<Menuname>Development</Menuname>
+		<Menuname>Education</Menuname>
+		<Menuname>Office</Menuname>
+		<Menuname>Internet</Menuname>
+		<Menuname>PirateBoxTools</Menuname>
+		<Menuname>Multimedia</Menuname>
+		<Menuname>Graphics</Menuname>
+		<Menuname>Games</Menuname>
+		<Menuname>System</Menuname>
+		<Menuname>Accessories</Menuname>
+		<Menuname>Universal Access</Menuname>
+		<Separator/>
+		<Menuname>Help</Menuname>
+		<Separator/>
+		<Menuname>DesktopSettings</Menuname>
+		<Merge type="files"/>
+	</Layout>
+	<Menu>
+		<Name>System</Name>
+		<AppDir>/home/ipfs/.local/share/applications</AppDir>
+		<Include>
+			<Filename>htop.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>pi-gpk-log.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>pi-gpk-update-viewer.desktop</Filename>
+		</Include>
+		<Layout>
+			<Merge type="menus"/>
+			<Filename>htop.desktop</Filename>
+			<Filename>gparted.desktop</Filename>
+			<Filename>pi-gpk-log.desktop</Filename>
+			<Filename>pi-gpk-update-viewer.desktop</Filename>
+			<Filename>debian-uxterm.desktop</Filename>
+			<Filename>debian-xterm.desktop</Filename>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+	<Menu>
+		<Name>Multimedia</Name>
+		<Layout>
+			<Merge type="menus"/>
+			<Filename>vlc.desktop</Filename>
+			<Filename>simplescreenrecorder.desktop</Filename>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+	<Menu>
+		<Name>Accessories</Name>
+		<Layout>
+			<Merge type="menus"/>
+			<Filename>mousepad.desktop</Filename>
+			<Filename>lxterminal.desktop</Filename>
+			<Filename>galculator.desktop</Filename>
+			<Filename>xarchiver.desktop</Filename>
+			<Filename>pcmanfm.desktop</Filename>
+			<Filename>rpi-imager.desktop</Filename>
+			<Filename>qpdfview.desktop</Filename>
+			<Filename>agnostics.desktop</Filename>
+			<Filename>piclone.desktop</Filename>
+			<Filename>lxtask.desktop</Filename>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+</Menu>

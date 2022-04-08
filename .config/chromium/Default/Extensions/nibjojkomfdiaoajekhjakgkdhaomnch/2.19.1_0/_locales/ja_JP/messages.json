@@ -1,0 +1,802 @@
+{
+   "browserAction_title": {
+      "description": "A pop-up title when user hovers on Browser Action button (browserAction_title)",
+      "message": "IPFSコンパニオン"
+   },
+   "contextMenu_importToIpfs": {
+      "description": "An item in right-click context menu (contextMenu_importToIpfs)",
+      "message": "IPFSにインポート"
+   },
+   "contextMenu_importToIpfsSelection": {
+      "description": "An item in right-click context menu (contextMenu_importToIpfsSelection)",
+      "message": "選択したテキストをIPFSにインポート"
+   },
+   "contextMenu_parentAudio": {
+      "description": "An item in right-click context menu (contextMenu_parentAudio)",
+      "message": "選択した音声"
+   },
+   "contextMenu_parentImage": {
+      "description": "An item in right-click context menu (contextMenu_parentImage)",
+      "message": "選択した画像"
+   },
+   "contextMenu_parentLink": {
+      "description": "An item in right-click context menu (contextMenu_parentLink)",
+      "message": "リンクされたコンテンツ"
+   },
+   "contextMenu_parentPage": {
+      "description": "An item in right-click context menu (contextMenu_parentPage)",
+      "message": "このページ"
+   },
+   "contextMenu_parentText": {
+      "description": "An item in right-click context menu (contextMenu_parentText)",
+      "message": "選択したテキスト"
+   },
+   "contextMenu_parentVideo": {
+      "description": "An item in right-click context menu (contextMenu_parentVideo)",
+      "message": "選択したビデオ"
+   },
+   "manifest_extensionDescription": {
+      "description": "Extension description in the Manifest file (manifest_extensionDescription)",
+      "message": "ブラウザ内にIPFSの力を利用しよう"
+   },
+   "manifest_extensionName": {
+      "description": "Extension name in the Manifest file (manifest_extensionName)",
+      "message": "IPFSコンパニオン"
+   },
+   "manifest_shortExtensionName": {
+      "description": "Short extension name in the Manifest file (manifest_shortExtensionName)",
+      "message": "IPFSコンパニオン"
+   },
+   "notify_addonIssueMsg": {
+      "description": "A message in system notification (notify_addonIssueMsg)",
+      "message": "ブラウザの開発者コンソールで詳細を確認する"
+   },
+   "notify_addonIssueTitle": {
+      "description": "A title of system notification (notify_addonIssueTitle)",
+      "message": "IPFSアドオンの問題"
+   },
+   "notify_apiOfflineAutomaticModeMsg": {
+      "description": "A message in system notification (notify_apiOfflineAutomaticModeMsg)",
+      "message": "自動モード：パブリックゲートウェイがフォールバックとして使用されます"
+   },
+   "notify_apiOfflineTitle": {
+      "description": "A title of system notification (notify_apiOfflineTitle)",
+      "message": "IPFS APIはオフラインです"
+   },
+   "notify_apiOnlineAutomaticModeMsg": {
+      "description": "A message in system notification (notify_apiOnlineAutomaticModeMsg)",
+      "message": "自動モード：カスタムゲートウェイのリダイレクトが有効"
+   },
+   "notify_apiOnlineTitle": {
+      "description": "A title of system notification (notify_apiOnlineTitle)",
+      "message": "IPFS APIはオンラインです"
+   },
+   "notify_copiedTitle": {
+      "description": "A title of system notification (notify_copiedTitle)",
+      "message": "コピー済み"
+   },
+   "notify_fileCpImportErrorTitle": {
+      "description": "A title of system notification (notify_fileCpImportErrorTitle)",
+      "message": "IPFSリソースのインポート中にエラーが発生しました"
+   },
+   "notify_importErrorTitle": {
+      "description": "A title of system notification (notify_importErrorTitle)",
+      "message": "IPFS APIでのインポートができません"
+   },
+   "notify_importTrackingProtectionErrorMsg": {
+      "description": "(notify_importTrackingProtectionErrorMsg)",
+      "message": "トラッキング保護を無効にしてみてください（詳細についてはctrl + shift + jを押してください）"
+   },
+   "notify_inlineErrorMsg": {
+      "description": "A generic placeholder for error notification (notify_inlineErrorMsg)",
+      "message": "$1（詳細についてはctrl + shift + jを押してください）"
+   },
+   "notify_inlineMsg": {
+      "description": "A generic placeholder for notification message, leave as-is (notify_inlineMsg)",
+      "message": "$1"
+   },
+   "notify_startIpfsNodeErrorTitle": {
+      "description": "System notification title displayed when starting an IPFS node fails (notify_startIpfsNodeErrorTitle)",
+      "message": "IPFSノードの開始に失敗しました"
+   },
+   "notify_stopIpfsNodeErrorTitle": {
+      "description": "System notification title displayed when stopping an IPFS node fails (notify_stopIpfsNodeErrorTitle)",
+      "message": "IPFSノードの停止に失敗しました"
+   },
+   "option_automaticMode_description": {
+      "description": "An option description on the Preferences screen (option_automaticMode_description)",
+      "message": "IPFSのAPIを使用できない場合、自動的にローカルゲートウェイからデフォルトのパブリックゲートウェイに切り替える。"
+   },
+   "option_automaticMode_title": {
+      "description": "An option title on the Preferences screen (option_automaticMode_title)",
+      "message": "自動モードを使用する"
+   },
+   "option_catchUnhandledProtocols_description": {
+      "description": "An option description on the Preferences screen (option_catchUnhandledProtocols_description)",
+      "message": "HTTPゲートウェイにリダイレクトすることにより、ipfs:// 、ipns:// 、および dweb: リクエストの暫定的なサポートを有効にする"
+   },
+   "option_catchUnhandledProtocols_title": {
+      "description": "An option title on the Preferences screen (option_catchUnhandledProtocols_title)",
+      "message": "未処理のIPFSプロトコルをキャッチする"
+   },
+   "option_customGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_customGatewayUrl_description)",
+      "message": "ローカルゲートウェイのURLを設定"
+   },
+   "option_customGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_customGatewayUrl_title)",
+      "message": "ローカルゲートウェイ"
+   },
+   "option_customGatewayUrl_warning": {
+      "description": "A warning on the Preferences screen, displayed when URL does not belong to Secure Context (option_customGatewayUrl_warning)",
+      "message": "ゲートウェイURLが \"http://127.0.0.1\" 、 \"http://[::1]\" または \"https://\" で始まる場合を除き、IPFS コンテンツは HTTPS ウェブサイト上での読み込みをブロックされます。"
+   },
+   "option_deprecated": {
+      "description": "Warning label added to deprecated options on the Preferences screen (option_deprecated)",
+      "message": "廃止予定"
+   },
+   "option_detectIpfsPathHeader_description": {
+      "description": "An option description on the Preferences screen (option_detectIpfsPathHeader_description)",
+      "message": "ヘッダの値が IPFS パスである場合、HTTP の代わりにIPFS 経由で x-ipfs-pathヘッダを持つアイテムをロードします。IPNS パスをリダイレクトするには、DNSLink のサポートを有効にします。"
+   },
+   "option_detectIpfsPathHeader_title": {
+      "description": "An option title on the Preferences screen (option_detectIpfsPathHeader_title)",
+      "message": "x-ipfs-pathヘッダの検出"
+   },
+   "option_disabledOn_description": {
+      "description": "An option description on the Preferences screen (option_disabledOn_description)",
+      "message": "このリストに載っているサイト (1行にホスト名1つ) は必ずIPFS統合を無効にしてロードされます。サイトを訪れながらブラウザのアクションメニューから「…において有効化」をトグルするとサイトはリストに追加され、もしくはリストから外されます。"
+   },
+   "option_disabledOn_title": {
+      "description": "An option title on the Preferences screen (option_disabledOn_title)",
+      "message": "常にIPFS統合を無効にする"
+   },
+   "option_displayNotifications_description": {
+      "description": "An option description on the Preferences screen (option_displayNotifications_description)",
+      "message": "リンクはクリップボードにコピーされるとか、API状態変更がありなどの時にOSレベルの通知を表示する"
+   },
+   "option_displayNotifications_title": {
+      "description": "An option title on the Preferences screen (option_displayNotifications_title)",
+      "message": "通知を有効にします"
+   },
+   "option_displayReleaseNotes_description": {
+      "description": "An option description on the Preferences screen (option_displayReleaseNotes_description)",
+      "message": "IPFSコンパニオンの新バージョンがインストールされる時に、リリースノートを新しいタブに開く"
+   },
+   "option_displayReleaseNotes_title": {
+      "description": "An option title on the Preferences screen (option_displayReleaseNotes_title)",
+      "message": "更新の時にリリースノートを表示する"
+   },
+   "option_dnslinkDataPreload_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkDataPreload_description)",
+      "message": "DNSLinkサイトをローカルIPFSノードにプリロードし、オフラインアクセスを可能にして、ネットワーク障害回復力を向上させます。"
+   },
+   "option_dnslinkDataPreload_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkDataPreload_title)",
+      "message": "訪問したページをプリロードする"
+   },
+   "option_dnslinkPolicy_bestEffort": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_bestEffort)",
+      "message": "HTTPリクエスト後に確認する"
+   },
+   "option_dnslinkPolicy_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkPolicy_description)",
+      "message": "DNSLink有効なサイトに、文脈的活動を検索、表示する方針を選択する。"
+   },
+   "option_dnslinkPolicy_disabled": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_disabled)",
+      "message": "オフ"
+   },
+   "option_dnslinkPolicy_enabled": {
+      "description": "A select field option description on the Preferences screen (option_dnslinkPolicy_enabled)",
+      "message": "HTTPリクエスト前に確認する"
+   },
+   "option_dnslinkPolicy_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkPolicy_title)",
+      "message": "DNSLink検索方針"
+   },
+   "option_dnslinkRedirect_description": {
+      "description": "An option description on the Preferences screen (option_dnslinkRedirect_description)",
+      "message": "グローバルゲートウェイリダイレクトが有効の場合、カスタムゲートウェイでそれぞれの/ipns/{fqdn} パスにリダイレクトすることで、DNSLink ウェブサイトをインクルードします。"
+   },
+   "option_dnslinkRedirect_title": {
+      "description": "An option title on the Preferences screen (option_dnslinkRedirect_title)",
+      "message": "カスタムゲートウェイからDNSLinkサイトをロード"
+   },
+   "option_dnslinkRedirect_warning": {
+      "description": "A warning on the Preferences screen, displayed when URL does not belong to Secure Context (option_customGatewayUrl_warning)",
+      "message": "IPFS ノードが *.ipfs.localhost をサポートしていない場合は使用しないでください。パスベースのゲートウェイへのリダイレクトは、DNSLink ウェブサイトのオリジンベースのセキュリティ分離を破壊します。これに関連するリスクを理解していることを確認してください。"
+   },
+   "option_enabledOn_description": {
+      "description": "An option description on the Preferences screen (option_enabledOn_description)",
+      "message": "このリストに載っているサイト (1行にホスト名1つ) は必ずIPFS統合を有効にしてロードされます。サイトを訪れながらブラウザのアクションメニューから「…において有効化」をトグルするとサイトはリストに追加され、もしくはリストから外されます。"
+   },
+   "option_enabledOn_title": {
+      "description": "An option title on the Preferences screen (option_enabledOn_title)",
+      "message": "常にIPFS統合を有効にする"
+   },
+   "option_experimental": {
+      "description": "Warning label added to experimental options on the Preferences screen (option_experimental)",
+      "message": "実験的"
+   },
+   "option_experiments_warning": {
+      "description": "Warning about Experiments section on the Preferences screen (option_experiments_warning)",
+      "message": "注意！これらは進行中の実験的機能です。 利用可能性あるいは機能性が変更する場合がありますので、保証できません。"
+   },
+   "option_header_api": {
+      "description": "A section header on the Preferences screen (option_header_api)",
+      "message": "API"
+   },
+   "option_header_dnslink": {
+      "description": "A section header on the Preferences screen (option_header_dnslink)",
+      "message": "DNSLink"
+   },
+   "option_header_experiments": {
+      "description": "A section header on the Preferences screen (option_header_experiments)",
+      "message": "実験"
+   },
+   "option_header_fileImport": {
+      "description": "A section header on the Preferences screen (option_header_fileImport)",
+      "message": "ファイルのインポート"
+   },
+   "option_header_gateways": {
+      "description": "A section header on the Preferences screen (option_header_gateways)",
+      "message": "ゲートウェイ"
+   },
+   "option_header_nodeType": {
+      "description": "A section header on the Preferences screen (option_header_nodeType)",
+      "message": "IPFSノード"
+   },
+   "option_header_reset": {
+      "description": "A section header on the Preferences screen (option_header_reset)",
+      "message": "設定をリセット"
+   },
+   "option_hint_readonly": {
+      "description": "An option description on the Preferences screen (option_hint_readonly)",
+      "message": "この値は読み取り専用です"
+   },
+   "option_hint_url": {
+      "description": "An option description on the Preferences screen (option_hint_url)",
+      "message": "サブパスなしでURLを入力"
+   },
+   "option_importDir_description": {
+      "description": "An option description on the Preferences screen (option_importDir_description)",
+      "message": "IPFSコンパニオンでインポートされるファイルに使用されるディレクトリを設定する。"
+   },
+   "option_importDir_title": {
+      "description": "An option title on the Preferences screen (option_importDir_title)",
+      "message": "ファイルインポートディレクトリ"
+   },
+   "option_ipfsApiPollMs_description": {
+      "description": "An option description on the Preferences screen (option_ipfsApiPollMs_description)",
+      "message": "ピアカウントが更新される頻度を指定する（ミリ秒）。"
+   },
+   "option_ipfsApiPollMs_title": {
+      "description": "An option title on the Preferences screen (option_ipfsApiPollMs_title)",
+      "message": "ステータスポーリング間隔"
+   },
+   "option_ipfsApiUrl_description": {
+      "description": "An option description on the Preferences screen (option_ipfsApiUrl_description)",
+      "message": "IPFS APIのURLを設定する（ヒント：これは/api/v0/configが存在する場所です）"
+   },
+   "option_ipfsApiUrl_title": {
+      "description": "An option title on the Preferences screen (option_ipfsApiUrl_title)",
+      "message": "IPFS APIのURL"
+   },
+   "option_ipfsNodeConfig_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeConfig_description)",
+      "message": "組み込みJS IPFSノードの追加構成。有効なJSONである必要があります。"
+   },
+   "option_ipfsNodeConfig_title": {
+      "description": "An option title on the Preferences screen (option_ipfsNodeConfig_title)",
+      "message": "IPFSノード構成"
+   },
+   "option_ipfsNodeType_brave": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_brave)",
+      "message": "Braveによって提供"
+   },
+   "option_ipfsNodeType_brave_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_brave_description)",
+      "message": "BraveブラウザでのネイティブIPFS対応を活用するのに、「Braveによって提供された」に設定する。"
+   },
+   "option_ipfsNodeType_embedded": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_embedded)",
+      "message": "埋め込み"
+   },
+   "option_ipfsNodeType_embedded_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_embedded_description)",
+      "message": "ブラウザで直接 js-ipfs ノードを実行するには、\"Embedded\"に設定してください。（実験的な機能の制限について知るには\"続きを読む\"をクリック）"
+   },
+   "option_ipfsNodeType_external": {
+      "description": "An option on the Preferences screen (option_ipfsNodeType_external)",
+      "message": "外部"
+   },
+   "option_ipfsNodeType_external_description": {
+      "description": "An option description on the Preferences screen (option_ipfsNodeType_external_description)",
+      "message": "HTTP APIを使用してローカルノードに接続する場合は、\"External\"に設定します。"
+   },
+   "option_ipfsNodeType_title": {
+      "description": "An option title on the Preferences screen (option_ipfsNodeType_title)",
+      "message": "IPFSノードタイプ"
+   },
+   "option_ipfsProxy_description": {
+      "description": "An option description for the IPFS proxy (option_ipfsProxy_description)",
+      "message": "IPFSは、すべてのページのウィンドウオブジェクトに追加されます。公開する機能へのアクセスを有効/無効にします。"
+   },
+   "option_ipfsProxy_link_manage_permissions": {
+      "description": "Link text for managing permissions",
+      "message": "権限を管理する"
+   },
+   "option_ipfsProxy_title": {
+      "description": "An option title for enabling/disabling the IPFS proxy (option_ipfsProxy_title)",
+      "message": "window.ipfsのサポート"
+   },
+   "option_legend_readMore": {
+      "description": "A generic link in option description on the Preferences screen (option_legend_readMore)",
+      "message": "続きを読む"
+   },
+   "option_linkify_description": {
+      "description": "An option description on the Preferences screen (option_linkify_description)",
+      "message": "ウェブページに表示されるプレーンテキストの/ipfs/パスをクリック可能なリンクに変換します"
+   },
+   "option_linkify_title": {
+      "description": "An option title on the Preferences screen (option_linkify_title)",
+      "message": "IPFSアドレスのリンク"
+   },
+   "option_logNamespaces_description": {
+      "description": "An option description for the log level (option_logNamespaces_description)",
+      "message": "このカンマ区切りのリストにあるネームスペースはブラウザコンソールに記録されます。このリストを変更すると、IPFSコンパニオンは再起動されます。"
+   },
+   "option_logNamespaces_title": {
+      "description": "An option title for tweaking log level (option_logNamespaces_title)",
+      "message": "ログ名前空間"
+   },
+   "option_openViaWebUI_description": {
+      "description": "An option description on the Preferences screen (option_openViaWebUI_description)",
+      "message": "ファイルをインポートした後、ゲートウェイでファイルやその親ディレクトリを開くのではなく、ファイル画面で開く。"
+   },
+   "option_openViaWebUI_title": {
+      "description": "An option title on the Preferences screen (option_openViaWebUI_title)",
+      "message": "インポートしたファイルをファイル画面で開く"
+   },
+   "option_page_header": {
+      "description": "Main header on the Preferences screen (option_page_header)",
+      "message": "Companionの設定"
+   },
+   "option_page_title": {
+      "description": "Title of the Preferences page (option_page_title)",
+      "message": "設定 | IPFS Companion"
+   },
+   "option_preloadAtPublicGateway_description": {
+      "description": "An option description on the Preferences screen (option_preloadAtPublicGateway_description)",
+      "message": "パブリックゲートウェイへの非同期HTTP HEADリクエストを介してインポートされたアセットの自動プリロードする"
+   },
+   "option_preloadAtPublicGateway_title": {
+      "description": "An option title on the Preferences screen (option_preloadAtPublicGateway_title)",
+      "message": "インポート済みのアセットのプリロード"
+   },
+   "option_publicGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_publicGatewayUrl_description)",
+      "message": "ローカルゲートウェイを使用できない場合、公的に共有可能リンクにフォールバックとして使用できるデフォルトのパブリックゲートウェイURLを設定する。"
+   },
+   "option_publicGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_publicGatewayUrl_title)",
+      "message": "デフォルトのパブリックゲートウェイ"
+   },
+   "option_publicSubdomainGatewayUrl_description": {
+      "description": "An option description on the Preferences screen (option_publicSubdomainGatewayUrl_description)",
+      "message": "壊れたサブドメインゲートウェイを回復するためのデフォルトのパブリックサブドメインゲートウェイURLを設定する"
+   },
+   "option_publicSubdomainGatewayUrl_title": {
+      "description": "An option title on the Preferences screen (option_publicSubdomainGatewayUrl_title)",
+      "message": "デフォルトのパブリックサブドメインゲートウェイ"
+   },
+   "option_recoverFailedHttpRequests_description": {
+      "description": "An option description on the Preferences screen (option_recoverFailedHttpRequests_description)",
+      "message": "IPFSリソースの失敗したHTTPリクエストをパブリックゲートウェイにリダイレクトする。"
+   },
+   "option_recoverFailedHttpRequests_title": {
+      "description": "An option title on the Preferences screen (option_recoverFailedHttpRequests_title)",
+      "message": "失敗したHTTPリクエストを回復する"
+   },
+   "option_resetAllOptions_description": {
+      "description": "An option description on the Preferences screen (option_resetAllOptions_description)",
+      "message": "IPFSコンパニオンの設定をデフォルト値にリセットする（注意：リセットを行うと元に戻せません！）"
+   },
+   "option_resetAllOptions_title": {
+      "description": "An option title and button label on the Preferences screen (option_resetAllOptions_title)",
+      "message": "すべてをリセット"
+   },
+   "option_useCustomGateway_description": {
+      "description": "An option description on the Preferences screen (option_useCustomGateway_description)",
+      "message": "IPFSリソースへのリクエストをローカルゲートウェイにリダイレクトする"
+   },
+   "option_useCustomGateway_title": {
+      "description": "An option title on the Preferences screen (option_useCustomGateway_title)",
+      "message": "ローカルゲートウェイを使用"
+   },
+   "option_useLatestWebUI_description": {
+      "description": "An option description on the Preferences screen (option_useLatestWebUI_description)",
+      "message": "IPFSデーモンにハードコードされたCIDの代わりにwebui.ipfs.ioから（DNSLinkを通じて）状態、ファイル、探検、ピア、そして設定画面の最新バージョンを利用できます（DNSリゾルバーを信用する場合、そして必要のCORSヘッダーを設定できる場合のみに有効にして下さい）"
+   },
+   "option_useLatestWebUI_title": {
+      "description": "An option title on the Preferences screen (option_useLatestWebUI_title)",
+      "message": "最新バージョンの IPFS Web UI を使用"
+   },
+   "option_useSubdomains_description": {
+      "description": "An option description on the Preferences screen (option_useSubdomains_description)",
+      "message": "コンテンツのルートをサブドメイン (*.localhost) としてロードし、各CID、IPNS、DNSLinkレコードに固有のオリジンを作成することで、コンテンツのルートを互いに分離します。ローカルノード上で go-ipfs 0.5.0 以降が必要です。"
+   },
+   "option_useSubdomains_title": {
+      "description": "An option title on the Preferences screen (option_useSubdomains_title)",
+      "message": "サブドメインを使用"
+   },
+   "pageAction_titleIpfsAtCustomGateway": {
+      "description": "A tooltip displayed over Page Action in location bar (pageAction_titleIpfsAtCustomGateway)",
+      "message": "ローカルゲートウェイ経由で読み込まれたIPFSリソース"
+   },
+   "pageAction_titleIpfsAtPublicGateway": {
+      "description": "A tooltip displayed over Page Action in location bar (pageAction_titleIpfsAtPublicGateway)",
+      "message": "パブリックゲートウェイ経由でロードされたIPFSリソース"
+   },
+   "pageAction_titleNonIpfs": {
+      "description": "Default label for icon hidden in Page Action menu (pageAction_titleNonIpfs)",
+      "message": "非IPFSリソース"
+   },
+   "page_landingWelcome_installSteps_brave_install": {
+      "description": "Install steps copy (page_landingWelcome_installSteps_brave_install)",
+      "message": "ブラウザで直接IPFSを実行することができます。 - IPFS Desktopやコマンドラインは必要ありません。\u003C0>Cpmpanionの環境設定\u003C/0>を開き、IPFS ノードタイプを\"Provided by Brave\"に設定します。"
+   },
+   "page_landingWelcome_installSteps_brave_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_brave_title)",
+      "message": "Braveのユーザー"
+   },
+   "page_landingWelcome_installSteps_cli_install": {
+      "description": "Install steps copy (page_landingWelcome_installSteps_cli_install)",
+      "message": "IPFSを機動するのに「\u003Ccode class=\"yellow\">ipfs daemon\u003C/code>」をターミナルに入力する。IPFSはまだインストールされていない場合は「\u003C0>CLIクイックスタートガイド\u003C/0>」に従って下さい。"
+   },
+   "page_landingWelcome_installSteps_cli_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_cli_title)",
+      "message": "コマンドラインユーザ"
+   },
+   "page_landingWelcome_installSteps_desktop_install": {
+      "description": "Install steps copy (page_landingWelcome_installSteps_desktop_install)",
+      "message": "IPFSデスクトップは実行してるか確認する。インストールされていない場合は、\u003C0>今すぐここからダウンロード。\u003C/0>"
+   },
+   "page_landingWelcome_installSteps_desktop_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_desktop_title)",
+      "message": "IPFS Desktop ユーザ"
+   },
+   "page_landingWelcome_installSteps_notRunning_title": {
+      "description": "Install steps title (page_landingWelcome_installSteps_notRunning_title)",
+      "message": "IPFSが実行されていません"
+   },
+   "page_landingWelcome_logo_title": {
+      "description": "Extension name after the IPFS logo (page_landingWelcome_logo_title)",
+      "message": "IPFSコンパニオン"
+   },
+   "page_landingWelcome_projects_title": {
+      "description": "Projects section title (page_landingWelcome_projects_title)",
+      "message": "関連プロジェクト"
+   },
+   "page_landingWelcome_resources_build_examples": {
+      "description": "Resources copy (page_landingWelcome_resources_build_examples)",
+      "message": "他の開発者がIPFSを利用して作った\u003C0>素晴らしいもの\u003C/0>を見る"
+   },
+   "page_landingWelcome_resources_build_tutorials": {
+      "description": "Resources copy (page_landingWelcome_resources_build_tutorials)",
+      "message": "使い始めるのに\u003C0>ハウツーやチュートリアル\u003C/0>を検索"
+   },
+   "page_landingWelcome_resources_community_contribute": {
+      "description": "Community copy (page_landingWelcome_resources_community_contribute)",
+      "message": "コードやドキュメンテーションなどで\u003C0>貢献する\u003C/0>"
+   },
+   "page_landingWelcome_resources_community_resources": {
+      "description": "Community copy (page_landingWelcome_resources_community_resources)",
+      "message": "全てのIPFSコミュニティーリソースを\u003C0>探検する\u003C/0>"
+   },
+   "page_landingWelcome_resources_community_translate": {
+      "description": "Community copy (page_landingWelcome_resources_community_translate)",
+      "message": "他の言語にIPFSを\u003C0>翻訳する\u003C/0>"
+   },
+   "page_landingWelcome_resources_get_help": {
+      "description": "Resources copy (page_landingWelcome_resources_get_help)",
+      "message": "\u003C0>公式フォーラム\u003C/0>で質問をして、IPFSについて語る"
+   },
+   "page_landingWelcome_resources_new_ipfs_companion_features": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_companion_features)",
+      "message": "\u003C0>IPFSコンパニオンの機能\u003C/0>について読む"
+   },
+   "page_landingWelcome_resources_new_ipfs_concepts": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_concepts)",
+      "message": "「\u003C0>IPFSはどのように機能する\u003C/0>」のガイドに基礎を学ぶ"
+   },
+   "page_landingWelcome_resources_new_ipfs_docs": {
+      "description": "Resources copy (page_landingWelcome_resources_new_ipfs_docs)",
+      "message": "もっと詳しくは\u003C0>IPFSドキュメンテーションサイト\u003C/0>を訪れる"
+   },
+   "page_landingWelcome_resources_title_build": {
+      "description": "Resources title (page_landingWelcome_resources_title_build)",
+      "message": "IPFSの更なる開発に追加する"
+   },
+   "page_landingWelcome_resources_title_community": {
+      "description": "Community title (page_landingWelcome_resources_title_community)",
+      "message": "コミュニティーに参加する"
+   },
+   "page_landingWelcome_resources_title_get_help": {
+      "description": "Resources title (page_landingWelcome_resources_title_get_help)",
+      "message": "ヘルプを受ける"
+   },
+   "page_landingWelcome_resources_title_new_ipfs": {
+      "description": "Resources title (page_landingWelcome_resources_title_new_ipfs)",
+      "message": "IPFSについて学ぶ"
+   },
+   "page_landingWelcome_title": {
+      "description": "Page title (page_landingWelcome_title)",
+      "message": "ようこそ | IPFS Companion"
+   },
+   "page_landingWelcome_videos_how_ipfs_works": {
+      "description": "Videos section title (page_landingWelcome_videos_how_ipfs_works)",
+      "message": "IPFSはどのように機能する"
+   },
+   "page_landingWelcome_videos_why_ipfs": {
+      "description": "Videos section title (page_landingWelcome_videos_why_ipfs)",
+      "message": "なぜIPFS?"
+   },
+   "page_landingWelcome_welcome_filesButton_text": {
+      "description": "Ready message button text for opening Web UI files page (page_landingWelcome_welcome_filesButton_text)",
+      "message": "ファイル"
+   },
+   "page_landingWelcome_welcome_peers": {
+      "description": "Ready message copy (page_landingWelcome_welcome_peers)",
+      "message": "あなたのノードは\u003C0>$1\u003C/0>ピアに接続されています。"
+   },
+   "page_landingWelcome_welcome_peersButton_text": {
+      "description": "Ready message button text for opening Web UI files page (page_landingWelcome_welcome_peersButton_text)",
+      "message": "仲間"
+   },
+   "page_landingWelcome_welcome_statusButton_text": {
+      "description": "Ready message button text for opening Web UI status page (page_landingWelcome_welcome_statusButton_text)",
+      "message": "状態"
+   },
+   "page_proxyAccessDialog_allowButton_text": {
+      "description": "Button text for allowing a permission (page_proxyAccessDialog_allowButton_text)",
+      "message": "許可"
+   },
+   "page_proxyAccessDialog_denyButton_text": {
+      "description": "Button text for denying a permission (page_proxyAccessDialog_allowButton_text)",
+      "message": "拒否"
+   },
+   "page_proxyAccessDialog_title": {
+      "description": "Main title of the access permission dialog (page_proxyAccessDialog_title)",
+      "message": "IPFSコンパニオンは、接続されたノードで«$1»が«$2»にアクセスすることを許可する必要がありますか？"
+   },
+   "page_proxyAccessDialog_wildcardCheckbox_label": {
+      "description": "Label for the apply permissions to all checkbox (page_proxyAccessDialog_wildcardCheckbox_label)",
+      "message": "この決定を、このスコープ内の現在および将来のすべての権限に適用します"
+   },
+   "page_proxyAcl_allow_button_value": {
+      "description": "Button value for allow (page_proxyAcl_allow_button_value)",
+      "message": "許可"
+   },
+   "page_proxyAcl_confirm_revoke": {
+      "description": "Confirmation message for revoking a permission for a scope (page_proxyAcl_confirm_revoke)",
+      "message": "$2のための許可$1を取り消しますか？"
+   },
+   "page_proxyAcl_confirm_revoke_all": {
+      "description": "Confirmation message for revoking all permissions for an scope (page_proxyAcl_confirm_revoke_all)",
+      "message": "$1のためのすべての許可を取り消しますか？"
+   },
+   "page_proxyAcl_deny_button_value": {
+      "description": "Button value for deny",
+      "message": "拒否"
+   },
+   "page_proxyAcl_no_perms": {
+      "description": "Message displayed when no permissions have been granted (page_proxyAcl_no_perms)",
+      "message": "権限が付与されていません。"
+   },
+   "page_proxyAcl_revoke_all_button_title": {
+      "description": "Button title for revoking all permissions (page_proxyAcl_revoke_all_button_title)",
+      "message": "すべての許可を取り消す"
+   },
+   "page_proxyAcl_revoke_button_title": {
+      "description": "Button title for revoking a permission (page_proxyAcl_revoke_button_title)",
+      "message": "$1を取り消す"
+   },
+   "page_proxyAcl_subtitle": {
+      "description": "Page sub title for the IPFS proxy ACL page (page_proxyAcl_subtitle)",
+      "message": "IPFSインスタンスに付与されたアクセス権を表示、変更、および取り消します。"
+   },
+   "page_proxyAcl_title": {
+      "description": "Page title for the IPFS proxy ACL page (page_proxyAcl_title)",
+      "message": "権限を管理する"
+   },
+   "page_proxyAcl_toggle_to_allow_button_title": {
+      "description": "Button title for toggling permission from deny to allow (page_proxyAcl_toggle_to_allow_button_title)",
+      "message": "クリックして許可する"
+   },
+   "page_proxyAcl_toggle_to_deny_button_title": {
+      "description": "Button title for toggling permission from allow to deny (page_proxyAcl_toggle_to_deny_button_title)",
+      "message": "クリックして拒否する"
+   },
+   "panelCopy_copyRawCid": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panelCopy_copyRawCid)",
+      "message": "CIDをコピー"
+   },
+   "panelCopy_copyRawCidTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panelCopy_copyRawCidTooltip)",
+      "message": "現在のこのタブのユニークな IPFS コンテンツ識別子。コンテンツが変更された場合、CIDも変更されます。"
+   },
+   "panelCopy_currentIpfsAddress": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panelCopy_currentIpfsAddress)",
+      "message": "IPFSパスをコピー"
+   },
+   "panelCopy_currentIpfsAddressTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panelCopy_currentIpfsAddressTooltip)",
+      "message": "IPFSツールとゲートウェイでこのコンテンツパスを使用して、このタブに現時点で表示されるコンテンツをアクセスできます。コンテンツは後で更新されても、このスナップショットは保存されます。"
+   },
+   "panelCopy_currentIpnsAddress": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panelCopy_currentIpnsAddress)",
+      "message": "IPNSパスをコピー"
+   },
+   "panelCopy_currentIpnsAddressTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panelCopy_currentIpnsAddressTooltip)",
+      "message": "IPFSツールとゲートウェイでこのコンテンツパスを使用して、このタブのコンテンツの最新版をアクセスできます。"
+   },
+   "panelCopy_notReadyHint": {
+      "description": "A hint in menu item in Browser Action pop-up to indicate value is still being resolved (panelCopy_notReadyHint)",
+      "message": "(DAGデータの待機)"
+   },
+   "panel_activeTabSectionHeader": {
+      "description": "A menu item in Browser Action pop-up (panel_activeTabSiteRedirectEnable)",
+      "message": "現在のタブ"
+   },
+   "panel_activeTabSiteIntegrationsToggle": {
+      "description": "A menu item in Browser Action pop-up (panel_activeTabSiteIntegrationsToggle)",
+      "message": "$1 で有効化"
+   },
+   "panel_activeTabSiteIntegrationsToggleTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_activeTabSiteIntegrationsToggleTooltip)",
+      "message": "$1においてすべてのIPFS統合を有効化/無効化"
+   },
+   "panel_contextMenuViewOnGateway": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panel_contextMenuViewOnGateway)",
+      "message": "ゲートウェイで表示"
+   },
+   "panel_copyCurrentPermalink": {
+      "description": "A menu item in Browser Action pop-up (panel_copyCurrentPermalink)",
+      "message": "スナップショットリンクをコピー"
+   },
+   "panel_copyCurrentPermalinkTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_copyCurrentPermalinkTooltip)",
+      "message": "このタブに現時点で表示されるコンテンツへのリンク。コンテンツは後で更新されても、このスナップショットは保存されます。IPFSを使わなくてもこのリンクを訪れることができます。"
+   },
+   "panel_copyCurrentPublicGwUrl": {
+      "description": "A menu item in Browser Action pop-up and right-click context menu (panel_copyCurrentPublicGwUrl)",
+      "message": "共有可能なリンクをコピー"
+   },
+   "panel_copyCurrentPublicGwUrlTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_copyCurrentPublicGwUrlTooltip)",
+      "message": "このタブへの共有可能なリンクは、IPFSを使用していなくても利用可能です。"
+   },
+   "panel_headerActiveToggleTitle": {
+      "description": "A label for an embedded IPFS node (panel_headerActiveToggleTitle)",
+      "message": "すべてのIPFS統合を切り替えます"
+   },
+   "panel_headerIpfsNodeIconLabel": {
+      "description": "A label for IPFS icon (panel_headerIpfsNodeIconLabel)",
+      "message": "IPFSコンパニオン"
+   },
+   "panel_headerNewVersionTitle": {
+      "description": "A label in the Browser Action pop-up for icon appearing on first load of new version (panel_headerNewVersionTitle)",
+      "message": "IPFS Companionが更新されました。詳細をクリックして確認"
+   },
+   "panel_importCurrentIpfsAddress": {
+      "description": "A menu item in Browser Action pop-up (panel_importCurrentIpfsAddress)",
+      "message": "自ノードのファイルにインポート"
+   },
+   "panel_importCurrentIpfsAddressTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_importCurrentIpfsAddressTooltip)",
+      "message": "このタブのIPFSリソースをファイルにインポートして、オフラインで利用可能の永続的ローカルコピーとして保存する。"
+   },
+   "panel_openPreferences": {
+      "description": "A menu item in Browser Action pop-up (panel_openPreferences)",
+      "message": "IPFS Companionの設定を開く"
+   },
+   "panel_openWebui": {
+      "description": "A menu item in Browser Action pop-up (panel_openWebui)",
+      "message": "自ノード"
+   },
+   "panel_openWebuiTooltip": {
+      "description": "A menu item in Browser Action pop-up (panel_openWebuiTooltip)",
+      "message": "ブラウザでIPFSノードのコントロールを開きます。"
+   },
+   "panel_quickImport": {
+      "description": "A menu item in Browser Action pop-up (panel_quickImport)",
+      "message": "インポート"
+   },
+   "panel_quickImportTooltip": {
+      "description": "A menu item tooltip in Browser Action pop-up (panel_quickImportTooltip)",
+      "message": "ファイルをIPFSにインポートし、共有可能なリンクをコピーします。"
+   },
+   "panel_statusApiAddress": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusApiAddress)",
+      "message": "API"
+   },
+   "panel_statusApiAddressTitle": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusApiAddressTitle)",
+      "message": "ローカルノード APIのURL"
+   },
+   "panel_statusGatewayAddress": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayAddress)",
+      "message": "ゲートウェイ"
+   },
+   "panel_statusGatewayAddressTitle": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayAddressTitle)",
+      "message": "コンテンツの取得に使用しているパブリックまたはローカルのゲートウェイのURL （環境設定で変更可能）"
+   },
+   "panel_statusGatewayVersion": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayVersion)",
+      "message": "バージョン"
+   },
+   "panel_statusGatewayVersionTitle": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusGatewayVersionTitle)",
+      "message": "ローカルノードが使用しているIPFSのバージョン"
+   },
+   "panel_statusOffline": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusOffline)",
+      "message": "オフライン"
+   },
+   "panel_statusSwarmPeers": {
+      "description": "A label in Node status section of Browser Action pop-up (panel_statusSwarmPeers)",
+      "message": "ピア"
+   },
+   "panel_statusSwarmPeersTitle": {
+      "description": "A label tooltip in Node status section of Browser Action pop-up (panel_statusSwarmPeersTitle)",
+      "message": "接続できる他のIPFSノードの数"
+   },
+   "quickImport_drop_it_here": {
+      "description": "Drop message on the share files page (quickImport_drop_it_here)",
+      "message": "ここへドロップ"
+   },
+   "quickImport_head_peers": {
+      "description": "Header on the share files page (quickImport_subhead_peers)",
+      "message": "ファイルのインポートと共有"
+   },
+   "quickImport_options_importDir": {
+      "description": "Textbox label on the share files page (quickImport_options_importDir)",
+      "message": "インポートされたファイルを保存するパス"
+   },
+   "quickImport_options_openViaWebUI": {
+      "description": "Checkbox label on the share files page (quickImport_options_openViaWebUI)",
+      "message": "Files ページで開く"
+   },
+   "quickImport_options_show": {
+      "description": "Button on the share files page (quickImport_options_show)",
+      "message": "インポートオプション"
+   },
+   "quickImport_or": {
+      "description": "seperates the pick a file button from the drop message (quickImport_or)",
+      "message": "または"
+   },
+   "quickImport_page_title": {
+      "description": "Page title (quickImport_page_title)",
+      "message": "ファイルのインポートと共有 | IPFS Companion"
+   },
+   "quickImport_pick_file_button": {
+      "description": "Text on the 'pick a file' button (quickImport_pick_file_button)",
+      "message": "ファイルを選ぶ"
+   },
+   "quickImport_state_buffering": {
+      "description": "Status label on the share files page (quickImport_state_buffering)",
+      "message": "（バッファリング、お待ちください）"
+   },
+   "quickImport_state_importing": {
+      "description": "Status label on the share files page (quickImport_state_importing)",
+      "message": "インポート中です。"
+   },
+   "quickImport_subhead_peers": {
+      "description": "Partial info stats beneath the header on the share files page (quickImport_subhead_peers)",
+      "message": "$1のピアに接続しました"
+   }
+}

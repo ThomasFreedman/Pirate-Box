@@ -1,0 +1,12 @@
+#!/bin/bash
+
+info() {
+  cat <<'EOI'
+See the files in /home/ipfs/bin/mediaGrabber and
+the files in Documents for further information.
+EOI
+}
+
+
+zenity --info --text="$(info)" --width=400 --height=100
+

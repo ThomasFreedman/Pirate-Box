@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Pirate Box Setup Wizard
+Exec=/usr/bin/qt5ct
+Comment=
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application
+NoDisplay=true

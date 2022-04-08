@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Pirate Box Search Tool
+Exec=/home/ipfs/bin/ipfsSearch/pboxSearch.py
+Comment=Searches local or remote IPFS servers
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application
+Name[en_US]=IPFS Search Tool

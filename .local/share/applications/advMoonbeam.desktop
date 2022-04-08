@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=IPFS Keys
+Exec=/home/ipfs/bin/ipfsKeys.bash
+Comment=Creates & Lists Keys for Moonbeam
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application

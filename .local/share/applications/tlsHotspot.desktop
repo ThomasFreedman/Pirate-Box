@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Hotspot Control
+Exec=/home/ipfs/bin/hotspot/autohotspot-setup-PB.bash
+Comment=Controls WiFi to act as Access Point  or client
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Prosody / XMPP Server Documentation
+Exec=chromium-browser --password-store=basic /home/ipfs/Documents/xmpp-docs/index.html
+Comment=Setup / Configure XMPP server for messaging 
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application

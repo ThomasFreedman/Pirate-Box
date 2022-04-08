@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Pirate Box Media Grabber
+Exec=/home/ipfs/bin/mediaGrabber/pbmg.bash
+Comment=Simple tool to scrape content and add to IPFS
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Basic Search Operation
+Exec=/home/ipfs/bin/ipfsSearch/ipfsSearch.bash
+Comment=A quickstart guide for using the search tool
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application

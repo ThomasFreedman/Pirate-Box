@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Media Grabber Information
+Exec=/home/ipfs/bin/mediaGrabber/pbmg.info
+Comment=Where to find information for Media Grabber
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkullWhite98x128.svg
+Type=Application

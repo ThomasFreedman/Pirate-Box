@@ -1,0 +1,40 @@
+{
+   "author": "IPFS Community",
+   "background": {
+      "page": "dist/background/background.html"
+   },
+   "browser_action": {
+      "default_icon": {
+         "128": "icons/png/ipfs-logo-off_128.png",
+         "19": "icons/png/ipfs-logo-off_19.png",
+         "38": "icons/png/ipfs-logo-off_38.png"
+      },
+      "default_popup": "dist/popup/browser-action/index.html",
+      "default_title": "__MSG_browserAction_title__"
+   },
+   "content_security_policy": "script-src 'self'; object-src 'self'; frame-src 'self';",
+   "default_locale": "en",
+   "description": "__MSG_manifest_extensionDescription__",
+   "differential_fingerprint": "1.bfdbb0b756e648c738cfcabe0eef569ecb0c0d181261d84a597665f2fd7ebe52",
+   "homepage_url": "https://github.com/ipfs-shipyard/ipfs-companion",
+   "icons": {
+      "128": "icons/png/ipfs-logo-on_128.png",
+      "19": "icons/png/ipfs-logo-on_19.png",
+      "38": "icons/png/ipfs-logo-on_38.png"
+   },
+   "incognito": "not_allowed",
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi+PCLMME8x15VZQqUn+vBUJH8oqGqNiUX6lYLBi5w3HwSGcknEyCF5LDJv7tR3yeSxD8PhohQVJd2+5WB4BJkvzVR3F6uHS7hrgZ0lcq+xa+q4c1At35332C//ahX+ZvK3/n9v20jzJ8xdesQmfG8coFIyOZfOQ/owTno+QoPrUO9syXeG6nbYQnyfDip+UXe663zfBiNmwuVPo8R58zAOmpz7yAlCH+yEmj1YjQYpqbtYHwJwvN4elGF9wthgFNxoIZiqbe0wTUZiNjC1bZPiAed3+WftK0/P6czFpIP4SzjXszVps93l+yI15OB7VoeFu6oQk5G0d1/38W7GotUwIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "72",
+   "name": "__MSG_manifest_extensionName__",
+   "options_ui": {
+      "browser_style": false,
+      "open_in_tab": true,
+      "page": "dist/options/options.html"
+   },
+   "permissions": [ "\u003Call_urls>", "idle", "tabs", "notifications", "storage", "unlimitedStorage", "contextMenus", "clipboardWrite", "webNavigation", "webRequest", "webRequestBlocking" ],
+   "short_name": "__MSG_manifest_shortExtensionName__",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "2.19.1",
+   "web_accessible_resources": [ "icons/ipfs-logo-on.svg", "icons/ipfs-logo-off.svg" ]
+}

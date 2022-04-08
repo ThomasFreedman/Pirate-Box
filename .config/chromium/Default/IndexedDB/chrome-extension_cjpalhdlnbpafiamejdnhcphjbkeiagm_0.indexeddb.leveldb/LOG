@@ -1,0 +1,8 @@
+2021/03/06-19:37:21.192 88f Reusing MANIFEST /home/ipfs/.config/chromium/Default/IndexedDB/chrome-extension_cjpalhdlnbpafiamejdnhcphjbkeiagm_0.indexeddb.leveldb/MANIFEST-000001
+2021/03/06-19:37:21.193 88f Recovering log #52
+2021/03/06-19:37:21.194 88f Reusing old log /home/ipfs/.config/chromium/Default/IndexedDB/chrome-extension_cjpalhdlnbpafiamejdnhcphjbkeiagm_0.indexeddb.leveldb/000052.log 
+2021/03/06-19:37:23.237 8a6 Level-0 table #56: started
+2021/03/06-19:37:23.237 8a6 Level-0 table #56: 0 bytes OK
+2021/03/06-19:37:23.249 8a6 Delete type=0 #52
+2021/03/06-19:37:23.249 8a6 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2021/03/06-19:37:23.249 8a6 Manual compaction at level-1 from (begin) .. (end); will stop at (end)

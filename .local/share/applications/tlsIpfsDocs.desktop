@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=IPFS Documentation
+Exec=chromium-browser --password-store=basic /home/ipfs/Documents/ipfs-docs/index.html
+Comment=Offline version of docs.ipfs.io 
+Terminal=false
+Icon=/usr/share/raspberrypi-artwork/pbox/pirateSkull98x128.svg
+Type=Application

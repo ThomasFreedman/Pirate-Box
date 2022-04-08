@@ -1,0 +1,102 @@
+# This is the default Nomad Network config file.
+# You should probably edit it to suit your needs and use-case,
+
+[logging]
+# Valid log levels are 0 through 7:
+#   0: Log only critical information
+#   1: Log errors and lower log levels
+#   2: Log warnings and lower log levels
+#   3: Log notices and lower log levels
+#   4: Log info and lower (this is the default)
+#   5: Verbose logging
+#   6: Debug logging
+#   7: Extreme logging
+
+loglevel = 4
+destination = file
+
+[client]
+
+enable_client = yes
+user_interface = text
+downloads_path = ~/Downloads
+
+# By default, the peer is announced at startup
+# to let other peers reach it immediately.
+announce_at_start = yes
+
+# By default, the client will try to deliver a
+# message via the LXMF propagation network, if
+# a direct delivery to the recipient is not
+# possible.
+try_propagation_on_send_fail = yes
+
+[textui]
+
+# Amount of time to show intro screen
+intro_time = 1
+
+# You can specify the display theme.
+# theme = light
+theme = dark
+
+# Specify the number of colors to use
+# valid colormodes are:
+# monochrome, 16, 88, 256 and 24bit
+#
+# The default is a conservative 256 colors.
+# If your terminal does not support this,
+# you can lower it. Some terminals support
+# 24 bit color.
+
+# colormode = monochrome
+# colormode = 16
+# colormode = 88
+colormode = 256
+# colormode = 24bit
+
+# By default, unicode glyphs are used. If
+# you have a Nerd Font installed, you can
+# enable this for a better user interface.
+# You can also enable plain text glyphs if
+# your terminal doesn't support unicode.
+
+# glyphs = plain
+glyphs = unicode
+# glyphs = nerdfont
+
+# You can specify whether mouse events
+# should be considered as input to the
+# application. On by default.
+mouse_enabled = True
+
+# What editor to use for editing text. By
+# default the operating systems "editor"
+# alias will be used.
+editor = editor
+
+# If you don't want the Guide section to
+# show up in the menu, you can disable it.
+
+hide_guide = no
+
+[node]
+
+# Whether to enable node hosting
+
+enable_node = yes
+
+# The node name will be visible to other
+# peers on the network, and included in
+# announces.
+
+node_name = 
+
+# Automatic announce interval in minutes.
+# 6 hours by default.
+
+announce_interval = 360
+
+# Whether to announce when the node starts
+
+announce_at_start = Yes
