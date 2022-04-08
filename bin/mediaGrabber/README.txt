@@ -6,7 +6,7 @@ NOTE: A newer PDF version of this file can be found in the Documents folder.
 1) Copy the ytdl-exampleConfig.json file to a name of your chosing in the config folder.
 2) Edit the copy to remove the example grupes and add your own.
 3) Run the program with:
-
+ 
 /home/ipfs/bin/videoGrabber/ytdlVideoGrabber.py -c /home/ipfs/bin/videoGrabber/<your config file> -d example.sqlite
 
 The videos / audios at the URLs in the config file will be downloaded to the ytDL dl folder and added to IPFS. The example.sqlite SQLite database will also be updated with the information about the downloads. You can use the Pirate Box Search tool to find the downloads you're interested in by selecting "PBVG Database" under the File--> Open Search Source menu.
