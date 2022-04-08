@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Save this patch in root's home folder
-if cp PBIP64_P3.tgz /root/. > /dev/null 2>&1; then
-  rm -rf PBIP64_P3.install PBIP64_P3.README pbx64-p3.tgz
-fi
