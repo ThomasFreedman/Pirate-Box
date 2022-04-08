@@ -2,6 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/11077042/122314061-12985700-cedd-11eb-8c9a-106e3e8a39ac.png)
 
+See [https://piratebox.info/](https://piratebox.info) for more information
 
 # What is a Pirate Box?
 ...it is a small sized (2 decks of playing cards), portable, energy efficient
